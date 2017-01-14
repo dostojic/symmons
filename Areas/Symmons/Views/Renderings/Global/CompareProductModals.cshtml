@@ -1,0 +1,33 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+<div class="modal" id="modal-one" aria-hidden="true">
+    <div class="modal__dialog">
+        <h2 class="modal__title">@Translate.Text(Constants.Dictionary.CompareProductsOfSameType)</h2>
+        <p class="modal__teaser">@Translate.Text(Constants.Dictionary.CompareProductsOfSameTypeDesc)</p>
+        <a href="#close" class="button-primary modal__close">@Translate.Text(Constants.Dictionary.CompareProductGotIt)</a>
+        <a href="#close" class="button-primary modal__newcompare">@Translate.Text(Constants.Dictionary.NewProductCompare)</a>
+    </div>
+</div>
+
+<div class="modal" id="modal-two" aria-hidden="true">
+    <div class="modal__dialog">
+        <h2 class="modal__title">@Translate.Text(Constants.Dictionary.CompareUpToThreeProducts)</h2>
+        <p class="modal__teaser">@Translate.Text(Constants.Dictionary.CompareUpToThreeProductsDesc)</p>
+        <a href="#close" class="button-primary modal__close">@Translate.Text(Constants.Dictionary.CompareProductGotIt)</a>
+        <a href="#close" class="button-primary modal__newcompare">@Translate.Text(Constants.Dictionary.NewProductCompare)</a>
+    </div>
+</div>
+
+<div class="modal" id="modal-three" aria-hidden="true">
+    <div class="modal__dialog">
+        <h2 class="modal__title">@Translate.Text(Constants.Dictionary.CompareProductAlreadyExists)</h2>
+        <p class="modal__teaser">@Translate.Text(Constants.Dictionary.CompareProductAlreadyExistsDesc)</p>
+        <a href="#close" class="button-primary modal__close">@Translate.Text(Constants.Dictionary.CompareProductGotIt)</a>
+        <a href="#close" class="button-primary modal__newcompare">@Translate.Text(Constants.Dictionary.NewProductCompare)</a>
+    </div>
+</div>
+
+
+<a href="#modal-one" class="modal-click" id="click-one"></a>
+<a href="#modal-two" class="modal-click" id="click-two"></a>
+<a href="#modal-three" class="modal-click" id="click-three"></a> 

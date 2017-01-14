@@ -1,0 +1,46 @@
+﻿@using Sitecore.Mvc
+@model Sitecore.Forms.Mvc.Models.FieldModel
+
+
+@if (!Model.Visible)
+{
+    return;
+}
+
+<div class="@Model.CssClass field-border">
+
+    @if (Model.ShowLegend)
+    {
+        <span class="@(@Model.CssClass + " field-title")">
+            @Html.Sitecore().Field("Title", Model.InnerItem)
+        </span>
+
+    }
+
+    <div class="@Model.CssClass field-panel">
+
+        @Html.HiddenFor(x => Model.FieldId)
+        <div class="@Model.CssClass field-content">
+            @Html.Editor("Value", new { FieldModel = Model })
+
+        </div>
+
+        @Html.ValidationMessageFor(field => Model.Value, null, new { @class = @Model.CssClass + " field-error" })
+
+        @if (!String.IsNullOrEmpty(Model.Information))
+        {
+            <span class=" @Model.CssClass field-info">@Html.DisplayFor(x => Model.Information)</span>
+        }
+    </div>
+
+    @if (Model.IsRequired)
+    { 
+        <span class="@Model.CssClass field-required">*</span> 
+    }
+
+</div>
+
+
+
+
+

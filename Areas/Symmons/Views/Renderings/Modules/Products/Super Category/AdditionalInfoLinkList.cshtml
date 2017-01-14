@@ -1,0 +1,47 @@
+﻿@using symmons.com.Areas.Symmons.Models.Modules.Products
+@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<IEnumerable<GenericLinks>>
+
+@if (Model != null && Model.Any())
+{
+    <aside class="right-cols">
+        <ul class="linked-list">
+            @foreach (var info in Model)
+            {
+                if (!String.IsNullOrEmpty(info.Title)
+                    || !String.IsNullOrWhiteSpace(info.Teaser)
+                    || SymmonsHelper.IsValidImage(info.Icon))
+                {
+                    <li class="linked-list__item">
+
+                        @if (SymmonsHelper.IsValidLink(info.Link))
+                        {
+                            if (SymmonsHelper.IsValidImage(info.Icon))
+                            {
+                                @RenderImage(info, x => x.Icon, new { @class = "header-section__image" }, true)
+                            }
+
+                            <div class="header-section__content">
+                                @if (!String.IsNullOrEmpty(info.Title))
+                                {
+                                    <h4 class="linked-list__title">
+                                        @using (BeginRenderLink(info, x => x.Link, new { @class = "linked-list__link" }, isEditable: true))
+                                        {
+                                            @Editable(info, x => x.Title)
+                                        }
+                                    </h4>
+                                }
+                                @if (!String.IsNullOrWhiteSpace(info.Teaser))
+                                {
+                                    <p class="linked-list__teaser">
+                                        @Editable(info, x => x.Teaser)
+                                    </p>
+                                }
+                            </div>
+                        }
+                    </li>
+                }
+            }
+        </ul>
+    </aside>
+}

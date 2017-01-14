@@ -1,0 +1,103 @@
+﻿@using Sitecore.Forms.Mvc.Helpers
+@using Sitecore.Globalization
+@using Sitecore.Mvc
+@using Sitecore.Resources
+@model Sitecore.Forms.Mvc.Models.Fields.CaptchaField
+           
+@Html.GenerateCaptcha(Model)
+
+@if (!Model.Visible)
+{
+    // Restores the CaptchaField model if Robot detected
+    @Html.HiddenFor(x => Model.FieldId)
+    return;
+}
+
+@{
+    var id = "field" + Html.IdFor(m => Model.PostedCaptchaUniqueId).ToString();
+    
+    var refreshButtonHint = Translate.Text("Display another text.");
+    var audioButtonHint = Translate.Text("Play audio version of text.");
+    var enterCaptchaPlaceholder = Translate.Text("Enter the captcha");
+
+    var refreshButtonImageUrl = Images.GetThemedImageSource("Applications/16x16/refresh.png");
+    var audioButtonImageUrl = Images.GetThemedImageSource("People/16x16/loudspeaker.png");
+
+    string imageHandlerUrl = string.Format("CaptchaImage.axd?guid={0}&s={1}&srvnocache=" + DateTime.Now.Ticks, Model.PostedCaptchaUniqueId, Model.UseSession ? "1" : "0");
+    string audioHandlerUrl = string.Format("CaptchaAudio.axd?guid={0}&s={1}&srvnocache=" + DateTime.Now.Ticks, Model.PostedCaptchaUniqueId, Model.UseSession ? "1" : "0");        
+}
+
+<div class="@Model.CssClass field-border">
+
+    @if (Model.ShowLegend)
+    {
+        <span class="@(Model.CssClass + " field-title")">
+            @Html.Sitecore().Field("Title", Model.InnerItem)
+        </span>
+
+    }
+
+    <div id="@id" class="@Model.CssClass field-panel">
+
+        @Html.HiddenFor(x => Model.FieldId)
+        @Html.HiddenFor(x => Model.Visible)
+
+        @*It has to be just custom markup, as hidden fields use POST values preferentially even though a model was changed*@
+               
+        <input type="hidden" name="@Html.NameFor(x => Model.PostedCaptchaUniqueId)" value="@Model.PostedCaptchaUniqueId" />
+
+        <div class="@Model.CssClass field-content">
+            <div class="field-captcha-image-container" style="height: @(Model.Captcha.Height)px; width: @(Model.Captcha.Width)px">
+
+                <img id="@id" src="" width="@Model.Captcha.Width" height="@Model.Captcha.Height" alt="Enter the captcha" style="display: none;" />
+
+                <script type="text/javascript">
+                    $scw("img#@id")
+                        .attr('src', '@Html.Raw(imageHandlerUrl)&nocache=' + Date.now())
+                        .css('display', '');
+                </script>
+                <noscript>
+                    <img src="@Html.Raw(imageHandlerUrl)" width="@Model.Captcha.Width" height="@Model.Captcha.Height" alt="Enter the captcha" />
+                </noscript>
+
+            </div>
+            <div class="field-captcha-controls">
+
+                <input class="selector-field-captcha-refresh" type="image" src="@refreshButtonImageUrl" alt="@refreshButtonHint" title="@refreshButtonHint" />
+                <input class="selector-field-captcha-play" type="image" src="@audioButtonImageUrl" alt="@audioButtonHint" title="@audioButtonHint" />
+                <div class="field-captcha-audio">
+                </div>
+            </div>
+            <div>
+                @Html.EditorFor(m => m.Value, new
+                {
+                    placeholder = enterCaptchaPlaceholder,
+                    width = Model.Captcha.Width
+                })
+            </div>
+        </div>
+
+        @Html.ValidationMessageFor(field => Model.Value, null, new
+        {
+            @class = @Model.CssClass + " field-error"
+        })
+
+        @if (!String.IsNullOrEmpty(Model.Information))
+        {
+            <span class="@Model.CssClass field-info">@Html.DisplayFor(x => Model.Information)</span>
+        }
+    </div>
+
+    @if (Model.IsRequired)
+    {
+        <span class="@Model.CssClass field-required">*</span>
+    }
+</div>
+
+<script type="text/javascript">
+    $scw(document).ready(function () {
+        $scw("#@id").captcha({
+            handlerUrl : '@audioHandlerUrl'
+        });
+    });
+</script>

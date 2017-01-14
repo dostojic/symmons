@@ -1,0 +1,53 @@
+﻿@using symmons.com.Areas.Symmons.Controllers.Global
+@using symmons.com.Areas.Symmons.Models.Pages
+@using symmons.com._Classes.Shared.Global
+@using Sitecore.Globalization
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Modules.Callouts.UpcomingEventsCallout>
+
+<aside role="complementary" class="aside-wrapper">
+
+    @if (!String.IsNullOrEmpty(Model.UpcomingEventsTitle) || Sitecore.Context.PageMode.IsPageEditor)
+    {
+        <div class="aside-title-wrapper">
+            <h3 class="aside-title-wrapper__title">@Editable(Model, x => x.UpcomingEventsTitle)</h3>
+        </div>
+    }
+    @if (Model != null && Model.UpcomingEvents.Any())
+    {
+        <ul class="upcoming-events">
+            @foreach (var symmonsEvent in Model.UpcomingEvents.Take(3))
+            {
+                 <li class="upcoming-events__item">
+                    <article>
+                        @if (!String.IsNullOrEmpty(symmonsEvent.EventStartDate.ToString()) || Sitecore.Context.PageMode.IsPageEditor)
+                        {
+                            <h4 class="upcoming-events__item-date">@Editable(symmonsEvent, x => x.EventStartDate, x => x.EventStartDate.ToString("MMM d, yyyy"))</h4>
+                        }
+                        <a href="@symmonsEvent.Url" class="upcoming-events__item-links">
+                            @Editable(symmonsEvent, x => x.PageTitle)
+                        </a>
+                    </article>
+                </li>
+            }
+        </ul>
+
+        if (@Model.UpcomingEvents.Count() > 3)
+        {
+            var eventsListingModel = SymmonsController.SitecoreCurrentContext.GetItem<EventsListing>(Constants.PageIds.EventsListing);
+            if (eventsListingModel != null)
+            {
+                <a href="@eventsListingModel.Url" class="button-primary">
+                    @Translate.Text(Constants.Dictionary.AllEvents)
+                </a>
+            }
+        }
+    }
+    else
+    {
+        var newsEventsLandingModel = SymmonsController.SitecoreCurrentContext.GetItem<NewsandEventsLanding>(Constants.PageIds.NewsandEventsLanding);
+        if (newsEventsLandingModel != null)
+        {
+            @newsEventsLandingModel.NoEventsFoundMessage
+        }
+    }
+</aside>

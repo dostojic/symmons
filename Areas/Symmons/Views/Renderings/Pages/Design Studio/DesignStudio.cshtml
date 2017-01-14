@@ -1,0 +1,85 @@
+﻿@using Sitecore.Globalization
+@using Sitecore.Mvc
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@using Verndale.SharedSource.Helpers
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SuperCategory>
+
+@{
+    var prodType = Model.ProductSection.Equals(Translate.Text(Constants.Dictionary.Commercial)) ?
+        Constants.ConstantValues.Commercial : Constants.ConstantValues.Home;
+    var browseTextMobile = Translate.Text(Constants.Dictionary.Browse) + " " + Model.BannerOverlayLowerText + " " + Translate.Text(Constants.Dictionary.Products);
+    var productBrowseItem = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.DesignStudioProductBrowse);
+    var browseMobileUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(productBrowseItem);
+}
+
+@if (Model != null)
+{
+    if (SymmonsHelper.IsValidImage(Model.PageImage))
+    {
+        <section class="page-banner" data-product-type="@prodType">
+            <div class="page-banner__image" style="background-image: url('@Model.PageImage.Src')">
+                <div class="container">
+
+                    @if (!String.IsNullOrWhiteSpace(Model.BannerOverlayUpperText)
+                         || SymmonsHelper.IsValidImage(Model.BannerOverlayIcon)
+                         || !String.IsNullOrWhiteSpace(Model.BannerOverlayLowerText))
+                    {
+                        <div class="page-banner__content">
+                            @if (!String.IsNullOrWhiteSpace(Model.BannerOverlayUpperText))
+                            {
+                                <h3 class="page-banner__family">@Model.BannerOverlayUpperText</h3>
+                            }
+                            @if (SymmonsHelper.IsValidImage(Model.BannerOverlayIcon) || !String.IsNullOrWhiteSpace(Model.BannerOverlayLowerText))
+                            {
+                                <div class="page-banner__titlecontent">
+                                    @if (SymmonsHelper.IsValidImage(Model.BannerOverlayIcon))
+                                    {
+                                        @RenderImage(x => x.BannerOverlayIcon, new { @class = "page-banner__icon" }, true)
+                                    }
+                                    @if (!String.IsNullOrWhiteSpace(Model.BannerOverlayLowerText))
+                                    {
+                                        <h1 class="page-banner__title">@Model.BannerOverlayLowerText</h1>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+    if (!string.IsNullOrEmpty(browseMobileUrl))
+    {
+        <div class="container show-for-small">
+            <a href="@browseMobileUrl">
+                <h2 class="page-mobtitle">
+                    @browseTextMobile
+                </h2>
+            </a>
+        </div>
+    }
+
+    if (Model.ProductSection.ToUpper().Equals(Translate.Text(Constants.Dictionary.Commercial)))
+    {
+        <section class="additional-information">
+            <div class="container">
+                <div class="additional-cols-wrapper additional-cols-wrapper--designstudio">
+                    @if (!String.IsNullOrEmpty(Model.MainContent))
+                    {
+                        <aside class="left-cols">
+                            @Html.Raw(Editable(x => x.MainContent))
+                        </aside>
+                    }
+                    <aside class="right-cols">
+                        @Html.Sitecore().Placeholder("scDesignStudioRight")
+                    </aside>
+                </div>
+            </div>
+        </section>
+    }
+
+    @Html.Sitecore().Placeholder("scDesignStudio")
+
+}

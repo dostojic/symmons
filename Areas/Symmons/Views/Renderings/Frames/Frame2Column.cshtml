@@ -1,0 +1,19 @@
+﻿@using Sitecore.Mvc
+@using symmons.com.Areas.Symmons.Controllers.Global
+@using symmons.com._Classes.Shared.Global
+
+@{
+    var wrapperClass = "two-cols-wrapper";
+    if (SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.Events || SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.News)
+    {
+        wrapperClass = "two-cols-wrapper article-wrapper";
+    }
+}
+<div class="@wrapperClass">
+    <div class="cols-left">
+        @Html.Sitecore().Placeholder("scLeft")
+    </div>
+    <div class="cols-right">
+        @Html.Sitecore().Placeholder("scRight")
+    </div>
+</div>

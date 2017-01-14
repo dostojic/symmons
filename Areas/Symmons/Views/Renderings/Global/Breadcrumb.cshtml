@@ -1,0 +1,24 @@
+﻿@using symmons.com._Classes.Shared.Global
+@using Verndale.SharedSource.Helpers
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+@if (Model != null)
+{
+    if (Model.ProductCategory.Any())
+    {
+        var productCategory = Model.ProductCategory.FirstOrDefault();
+        if (productCategory != null)
+        {
+            var catBrowsePage = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.ProductBrowse);
+            var catbrowsePageUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(catBrowsePage);
+            var catUrl = catbrowsePageUrl + "?" + Constants.QueryString.CategoryId + "={" + productCategory.Id + "}";
+
+            if (!String.IsNullOrEmpty(productCategory.CategoryName))
+            {
+                <ol class="breadcrumb__listing">
+                    <li class="breadcrumb__item"> <a href="@catUrl" class="breadcrumb__link">@productCategory.CategoryName</a> </li>
+                </ol>
+            }
+        }
+    }
+}

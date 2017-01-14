@@ -1,0 +1,219 @@
+﻿@using System.Globalization
+@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Helpers
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+
+@{
+    var hideFinish = string.Empty;
+    if (Model.HasNoFinishes)
+    {
+        hideFinish = "hide-finish";
+    }
+    var hideProductPrice = false;
+    if (Model.ProductFinishes.FirstOrDefault() != null)
+    {
+        hideProductPrice = (Model.HasNoFinishes && string.IsNullOrEmpty(Model.ProductFinishes.FirstOrDefault().AvailableValve1Title) && string.IsNullOrEmpty(Model.ProductFinishes.FirstOrDefault().AvailableValve2Title) && string.IsNullOrEmpty(Model.ProductFinishes.FirstOrDefault().AvailableValve3Title) &&
+                            string.IsNullOrEmpty(Model.ProductFinishes.FirstOrDefault().PlumbingOption1Title) && string.IsNullOrEmpty(Model.ProductFinishes.FirstOrDefault().PlumbingOption2Title) && string.IsNullOrEmpty(Model.ProductFinishes.FirstOrDefault().PlumbingOption3Title) &&
+                            string.IsNullOrEmpty(Model.ProductFinishes.FirstOrDefault().AvailableValve1Title) && string.IsNullOrEmpty(Model.ProductFinishes.FirstOrDefault().AvailableValve2Title) && string.IsNullOrEmpty(Model.ProductFinishes.FirstOrDefault().AvailableValve3Title));
+
+    }
+    // Creates a TextInfo based on the "en-US" culture.
+    var ti = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo;
+    var isOnAppPrice = (LocationsHelper.IsCaSite() ? Model.CanPrice.ToLower().Trim() == Constants.ConstantValues.ProductOnAppPrice :
+           Model.PriceMin.ToLower().Trim() == Constants.ConstantValues.ProductOnAppPrice);
+    var listPrice = ti.ToTitleCase(isOnAppPrice ? LocationsHelper.IsCaSite() ? Model.CanPrice.ToLower().Trim() : Model.PriceMin.ToLower().Trim() : string.Empty);
+}
+@if (Model.ProductFinishes.Any())
+{
+    <section role="contentinfo" class="product-details__finish @hideFinish">
+
+        <div class="product-details__finish-wrapper">
+            <h4>@Translate.Text(Constants.Dictionary.ProductSelectFinish)</h4>
+            @foreach (var productFinish in Model.ProductFinishes)
+            {
+                var finishPrice = 0.0;
+                <div class="check-box-row">
+                    @{
+                        // Showing the price based on region...
+                        finishPrice = LocationsHelper.IsCaSite() ? productFinish.FinishCanPrice : productFinish.FinishPrice;
+                    }
+                    <input type="radio" data-attr-price="@finishPrice" value="@productFinish.Finish.FinishName" data-sku-value="@productFinish.FinishSKU" name="rdlfinishDetails" id="rdlfinishDetails_@productFinish.Finish.FinishName" class="custom-radio" checked="@( ViewBag.SelectedFinish == null ? ((productFinish.Finish.FinishName == Model.ProductFinishes.FirstOrDefault().Finish.FinishName) ? "checked" : null) : (productFinish.Finish.FinishName == ViewBag.SelectedFinish ? "checked" : null))" />
+                    <label for="rdlfinishDetails_@productFinish.Finish.FinishName" class="custom-radio-label">
+                        @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidImage(productFinish.Finish.FinishIcon))
+                        {
+                            @RenderImage(productFinish, x => x.Finish.FinishIcon, new {@class = "img-finish"}, true)
+                        }
+                        <div class="finish-content-wrap">
+                            @if (!string.IsNullOrEmpty(productFinish.Finish.FinishName))
+                            {
+                                <div class="finish-title">@Editable(productFinish, x => x.Finish.FinishName)</div>
+                            }@*Displaying the price based on region*@@if (LocationsHelper.IsCaSite())
+                                                                     {
+                                                                         if (!string.IsNullOrEmpty(productFinish.FinishCanPrice.ToString(CultureInfo.InvariantCulture)))
+                                                                         {
+                                                                            <div class="finish-price">$@Editable(productFinish, x => x.FinishCanPrice.ToString("N2"))</div>
+                                                                         }
+                                                                     }
+                                                                     else
+                                                                     {
+                                                                         if (!string.IsNullOrEmpty(productFinish.FinishPrice.ToString(CultureInfo.InvariantCulture)))
+                                                                         {
+                                                                            <div class="finish-price">$@Editable(productFinish, x => x.FinishPrice.ToString("N2"))</div>
+                                                                         }
+                                                                     }
+
+                        </div>
+                    </label>
+                </div>
+            }
+        </div>
+
+        @if (!hideProductPrice)
+        {
+            var firstOrDefault = Model.ProductFinishes.FirstOrDefault();
+
+            if (firstOrDefault != null)
+            {
+                if (LocationsHelper.IsCaSite())
+                {
+                    <h4 class="product-details__finish-price">
+                        Price: $@firstOrDefault.FinishCanPrice
+                    </h4>
+                }
+                else
+                {
+                    <h4 class="product-details__finish-price">Price: $@firstOrDefault.FinishPrice</h4>
+                }
+            }
+        }
+
+    </section>
+
+    <div class="product-details__pricing" data-ajax-url="@Url.Action("ProductFinishJsonResult", "SymmonsProduct")">
+    </div>
+
+    <script id="template-pricingInformation" type="x-handlebars-template">
+
+        {{#if HasValves.length}}
+        {{#if HasPlumbingDetails.length}}
+        <section role='contentinfo' class='product-details__variant'>
+            {{else}}
+            <section role='contentinfo' class='product-details__variant' style="border-bottom:0; padding-bottom:0">
+                {{/if}}
+                <h4 class='sub-title-head'>@Translate.Text(Constants.Dictionary.ProductAvailableValves)</h4>
+                <div class='two-cols-wrap'>
+                    <div class='cols'>
+                        <select name='ddlProductVales' class='product-valves'>
+
+                            {{#if AvailableValve1Title.length}}
+                            <option value='{{AvailableValve1Price}}' data-attr-code='{{AvailableValve1SKU}}' selected>{{AvailableValve1Title}}</option>{{/if}}
+
+                            {{#if AvailableValve2Title.length}}
+                            <option value='{{AvailableValve2Price}}' data-attr-code='{{AvailableValve2SKU}}'>{{AvailableValve2Title}}</option>{{/if}}
+
+                            {{#if AvailableValve3Title.length}}
+                            <option value='{{AvailableValve3Price}}' data-attr-code='{{AvailableValve3SKU}}'>{{AvailableValve3Title}}</option>{{/if}}
+                        </select>
+                    </div>
+                    <div class='cols'>
+                        <div class='product-variant-additional-price'></div>
+                    </div>
+                </div>
+            </section>
+            {{/if}}
+
+            {{#if HasPlumbingDetails.length}}
+            <section role='contentinfo' class='product-details__plumbing'>
+                <div class='two-cols-wrap'>
+                    <div class='cols'>
+                        <h4 class='sub-title-head plumbing-head' data-show-text='@Translate.Text(Constants.Dictionary.ProductShowPlumbingModificationOptions)' data-hide-text='@Translate.Text(Constants.Dictionary.ProductHidePlumbingModificationOptions)'>@Translate.Text(Constants.Dictionary.ProductShowPlumbingModificationOptions)</h4>
+                    </div>
+                    <div class='cols'>
+                        <label class='plumbing-addl-price' data-attr-price='0'></label>
+                    </div>
+                </div>
+                <div class='product-plumbing-content' data-attr-showhide="{{ShowPlumbingOption}}">
+                    <p>@Translate.Text(Constants.Dictionary.ProductSelectSKU)</p>
+                    <p>
+                        @Translate.Text(Constants.Dictionary.ProductSKU)<span class='product-sku'></span>
+                    </p>
+                    {{#if HasPlumbingOption.length}}
+                    <section class='product-plumbing-flowrate'>
+                        <h4 class='sub-title-head'>@Translate.Text(Constants.Dictionary.ProductFlowRate)</h4>
+
+                        {{#if PlumbingOption1Title.length}}
+                        <div class='check-box-row'>
+                            <input type='radio' data-sku-value='{{PlumbingOption1SKU}}' data-price-value='{{PlumbingOption1Price}}' value='{{PlumbingOption1Title}}' class='custom-radio' name='rdlFlowRate' id='rdlFlowRate_1' checked="checked">
+                            <label for='rdlFlowRate_1' class='custom-radio-label'> {{PlumbingOption1Title}}</label>
+                        </div>
+                        {{/if}}
+
+                        {{#if PlumbingOption2Title.length}}
+                        <div class='check-box-row'>
+                            <input type='radio' data-sku-value='{{PlumbingOption2SKU}}' data-price-value='{{PlumbingOption2Price}}' value='{{PlumbingOption2Title}}' class='custom-radio' name='rdlFlowRate' id='rdlFlowRate_2'>
+                            <label for='rdlFlowRate_2' class='custom-radio-label'> {{PlumbingOption2Title}}</label>
+                        </div>
+                        {{/if}}
+
+                        {{#if PlumbingOption3Title.length}}
+                        <div class='check-box-row'>
+                            <input type='radio' data-sku-value='{{PlumbingOption3SKU}}' data-price-value='{{PlumbingOption3Price}}' value='{{PlumbingOption3Title}}' class='custom-radio' name='rdlFlowRate' id='rdlFlowRate_3'>
+                            <label for='rdlFlowRate_3' class='custom-radio-label'> {{PlumbingOption3Title}}</label>
+                        </div>
+                        {{/if}}
+
+                    </section>
+                    {{/if}}
+                    {{#if HasOtherOption.length}}
+                    <section class='product-plumbing-others'>
+                        <h4 class='sub-title-head'>@Translate.Text(Constants.Dictionary.ProductOther)</h4>
+
+                        {{#if OtherOption1Title.length}}
+                        <div class='check-box-row'>
+                            <input type='radio' data-sku-value='{{OtherOption1SKU}}' data-price-value='{{OtherOption1Price}}' value='{{OtherOption1Title}}' class='custom-radio' name='rdlOthers' id='rdlOthers_1' checked="checked">
+                            <label for='rdlOthers_1' class='custom-radio-label'> {{OtherOption1Title}}</label>
+
+                        </div>
+                        {{/if}}
+
+                        {{#if OtherOption2Title.length}}
+                        <div class='check-box-row'>
+                            <input type='radio' data-sku-value='{{OtherOption2SKU}}' data-price-value='{{OtherOption2Price}}' value='{{OtherOption2Title}}' class='custom-radio' name='rdlOthers' id='rdlOthers_2'>
+                            <label for='rdlOthers_2' class='custom-radio-label'> {{OtherOption2Title}}</label>
+
+                        </div>
+                        {{/if}}
+
+                        {{#if OtherOption3Title.length}}
+                        <div class='check-box-row'>
+                            <input type='radio' data-sku-value='{{OtherOption3SKU}}' data-price-value='{{OtherOption3Price}}' value='{{OtherOption3Title}}' class='custom-radio' name='rdlOthers' id='rdlOthers_3'>
+                            <label for='rdlOthers_3' class='custom-radio-label'> {{OtherOption3Title}}</label>
+
+                        </div>
+                        {{/if}}
+
+                    </section>
+                    {{/if}}
+
+                </div>
+            </section>
+            {{/if}}
+
+    </script>
+}
+
+@if (Model.ProductFinishes.Any()|| isOnAppPrice)
+{
+    <section role="contentinfo" class="product-details__totalprice">
+        <div class="two-cols-wrap">
+            <div class="cols">
+                <strong>@Translate.Text(Constants.Dictionary.ProductTotalPrice)</strong>
+            </div>
+            <div class="cols">
+                <strong class="ttl-price-list">@listPrice</strong>
+            </div>
+        </div>
+    </section>
+}

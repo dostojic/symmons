@@ -1,0 +1,24 @@
+﻿@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Global.SymmonsSiteSettings>
+
+@if (Model.SocialMedia!=null && Model.SocialMedia.SocialMediaLinksList.Any())
+{
+    <aside class="footer__socialmedia-wrapper" role="complementary">
+        @if (!String.IsNullOrEmpty(Model.SocialMedia.CalloutTitle))
+        {
+            <h2 class="footer__socialmedia--title">@Editable(Model,x=>x.SocialMedia.CalloutTitle)</h2>
+        }
+        <nav class="footer__socialmedia--links" role="navigation">
+            @foreach (var socialMedia in Model.SocialMedia.SocialMediaLinksList)
+            {
+                if (SymmonsHelper.IsValidLink(socialMedia.SocialLinkUrl) && SymmonsHelper.IsValidImage(socialMedia.SocialMediaImage))
+                {
+                    using (BeginRenderLink(socialMedia, x => x.SocialLinkUrl, new { @class = "footer__socialmedia--cta" },isEditable:true))
+                    {
+                        @RenderImage(socialMedia, x => x.SocialMediaImage, new { data_hover_src = @socialMedia.SocialMediaHoverImage.Src },isEditable:true)
+                    }
+                }
+            }
+        </nav>
+    </aside>
+}

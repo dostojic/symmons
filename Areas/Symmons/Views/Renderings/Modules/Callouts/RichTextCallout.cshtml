@@ -1,0 +1,19 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Modules.Callouts.RichTextBlockCallout>
+
+@if (@Model != null)
+{
+    <aside role="complementary" class="aside-wrapper">
+        @if (!String.IsNullOrEmpty(Model.Headline))
+        {
+            <div class="aside-title-wrapper">
+                <h3 class="aside-title-wrapper__title">@Editable(x => x.Headline)</h3>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.MainContent))
+        {
+            <div class="rtf">
+                @Html.Raw(Editable(x => x.MainContent))
+            </div>
+        }
+    </aside>
+}

@@ -1,0 +1,20 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+@if (!string.IsNullOrEmpty(Model.FeatureDescription))
+{
+    <div class="section-content-wrapper features-wrapper">
+        @if (!string.IsNullOrEmpty(Model.FeatureTitle))
+        {
+            <h3 class="section-title">@Editable(x => x.FeatureTitle)</h3>
+        }
+        @if (!string.IsNullOrEmpty(Model.FeatureDescription))
+        {
+            <div class="rtf product-features">
+                @Html.Raw(Editable(x => x.FeatureDescription))
+            </div>
+        }
+        <a href="#" class="show-link show-features">@Translate.Text(Constants.Dictionary.ProductShowMoreFeatures)</a>
+    </div>
+}

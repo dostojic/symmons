@@ -1,0 +1,33 @@
+﻿@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.News>
+
+@if (@Model != null)
+{
+    <article class="article-details">
+        <header>
+            @if (!string.IsNullOrEmpty(Model.PageTitle))
+            {
+                <h3 class="article-details__title">@Editable(x => x.PageTitle)</h3>
+            }
+            @if (!Model.NewsArticleDate.Equals(DateTime.MinValue))
+            {
+                <div class="article-details__date">
+                    <i class="img-icon img-date"></i><span>@Editable(Model, x => x.NewsArticleDate, x => x.NewsArticleDate.ToString("MMM d, yyyy"))</span>
+                </div>
+            }
+        </header>
+
+        @if (SymmonsHelper.IsValidImage(Model.PageImage))
+        {
+            <figure class="article-details__image">
+                @RenderImage(x => x.PageImage, isEditable: true)
+            </figure>
+        }
+        @if (!string.IsNullOrEmpty(Model.MainContent))
+        {
+            <div class="rtf article-details__teaser">
+                @Html.Raw(Editable(x => x.MainContent))
+            </div>
+        }
+    </article>
+}

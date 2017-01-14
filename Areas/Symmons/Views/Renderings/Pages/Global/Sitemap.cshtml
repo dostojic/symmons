@@ -1,0 +1,69 @@
+﻿@using Glass.Mapper.Sc
+@using Sitecore.ExperienceExplorer.Business.Entities
+@using symmons.com.Areas.Symmons.Models.Global.Base
+@using Verndale.SharedSource.Helpers
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.HomePage.HomePage>
+
+@{
+    var primaryChildItems = SitecoreHelper.ItemMethods.GetItemFromGUID(Model.Id.ToString()).GetChildren().Select(x => x.GlassCast<ISymmonsBasePage>());
+}
+
+@if (Model != null)
+{
+    <div class="one-cols-wrapper">
+        <div class="container">
+            <section class="sitemap-listing-wrapper">
+                <ul class="sitemap-listing">
+                    @if (Model.ShowOnHtmlSiteMap && !string.IsNullOrEmpty(Model.NavigationTitle))
+                    {
+                        <li>
+                            <a href="@Model.Url">@Model.NavigationTitle</a>
+                        </li>
+                    }
+                    @if (primaryChildItems.Any())
+                    {
+                        foreach (var primaryChildItem in primaryChildItems.Where(x => x.ShowOnHtmlSiteMap))
+                        {
+                            if (!string.IsNullOrEmpty(primaryChildItem.NavigationTitle))
+                            {
+                                <li>
+                                    <a href="@primaryChildItem.Url">@primaryChildItem.NavigationTitle</a>
+                                    @{ var secondaryChildItems = SitecoreHelper.ItemMethods.GetItemFromGUID(primaryChildItem.Id.ToString()).GetChildren().Select(x => x.GlassCast<ISymmonsBasePage>()).ToList(); }
+                                    @if (secondaryChildItems.Any(x => x.ShowOnHtmlSiteMap))
+                                    {
+                                        <ul>
+                                            @foreach (ISymmonsBasePage secondaryChildItem in secondaryChildItems.Where(x => x.ShowOnHtmlSiteMap))
+                                            {
+                                                if (!string.IsNullOrEmpty(secondaryChildItem.NavigationTitle))
+                                                {
+                                                    <li>
+                                                        <a href="@secondaryChildItem.Url">@secondaryChildItem.NavigationTitle</a>
+                                                        @{ var thirdLevelChildItems = SitecoreHelper.ItemMethods.GetItemFromGUID(secondaryChildItem.Id.ToString()).GetChildren().Select(x => x.GlassCast<ISymmonsBasePage>()).ToList(); }
+                                                        @if (thirdLevelChildItems.Any(x => x.ShowOnHtmlSiteMap))
+                                                        {
+                                                            <ul>
+                                                                @foreach (ISymmonsBasePage thirdLevelChildItem in thirdLevelChildItems.Where(x => x.ShowOnHtmlSiteMap))
+                                                                {
+                                                                    if (!string.IsNullOrEmpty(thirdLevelChildItem.NavigationTitle))
+                                                                    {
+                                                                        <li>
+                                                                            <a href="@thirdLevelChildItem.Url">@thirdLevelChildItem.NavigationTitle</a>
+                                                                        </li>
+                                                                    }
+                                                                }
+                                                            </ul>
+                                                        }
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        }
+                    }
+                </ul>
+            </section>
+        </div>
+    </div>
+}

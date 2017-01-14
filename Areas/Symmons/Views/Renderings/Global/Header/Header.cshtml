@@ -1,0 +1,35 @@
+﻿@using symmons.com._Classes.Shared.Global
+@using symmons.com.Areas.Symmons.Models.Global
+@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
+
+
+@Html.Partial(Constants.ViewPaths.CompareProductModals, Model)
+<header class="header" id="header" role="banner">
+    <div class="header__content">
+        <div class="container">
+            <div class="header__leftcols">
+                @if (SymmonsHelper.IsValidImage(Model.HeaderLogo))
+                {
+                    if (SymmonsHelper.IsValidLink(Model.HeaderLogoUrl))
+                    {
+                        using (BeginRenderLink(Model, x => x.HeaderLogoUrl, new { @class = "header__logo" }, isEditable: true))
+                        {
+                            @RenderImage(Model, x => x.HeaderLogo, null, true)
+                        }
+                    }
+                    else
+                    {
+                        <div class="header__logo">
+                            @RenderImage(Model, x => x.HeaderLogo, null, true)
+                        </div>
+                    }
+                }
+            </div>
+            <div class="header__rightcols">
+                @Html.Partial(Constants.ViewPaths.UtilityLinks, Model)
+            </div>
+        </div>
+    </div>
+    @Html.Partial(Constants.ViewPaths.PrimaryNavigation)
+</header>

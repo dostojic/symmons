@@ -1,0 +1,42 @@
+﻿@using symmons.com.Areas.Symmons.Controllers.Global
+@using symmons.com.Areas.Symmons.Models.Global
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
+
+@{
+    var siteSettingsModel = SymmonsController.SitecoreCurrentContext.GetItem<SymmonsSiteSettings>(Constants.PageIds.SiteSettings);
+}
+
+@*@Html.Partial("~/Areas/Symmons/Views/Renderings/_Partials/_TrackingScripts.cshtml", siteSettingsModel.trackingScripts)*@
+
+
+
+<section class="about-symmons-wrapper">
+    <div class="about-symmons">
+        <div class="container">
+            @if (@SymmonsHelper.IsValidImage(siteSettingsModel.FooterLogo))
+            {
+                <div class="about-symmons__logo">
+                    @Editable(siteSettingsModel,x => x.FooterLogo)
+                </div>
+            }
+            @if (!String.IsNullOrEmpty(siteSettingsModel.AboutSymmonsTitle))
+            {
+                <h2 class="about-symmons__title">@Editable(siteSettingsModel,x => x.AboutSymmonsTitle)</h2>
+            }
+            @if (!String.IsNullOrEmpty(siteSettingsModel.AboutSymmonsTeaser))
+            {
+                <p class="about-symmons__description">@Editable(siteSettingsModel,x => x.AboutSymmonsTeaser)</p>
+            }
+        </div>
+    </div>
+</section>
+
+@Html.Partial(@Constants.ViewPaths.FooterNavigation, siteSettingsModel)
+
+@Html.Partial(Constants.ViewPaths.CompareProductFooterModals)
+
+@Html.Partial(Constants.ViewPaths.FooterIncludesPartial, siteSettingsModel)
+
+@Html.Raw(siteSettingsModel.trackingScripts)

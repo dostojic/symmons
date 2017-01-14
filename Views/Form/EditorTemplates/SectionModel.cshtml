@@ -1,0 +1,39 @@
+﻿@using Sitecore.Mvc
+@model Sitecore.Forms.Mvc.Models.SectionModel
+
+@if (!Model.Visible)
+{
+    return;
+}
+
+@if (Model.Fields == null)
+{
+    return;
+}
+@if (!string.IsNullOrEmpty(Model.Title))
+{
+    <fieldset class="@Model.CssClass display-section-fieldset">
+        <legend class="@Model.CssClass display-section-legend">@Html.Sitecore().Field("Title", Model.InnerItem)</legend>
+
+        @if (string.IsNullOrEmpty(Model.Information))
+        {
+            <p class="@Model.CssClass display-section-info">@Html.Sitecore().Field("Information", Model.InnerItem)</p>
+        }
+
+        <div class="@Model.CssClass display-section-content">
+
+            @Html.EditorFor(x => Model.Fields)
+        </div>
+    </fieldset>
+}
+
+else
+{
+    <div class="@Model.CssClass display-section-border">
+
+        <div class="@Model.CssClass display-section-content">
+
+            @Html.EditorFor(x => Model.Fields)
+        </div>
+    </div>
+}

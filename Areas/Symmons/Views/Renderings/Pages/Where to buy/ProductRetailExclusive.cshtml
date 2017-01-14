@@ -1,0 +1,74 @@
+﻿@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@using symmons.com._Classes.Symmons.Helpers
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ProductDetails>
+
+<div class="section-content-wrapper retail-exclusive">
+    <figure class="retail-exclusive__image">
+        @if (SymmonsHelper.IsValidImage(Model.ListingImage))
+        {
+            @RenderImage(Model, x => x.ListingImage)
+        }
+
+    </figure>
+    <div class="retail-exclusive__wrapper">
+        @if (!string.IsNullOrEmpty(Model.ProductName))
+        {
+            <h2 class="retail-exclusive__title">
+                @Editable(x => x.ProductName)
+            </h2>
+        }
+        @if (!string.IsNullOrEmpty(Model.ProductModelNumber))
+        {
+            <h3 class="retail-exclusive__model">
+                @Translate.Text(Constants.Dictionary.ProductModel)
+                @Model.ProductModelNumber
+            </h3>
+        }
+        @{
+            double canPrice;
+            var canPriceString = double.TryParse(Model.CanPrice, out canPrice) ? canPrice.ToString("N") : Model.CanPrice;
+            var showCanPrice = canPrice > 0;
+
+            double minPrice;
+            var minPriceString = double.TryParse(Model.PriceMin, out minPrice) ? minPrice.ToString("N") : Model.PriceMin;
+            var showPrice = minPrice > 0;
+        }
+        @if (LocationsHelper.IsCaSite())
+        {
+            if (showCanPrice)
+            {
+                <h4 class="retail-exclusive__price">
+                    @Translate.Text(Constants.Dictionary.ListPrice)* : $@canPriceString
+                </h4>
+            }
+        }
+        else
+        {
+            if (showPrice)
+            {
+                <h4 class="retail-exclusive__price">
+                    @Translate.Text(Constants.Dictionary.ListPrice)* : $@minPriceString
+                </h4>
+            }
+        }
+        @if (Model.RetailExclusive != null && Model.RetailExclusive.Any())
+        {
+            <section role="contentinfo" class="retail-exclusive__logos">
+                <h4 class="retail-exclusive__subtitle">@Translate.Text(Constants.Dictionary.WhereToBuy)</h4>
+                @foreach (var retailExclusive in Model.RetailExclusive)
+                {
+                    if (SymmonsHelper.IsValidLink(retailExclusive.Url) && SymmonsHelper.IsValidImage(retailExclusive.Image))
+                    {
+                        using (BeginRenderLink(retailExclusive, x => x.Url, new { @class = "retail-exclusive__cta" }, isEditable: true))
+                        {
+                            @RenderImage(retailExclusive, x => x.Image)
+                        }
+                    }
+                }
+            </section>
+        }
+    </div>
+</div>

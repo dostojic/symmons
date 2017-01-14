@@ -1,0 +1,35 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Symmons.Helpers
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.WheretoBuy>
+
+@if (LocationsHelper.IsCaSite())
+{
+    if (!String.IsNullOrEmpty(Model.CanShopOnline))
+    {
+        <div class="content where-buy__segment" data-content="shop-online">
+            <section class="rtf shop-online">
+                @Editable(x => x.CanShopOnline)
+            </section>
+        </div>
+    }
+    else
+    {
+        <p class="no-records-found">@Translate.Text(Constants.Dictionary.NoOnlineStoresFound)</p>
+    }
+}
+else
+{
+    if (!String.IsNullOrEmpty(Model.ShopOnline))
+    {
+        <div class="content where-buy__segment" data-content="shop-online">
+            <section class="rtf shop-online">
+                @Editable(x => x.ShopOnline)
+            </section>
+        </div>
+    }
+    else
+    {
+        <p class="no-records-found">@Translate.Text(Constants.Dictionary.NoOnlineStoresFound)</p>
+    }
+}

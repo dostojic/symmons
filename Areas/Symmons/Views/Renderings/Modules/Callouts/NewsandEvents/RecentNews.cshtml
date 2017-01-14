@@ -1,0 +1,52 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Modules.Callouts.RecentNewsCallout>
+
+
+<div class="one-cols-wrapper">
+    <div class="container">
+        @if (@Model.RecentNews.Any())
+        {
+            <aside role="complementary" class="aside-wrapper">
+                @if (!String.IsNullOrEmpty(Model.RecentNewsHeadline) || Sitecore.Context.PageMode.IsPageEditor)
+                {
+                    <div class="aside-title-wrapper">
+                        @if (!String.IsNullOrEmpty(Model.RecentNewsHeadline))
+                        {
+                            <h3 class="aside-title-wrapper__title">@Editable(Model, x => x.RecentNewsHeadline)</h3>
+                        }
+                        @RenderLink(Model, x => x.AllNewsLink, new { @class = "aside-title-wrapper__cta" })
+                    </div>
+                }
+                <ul class="article-listing">
+                    @if (@Model != null)
+                    {
+                        foreach (var symmonsNews in Model.RecentNews)
+                        {
+                            <li class="article-listing__item">
+                                <article>
+                                    @if (!String.IsNullOrEmpty(symmonsNews.PageTitle))
+                                    {
+                                        <h4 class="article-listing__item-title">
+                                            <a href="@symmonsNews.Url">
+                                                @Editable(symmonsNews, x => x.PageTitle)
+                                            </a>
+                                        </h4>
+                                    }
+                                    @if (!String.IsNullOrEmpty(symmonsNews.Teaser))
+                                    {
+                                        <p class="article-listing__item-teaser">
+                                            @Editable(symmonsNews, x => x.Teaser)
+                                        </p>
+                                    }
+                                    <a href="@symmonsNews.Url" class="article-listing__item-cta">@Translate.Text(Constants.Dictionary.ReadMore)</a>
+                                </article>
+                            </li>
+                        }
+                    }
+                </ul>
+                @RenderLink(Model, x => x.AllNewsLink, new { @class = "button-primary show-for-small" })
+            </aside>
+        }
+    </div>
+</div>

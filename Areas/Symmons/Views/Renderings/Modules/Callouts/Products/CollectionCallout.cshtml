@@ -1,0 +1,72 @@
+@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Controllers.Global
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Modules.Callouts.Products.CollectionCallout>
+
+@{
+    var isKitchenStyle = Request.QueryString[Constants.ConstantValues.SuperCategory] != null && Request.QueryString[Constants.ConstantValues.SuperCategory].Equals(Constants.ConstantValues.Kitchen);
+
+    var products = isKitchenStyle ? Model.KitchenProducts : Model.BathProducts;
+}
+
+@if (Model != null)
+{
+    var productDetails = products as IList<ProductDetails> ?? products.ToList();
+    if (Model.ProductCollection != null && productDetails.Any())
+    {
+        <section class="section-content-wrapper" role="contentinfo">
+            @if (Model.ProductCollection != null)
+            {
+                if (!string.IsNullOrEmpty(Model.ProductCollection.PageTitle))
+                {
+                    <h3 class="collection-title">
+                        @Editable(x => x.ProductCollection.PageTitle)
+                    </h3>
+                }
+            }
+            @if (productDetails.Any())
+            {
+                <ul class='product-listing' data-slider data-duration="0" data-start-random="false">
+                    @foreach (var product in productDetails.Take(3))
+                    {
+                        if (product != null)
+                        {
+                            <li class="product-listing-item">
+                                <a href="@SymmonsHelper.GetProductUrl(product, Request.Url)">
+                                    <figure class="product-image">
+                                        @if (product.IsNew)
+                                        {
+                                            <div class='product-browse__listingcontent--newproduct'>New</div>
+                                        }
+                                        @if (SymmonsHelper.IsValidImage(product.ListingImage))
+                                        {
+                                            @RenderImage(product, x => x.ListingImage)
+                                        }
+                                    </figure>
+                                    @if (!string.IsNullOrEmpty(product.ProductName))
+                                    {
+                                        <h4 class="product-caption">@Editable(product, x => x.ProductName)</h4>
+                                    }
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+
+                if (productDetails.Count > 2)
+                {
+                    var productStyle = SymmonsController.SitecoreCurrentContext.GetCurrentItem<ProductStyle>();
+                    if (productStyle != null)
+                    {
+                        var collectionUrl = Model.ProductCollection.Url + "?" + Constants.QueryString.StyleId + "={" + productStyle.Id.ToString().ToLower() + "}";
+                        <div class="collection-listing__ctawrap">
+                            <a href="@collectionUrl" class="collection-listing__cta">@Translate.Text(Constants.Dictionary.MoreLabel)</a>
+                        </div>
+                    }
+                }
+            }
+        </section>
+    }
+}

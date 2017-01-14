@@ -1,0 +1,23 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+@foreach (var calloutItem in Model.DesignStudioRtfCallouts)
+{
+    <section role="contentinfo" class="product-section">
+        <div class="one-cols-wrapper">
+            <div class="container">
+                <div class="section-content-wrapper rtf-collection">
+                    @if (!String.IsNullOrEmpty(calloutItem.MainContent))
+                    {
+                        <div class="rtf">
+                            @if (!String.IsNullOrEmpty(calloutItem.Headline))
+                            {
+                                <h3>@Editable(calloutItem, x => x.Headline)</h3>
+                            }
+                            @Html.Raw(Editable(calloutItem,x => x.MainContent))
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+}

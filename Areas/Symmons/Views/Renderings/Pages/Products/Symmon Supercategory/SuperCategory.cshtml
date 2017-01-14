@@ -1,0 +1,239 @@
+﻿@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SuperCategory>
+
+@{
+    var prodType = Model.ProductSection.Equals(Translate.Text(Constants.Dictionary.Commercial)) ?
+        Constants.ConstantValues.Commercial : Constants.ConstantValues.Home;
+    var browseTextMobile = Translate.Text(Constants.Dictionary.Browse) + " " + Model.BannerOverlayLowerText + " " + Translate.Text(Constants.Dictionary.Products);
+    var browseMobileUrl = string.Empty;
+
+    var browsePageUrl = SymmonsHelper.GetPageUrl(Constants.PageIds.ProductBrowse);
+
+    if (!String.IsNullOrEmpty(Model.ProductSection))
+    {
+        if (Model.ProductSegment != null)
+        {
+            browseMobileUrl = browsePageUrl + "?" + Constants.QueryString.SegmentId + "={" + Model.ProductSegment.Id + "}";
+        }
+    }
+    else
+    {
+        browseMobileUrl = string.Empty;
+    }
+}
+
+@if (Model != null)
+{
+    if (SymmonsHelper.IsValidImage(Model.PageImage))
+    {
+        <section class="page-banner" data-product-type="@prodType">
+            <div class="page-banner__image" style="background-image: url('@Model.PageImage.Src')">
+                <div class="container">
+
+                    @if (!String.IsNullOrWhiteSpace(Model.BannerOverlayUpperText)
+                         || SymmonsHelper.IsValidImage(Model.BannerOverlayIcon)
+                         || !String.IsNullOrWhiteSpace(Model.BannerOverlayLowerText))
+                    {
+                        <div class="page-banner__content">
+                            @if (!String.IsNullOrWhiteSpace(Model.BannerOverlayUpperText))
+                            {
+                                <h3 class="page-banner__family">@Model.BannerOverlayUpperText</h3>
+                            }
+                            @if (SymmonsHelper.IsValidImage(Model.BannerOverlayIcon) || !String.IsNullOrWhiteSpace(Model.BannerOverlayLowerText))
+                            {
+                                <div class="page-banner__titlecontent">
+                                    @if (SymmonsHelper.IsValidImage(Model.BannerOverlayIcon))
+                                    {
+                                        @RenderImage(x => x.BannerOverlayIcon, new { @class = "page-banner__icon" }, true)
+                                    }
+                                    @if (!String.IsNullOrWhiteSpace(Model.BannerOverlayLowerText))
+                                    {
+                                        <h1 class="page-banner__title">@Model.BannerOverlayLowerText</h1>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+    if (!string.IsNullOrEmpty(browseMobileUrl))
+    {
+        <div class="container show-for-small">
+            <a href="@browseMobileUrl">
+                <h2 class="page-mobtitle">
+                    @browseTextMobile
+                </h2>
+            </a>
+        </div>
+    }
+
+    if (Model.ProductSection.ToUpper().Equals(Translate.Text(Constants.Dictionary.Commercial)))
+    {
+        <section class="additional-information">
+            <div class="container">
+                <div class="additional-cols-wrapper">
+                    @if (!String.IsNullOrEmpty(Model.AdditionalInformationDescription))
+                    {
+                        <aside class="left-cols">
+                            <p>
+                                @Editable(x => x.AdditionalInformationDescription)
+                            </p>
+                        </aside>
+                    }
+                    @Html.Partial(Constants.ViewPaths.SuperCategoryAdditionalInfoLinkList, Model.AdditionalInformationLinkList)
+                </div>
+            </div>
+        </section>
+    }
+
+    <section class="browse-products">
+        <div class="container">
+            <div class="browse-products__content">
+                <h3 class="browse-products__title">@Translate.Text(Constants.Dictionary.BrowseProductsBy)</h3>
+                <h3 class="browse-products__mobtitle">@Translate.Text(Constants.Dictionary.BrowseProducts)</h3>
+
+                <div class="browse-products__tabscontent">
+                    <div class="browse-products__tabs">
+                        <a class="browse-products__item" data-tab="category">@Translate.Text(Constants.Dictionary.Category)</a>
+                        <a class="browse-products__item" data-tab="style">@Translate.Text(Constants.Dictionary.Style)</a>
+                        <a class="browse-products__item" data-tab="collection">@Translate.Text(Constants.Dictionary.Collection)</a>
+                        <a class="browse-products__item" data-tab="smartfeature">@Translate.Text(Constants.Dictionary.SmartFeature)</a>
+                        <a class="browse-products__item" data-tab="newproducts">@Translate.Text(Constants.Dictionary.NewProducts)</a>
+                    </div>
+
+                    <!-- Tabs contents -->
+                    <!-- Categories -->
+                    <div class="browse-products__segment" data-content="category">
+                        <h3 class="browse-products__mobsubtitle show-for-small">@Translate.Text(Constants.Dictionary.Category)</h3>
+                        <a class="product-browse__applybutton show-for-small back-btn">@Translate.Text(Constants.Dictionary.Back)</a>
+                        @if (Model.ProductSection.ToUpper().Equals(Translate.Text(Constants.Dictionary.Commercial)))
+                        {
+                            if (Model.ProductSegment != null)
+                            {
+                                ViewBag.SegmentId = "{" + Model.ProductSegment.Id.ToString().ToLower() + "}";
+                            }
+                            var isCatFound = false;
+                            if (Model.BathProductsCategory != null && Model.BathProductsCategory.Any())
+                            {
+                                <h4 class="browse-products__segment--heading">@Translate.Text(Constants.Dictionary.BathProducts)</h4>
+                                @Html.Partial(Constants.ViewPaths.SuperCategoryTabCategory, Model.BathProductsCategory)
+                                isCatFound = true;
+                            }
+                            if (Model.KitchenProductsCategory != null && Model.KitchenProductsCategory.Any())
+                            {
+                                <h4 class="browse-products__segment--heading">@Translate.Text(Constants.Dictionary.KitchenProducts)</h4>
+                                @Html.Partial(Constants.ViewPaths.SuperCategoryTabCategory, Model.KitchenProductsCategory)
+                                isCatFound = true;
+
+                            }
+                            if (Model.CommercialProductsCategory != null && Model.CommercialProductsCategory.Any())
+                            {
+                                <h4 class="browse-products__segment--heading">@Translate.Text(Constants.Dictionary.CommercialProducts)</h4>
+                                @Html.Partial(Constants.ViewPaths.SuperCategoryTabCategory, Model.CommercialProductsCategory)
+                                isCatFound = true;
+                            }
+                            if (!isCatFound)
+                            {
+                                <p>@Translate.Text(Constants.Dictionary.NoCategoriesFoundMessage)</p>
+                            }
+                        }
+                        else if (Model.ProductSection.ToUpper().Equals(Translate.Text(Constants.Dictionary.Home)))
+                        {
+                            if (Model.ProductSegment != null)
+                            {
+                                ViewBag.SegmentId = "{" + Model.ProductSegment.Id.ToString().ToLower() + "}";
+
+                                // Check if "BathProductsCategory" is selected...
+                                if (Model.BathProductsCategory != null && Model.BathProductsCategory.Any())
+                                {
+                                    @Html.Partial(Constants.ViewPaths.SuperCategoryTabCategory, Model.BathProductsCategory)
+                                }
+                                else
+                                {
+                                    // If "Bath Categories" are not selected, then system will check for "Kitchen categories"...
+                                    // If Kitchen categories are not selected, then shoe "No Categories found Message"...
+                                    // We have to rely on CAs to manage the values properly...
+                                    if (Model.KitchenProductsCategory != null && Model.KitchenProductsCategory.Any())
+                                    {
+                                        @Html.Partial(Constants.ViewPaths.SuperCategoryTabCategory, Model.KitchenProductsCategory)
+                                    }
+                                    else
+                                    {
+                                        <p>@Translate.Text(Constants.Dictionary.NoCategoriesFoundMessage)</p>
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <p>@Translate.Text(Constants.Dictionary.NoCategoriesFoundMessage)</p>
+                        }
+                    </div>
+
+                    <!-- Styles -->
+                    <div class="browse-products__segment" data-content="style">
+                        <h3 class="browse-products__mobsubtitle show-for-small">@Translate.Text(Constants.Dictionary.Style)</h3>
+                        <a class="product-browse__applybutton show-for-small back-btn">@Translate.Text(Constants.Dictionary.Back)</a>
+
+                        @if (Model.Style != null && Model.Style.Any())
+                        {
+                            @Html.Partial(Constants.ViewPaths.SuperCategoryTabStyle, Model.Style)
+                        }
+                        else
+                        {
+                            <p>@Translate.Text(Constants.Dictionary.NoStylesFoundMessage)</p>
+                        }
+
+                    </div>
+
+                    <!--collection-->
+                    <div class="browse-products__segment" data-content="collection">
+                        <h3 class="browse-products__mobsubtitle show-for-small">@Translate.Text(Constants.Dictionary.Collection)</h3>
+                        <a class="product-browse__applybutton show-for-small back-btn">@Translate.Text(Constants.Dictionary.Back)</a>
+                        @if (Model.Collection != null && Model.Collection.Any())
+                        {
+                            @Html.Partial(Constants.ViewPaths.SuperCategoryTabCollection, Model.Collection)
+                        }
+                        else
+                        {
+                            <p>@Translate.Text(Constants.Dictionary.NoCollectionsFoundMessage)</p>
+                        }
+                    </div>
+
+                    <!--Smartfeatures-->
+                    <div class="browse-products__segment" data-content="smartfeature">
+                        <h3 class="browse-products__mobsubtitle show-for-small">@Translate.Text(Constants.Dictionary.SmartFeature)</h3>
+                        <a class="product-browse__applybutton show-for-small back-btn">@Translate.Text(Constants.Dictionary.Back)</a>
+                        @if (Model.SmartFeature != null && Model.SmartFeature.Any())
+                        {
+                            @Html.Partial(Constants.ViewPaths.SuperCategoryTabSmartFeatures, Model.SmartFeature)
+                        }
+                        else
+                        {
+                            <p>@Translate.Text(Constants.Dictionary.NoSmartFeaturesFoundMessage)</p>
+                        }
+                    </div>
+
+                    <!--New Products-->
+                    <div class="browse-products__segment" data-content="newproducts">
+                        <h3 class="browse-products__mobsubtitle show-for-small">@Translate.Text(Constants.Dictionary.NewProducts)</h3>
+                        <a class="product-browse__applybutton show-for-small back-btn">@Translate.Text(Constants.Dictionary.Back)</a>
+                        @if (Model.NewProducts != null && Model.NewProducts.Any())
+                        {
+                            @Html.Partial(Constants.ViewPaths.SuperCategoryTabNewProducts, Model.NewProducts)
+                        }
+                        else
+                        {
+                            <p>@Translate.Text(Constants.Dictionary.NoNewProductsFoundMessage)</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

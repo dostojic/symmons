@@ -1,0 +1,22 @@
+﻿@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<IEnumerable<symmons.com.Areas.Symmons.Models.Pages.Products.ProductFinishData>>
+
+@{
+ <div class="design-option__listwrap">
+    <ul class="design-option__list-finishes">
+        @foreach (var designFinish in Model)
+        {
+            <li>
+                @if (SymmonsHelper.IsValidImage(designFinish.FinishIcon))
+                {
+                    @RenderImage(designFinish, x => x.FinishIcon)
+                }
+                @if (!String.IsNullOrEmpty(designFinish.FinishName))
+                {
+                    @Editable(designFinish, x => x.FinishName)
+                }
+            </li>
+        }
+    </ul>
+    </div>
+}

@@ -1,0 +1,83 @@
+﻿@using Sitecore.Forms.Mvc.Data
+@using Sitecore.Forms.Mvc.Extensions
+@using Sitecore.Globalization
+@using Sitecore.Mvc
+@model Sitecore.Forms.Mvc.Models.FormModel
+
+
+@{
+    var id = "Form" + Model.ShortFormId;
+}
+
+@using (Html.BeginRouteForm(Sitecore.Mvc.Configuration.MvcSettings.SitecoreRouteName, FormMethod.Post, new { enctype = "multipart/form-data", @class = "scfForm", id = Model.ID.ToShortGuid() }))
+{
+    Html.EnableClientValidation(true);
+    Html.EnableUnobtrusiveJavaScript(true);
+    @Html.AntiForgeryToken()
+
+    @Html.Sitecore().FormHandler()
+
+    @Html.Hidden(Constants.FormId, Model.ID.ToString())
+
+    if (Model.IsAjaxMvcForm)
+    {
+        <script type="text/javascript">
+            if (typeof ($scw) === "undefined") {
+                window.$scw = jQuery.noConflict(true);
+            }
+            $scw(document).ready(function () {
+                $scw("#@Model.ID.ToShortGuid()").ajaxForm({ targetId: "@id" });
+            });
+        </script>
+    }
+
+    if (Model.ShowTitle)
+    {
+        <h1 class="form-title">@Html.Sitecore().Field("Title", Model.InnerItem)</h1>
+    }
+
+    if (Model.Failures != null && Model.Failures.Any())
+    {
+
+        <div class="form-validation-summary">
+
+            @foreach (var actionFailure in Model.Failures)
+            {
+                <span class="error-message">@Html.Encode(actionFailure.ErrorMessage)</span>
+            }
+            <br>
+        </div>
+    }
+
+    if (Model.SuccessSubmit)
+    {
+        @Html.Encode(!string.IsNullOrEmpty(Model.SuccessMessage) ? Model.SuccessMessage : Translate.Text("Default success message."))
+        return;
+
+    }
+
+    if (Model.ShowIntroduction)
+    {
+        <div class="form-introduction">@Html.Sitecore().Field("Introduction", Model.InnerItem)</div>
+    }
+
+    <div class="form-validation-summary">
+        @Html.ValidationSummary(false)
+    </div>
+
+    @Html.EditorFor(x => Model.Sections)
+
+    if (!string.IsNullOrEmpty(Model.Footer) && Model.ShowFooter)
+    {
+        <div class="form-footer">@Html.Sitecore().Field("Footer", Model.InnerItem)</div>
+    }
+
+    <div class="form-submit-border">
+        <input type="submit" value="@Model.SubmitName" class="form-submit" />
+    </div>
+
+
+}    @{Html.EndForm();}
+
+
+

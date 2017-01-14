@@ -1,0 +1,163 @@
+﻿@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Controllers.Global
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@using symmons.com._Classes.Symmons.Helpers
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Modules.Callouts.TimelineModule>
+
+@if (Model.SymmonsTimelinesList != null && Model.SymmonsTimelinesList.Any())
+{
+    <section class="design-studio">
+        <div class="container">
+            <div class="design-studio__content">
+                @foreach (var timelineItem in Model.SymmonsTimelinesList)
+                {
+                    <div class="design-option">
+                        <figure class="design-option__headingIcon">
+                            @if (SymmonsHelper.IsValidImage(timelineItem.TimelineIcon) || Sitecore.Context.PageMode.IsPageEditor)
+                            {
+                                @RenderImage(timelineItem, x => x.TimelineIcon)
+                            }
+                        </figure>
+
+                        @if (!String.IsNullOrEmpty(timelineItem.Title) || Sitecore.Context.PageMode.IsPageEditor)
+                        {
+                            if (Sitecore.Context.PageMode.IsPageEditor)
+                            {
+                                <h4 class="design-option__heading"><span>@Editable(timelineItem, x => x.Title)</span></h4>
+                            }
+                            else
+                            {
+                                <h4 class="design-option__heading"><span>@DataHelper.GetParsedString(timelineItem.Title, int.Parse(Constants.ConstantValues.MaximumLength20))</span></h4>
+                            }
+                        }
+                        @if (!String.IsNullOrEmpty(timelineItem.TimelineVideoUrl) || Sitecore.Context.PageMode.IsPageEditor)
+                        {
+                            var videoUrl = @timelineItem.TimelineVideoUrl;
+                            videoUrl = videoUrl + "?wmode=transparent";
+                            <div class="design-option__row design-option__row-zero">
+                                <a href="@timelineItem.TimelineVideoUrl" class="video-modal">
+                                    <div class="icon-play-video"></div>
+                                    @if (SymmonsHelper.IsValidImage(timelineItem.TimelineThumbnailImage))
+                                    {
+                                        @RenderImage(timelineItem, x => x.TimelineThumbnailImage)
+                                    }
+                                </a>
+                                <div class="video-responsive video-responsive--mobile">
+                                    <iframe width="283" height="191" src="@videoUrl" frameborder="0" allowfullscreen="" wmode="Opaque"></iframe>
+                                </div>
+                            </div>
+                        }
+                        else if (SymmonsHelper.IsValidImage(timelineItem.TimelineImage) || Sitecore.Context.PageMode.IsPageEditor)
+                        {
+                            <div class="design-option__row design-option__row-zero">
+                                <div class="image-modal">
+                                    @if (SymmonsHelper.IsValidImage(timelineItem.TimelineThumbnailImage))
+                                    {
+                                        @RenderImage(timelineItem, x => x.TimelineThumbnailImage)
+                                    }
+                                </div>
+                                <figure class="image-responsive video-responsive--mobile">
+                                    <a href="@timelineItem.TimelineImage.Src">
+                                        @RenderImage(timelineItem, x => x.TimelineImage)
+                                    </a>
+                                </figure>
+                            </div>
+                        }
+                        <div class="design-studio__content--design-options">
+                            @if (!String.IsNullOrEmpty(timelineItem.Description) || Sitecore.Context.PageMode.IsPageEditor)
+                            {
+                                <div class="design-option__row design-option__row-one">
+                                    <p class="design-option__description">@Editable(timelineItem, x => x.Description)</p>
+                                    <p class="design-option__heading--mobile" data-show-text="@Translate.Text(Constants.Dictionary.ShowMore)" data-hide-text="@Translate.Text(Constants.Dictionary.ShowLess)">@Translate.Text(Constants.Dictionary.ShowMore)</p>
+                                </div>
+                            }
+
+                            @if (!String.IsNullOrEmpty(timelineItem.LeadTime) || Sitecore.Context.PageMode.IsPageEditor)
+                            {
+                                <div class="design-option__row design-option__row-two">
+                                    <p class="design-option__text">@Editable(timelineItem, x => x.LeadTime)</p>
+                                </div>
+                            }
+
+                            @if (!String.IsNullOrEmpty(timelineItem.MinimumOrderQuantity) || Sitecore.Context.PageMode.IsPageEditor)
+                            {
+                                <div class="design-option__row design-option__row-three">
+                                    <p class="design-option__text">@Editable(timelineItem, x => x.MinimumOrderQuantity)</p>
+                                </div>
+                            }
+
+                            @if (timelineItem.Finishes.Any())
+                            {
+                                // Get all the finishes here...
+                                var finishCount = timelineItem.Finishes.Count();
+                                <div class="design-option__row design-option__row-four">
+                                    <div class="design-option__text design-option__text--finishes">
+                                        @finishCount
+                                        @(finishCount == 1 ? Translate.Text(Constants.Dictionary.DesignStudioCatalogFinish) : Translate.Text(Constants.Dictionary.DesignStudioCatalogFinishes))
+                                        <i class="catalog-finishes hover-tipso-tooltip tipso_style"></i> @Html.Partial(Constants.ViewPaths.DesignFinishes, timelineItem.Finishes)
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                // Get the custom finish name...
+                                var finishItem = new ProductFinishData();
+                                <div class="design-option__row design-option__row-four">
+                                    @if (!String.IsNullOrEmpty(timelineItem.CustomFinish))
+                                    {
+                                        <div class="design-option__text design-option__text--finishes">
+                                            @Editable(timelineItem, x => x.CustomFinish) <i class="catalog-finishes hover-tipso-tooltip tipso_style"></i>
+                                            <div class="design-option__listwrap">
+                                                @if (timelineItem.CustomFinish.ToLower() == @Translate.Text(Constants.Dictionary.AnyFinish).ToLower())
+                                                {
+                                                    finishItem = SymmonsController.SitecoreCurrentContext.GetItem<ProductFinishData>(Constants.PageIds.AnyFinish);
+                                                }
+                                                else if (timelineItem.CustomFinish.ToLower() == @Translate.Text(Constants.Dictionary.PolishedChromeFinish).ToLower())
+                                                {
+                                                    finishItem = SymmonsController.SitecoreCurrentContext.GetItem<ProductFinishData>(Constants.PageIds.ChromeFinish);
+                                                }
+                                                <ul class="design-option__list-finishes">
+                                                    <li>@RenderImage(finishItem, x => x.FinishIcon)@Editable(finishItem, x => x.FinishName)</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            @{
+                                var isBlankCanvas = timelineItem.Id.ToString("B").ToLower().Equals(Constants.ItemIds.BlankCanvas.ToLower());
+                                var isFreeForm = timelineItem.Id.ToString("B").ToLower().Equals(Constants.ItemIds.FreeForm.ToLower());
+                                if (isBlankCanvas || isFreeForm)
+                                {
+                                    var contactUrl = timelineItem.TimelineCta.Url + "?dsType=" + timelineItem.Title + "";
+                                    <a href="@contactUrl" class="button-primary">@timelineItem.TimelineCta.Text</a>
+                                }
+                                else if (SymmonsHelper.IsValidLink(timelineItem.TimelineCta))
+                                {
+                                    @RenderLink(timelineItem, x => x.TimelineCta, new { @class = "button-primary" }, true)
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<script type="text/javascript" src="/_JS/plugins/external/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript" src="/_JS/plugins/external/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="/_JS/plugins/external/jquery.tooltip.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        jQuery('.hover-tipso-tooltip').tipso({
+            position: 'bottom',
+            background: '',
+            useTitle: false,
+            tooltipHover: true
+
+        });
+    });
+</script>

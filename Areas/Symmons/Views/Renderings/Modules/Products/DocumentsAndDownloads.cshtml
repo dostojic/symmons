@@ -1,0 +1,33 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@using Verndale.SharedSource.Helpers
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+<div class="section-content-wrapper">
+    @if (!string.IsNullOrEmpty(Model.DocumentsTitle))
+    {
+        <h3 class="section-title">@Editable(x => x.DocumentsTitle)</h3>
+    }
+    <ul class="product-links-wrapper">
+        @foreach (var documentAndDownload in Model.DocumentsLinks)
+        {
+            var documentItem = SitecoreHelper.ItemMethods.GetItemFromGUID(documentAndDownload.ToString());
+            string documentUrl;
+            SitecoreHelper.ItemRenderMethods.GetMediaURL(documentItem, out documentUrl);
+            var documentType = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.ConstantValues.ProductDocumentExtension, documentItem, false);
+
+            if (!string.IsNullOrEmpty(documentItem.Name) || !string.IsNullOrEmpty(documentUrl))
+            {
+                <li>
+                    <a href='@documentUrl' target="_blank" class="product-links">@SymmonsHelper.GetMediaTitle(documentItem)</a>
+                    @if (!string.IsNullOrEmpty(documentType))
+                    {
+                        <span>(@documentType.ToUpper())</span>
+                    }
+                </li>
+            }
+        }
+    </ul>
+    <a href="javascript:void(0)" class="show-link show-downloads">@Translate.Text(Constants.Dictionary.ProductShowMoreDownloads)</a>
+</div>

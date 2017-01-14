@@ -1,0 +1,34 @@
+﻿@using Glass.Mapper
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Events>
+
+<article class="article-details">
+
+    <header>
+        @if (Model.PageTitle.IsNotNullOrEmpty())
+        {
+            <h3 class="article-details__title">@Editable(x => x.PageTitle)</h3>
+        }
+        @if (Model.EventDate.IsNotNullOrEmpty())
+        {
+            <div class="article-details__date">
+                <i class="img-icon img-date"></i><span>@Editable(x => x.EventDate)</span>
+            </div>
+        }
+        @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidLink(Model.EventLocation))
+        {
+            <div class="article-details__location">
+                <i class="img-icon img-location"></i><span>@RenderLink(x => x.EventLocation, isEditable: true)</span>
+            </div>
+        }
+    </header>
+    @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidImage(Model.PageImage))
+    {
+        @RenderImage(x => x.PageImage, new { @class = "img-finish" }, true)
+    }
+    @if (Model.MainContent.IsNotNullOrEmpty())
+    {
+        <div class="rtf article-details__teaser">
+            @Html.Raw(Editable(x => x.MainContent))
+        </div>
+    }
+</article>

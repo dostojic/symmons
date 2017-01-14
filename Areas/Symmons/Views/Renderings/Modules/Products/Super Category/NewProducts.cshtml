@@ -1,0 +1,82 @@
+@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@using symmons.com._Classes.Symmons.Helpers
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<List<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>>
+
+@if (Model != null && Model.Any())
+{
+    <ul class="product-browse__listingcontent">
+        @foreach (var product in Model)
+        {
+            if (product == null)
+            {
+                continue;
+            }
+
+            <li class="product-browse__listingcontent--item">
+                <div class="product-browse__listingcontent--newproduct">New</div>
+
+                <figure class="product-browse__listingcontent--image">
+                    @if (SymmonsHelper.IsValidImage(product.PageImage))
+                    {
+                        @RenderImage(product, x => x.PageImage)
+                    }
+                </figure>
+
+                <div class="product-browse__listingcontent--productcontent">
+                    @if (!String.IsNullOrWhiteSpace(product.ProductName))
+                    {
+                        <a class="product-browse__listingcontent--productname" href="@product.Url">
+                            @Editable(product, x => x.ProductName)
+                        </a>
+                    }
+                    @{
+                    double canPrice;
+                    var canPriceString = double.TryParse(product.CanPrice, out canPrice) ? canPrice.ToString("N") : product.CanPrice;
+                    var showCanPrice = canPrice > 0;
+
+                    double minPrice;
+                    var minPriceString = double.TryParse(product.PriceMin, out minPrice) ? minPrice.ToString("N") : product.PriceMin;
+                    var showPrice = minPrice > 0;
+                    }
+                    <p class="product-browse__listingcontent--productprice">
+                        @if (LocationsHelper.IsCaSite())
+                        {
+                            if (Sitecore.Context.PageMode.IsPageEditor)
+                            {
+                                @Translate.Text(Constants.Dictionary.ListPrice)
+                                @:$@Editable(product, x => x.PriceMin)
+                            }
+                            else
+                            {
+                                if (showCanPrice)
+                                {
+                                    @Translate.Text(Constants.Dictionary.ListPrice)
+                                    @:$@canPriceString
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (Sitecore.Context.PageMode.IsPageEditor)
+                            {
+                                @Translate.Text(Constants.Dictionary.ListPrice)
+                                @:$@Editable(product, x => x.PriceMin)
+                            }
+                            else
+                            {
+                                if (showPrice)
+                                {
+                                    @Translate.Text(Constants.Dictionary.ListPrice)
+                                    @:$@minPriceString
+                                }
+                            }
+                        }
+
+                    </p>
+                </div>
+            </li>
+        }
+    </ul>
+}

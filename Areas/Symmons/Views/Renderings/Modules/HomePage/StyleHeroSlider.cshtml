@@ -1,0 +1,59 @@
+﻿@using symmons.com.Areas.Symmons.Models.Modules.Home
+@using Sitecore.Globalization
+@using symmons.com._Classes.Symmons.Global
+@using symmons.com._Classes.Symmons.Helpers
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<StyleHeroSlideModule>
+
+@{
+
+    var heroSlides = Request.QueryString[Constants.ConstantValues.SuperCategory] != null && 
+        Request.QueryString[Constants.ConstantValues.SuperCategory].Equals(Constants.ConstantValues.Kitchen) ? 
+        Model.KitchenHeroSlides : Model.BathHeroSlides;
+
+    var dataDuration = 0;
+    var enumerable = heroSlides as IList<HeroSlide> ?? heroSlides.ToList();
+    if (enumerable.Count > 1)
+    {
+        dataDuration = 6;
+    }
+}
+
+@if (enumerable.Any())
+{
+    <section class="hero-slider">
+        <div class="hero-slider__wrapper">
+            <ul class="hero-slider__container" data-slider data-duration="@dataDuration" data-start-random="true">
+                @foreach (var heroSlide in enumerable)
+                {
+                    <li class="hero-slider__item">
+                        @{
+                            var desktopSlideImage = heroSlide.SlideImage != null ? heroSlide.SlideImage.Src : string.Empty;
+                            var mobileSlideImage = heroSlide.SlideMobileImage != null ? heroSlide.SlideMobileImage.Src : string.Empty;
+                        }
+                        <div class="hero-slider__image" data-attr-desktopimage="@Editable(desktopSlideImage, x => x, null)" data-attr-mobileimage="@Editable(mobileSlideImage, x => x, null)"></div>
+                        @if (!string.IsNullOrEmpty(heroSlide.SlideTitle) || !string.IsNullOrEmpty(heroSlide.SlideDescription) || SymmonsHelper.IsValidLink(heroSlide.LearnMoreLink))
+                        {
+                            <div class="hero-slider__textwrapper">
+                                <div class="hero-slider__text-container">
+                                    @if (!string.IsNullOrEmpty(heroSlide.SlideTitle))
+                                    {
+                                    <h2 class="hero-slider__title">@DataHelper.GetParsedString(heroSlide.SlideTitle, int.Parse(Translate.Text(Constants.Dictionary.MaxLength50)))</h2>
+                                    }
+                                    @if (!string.IsNullOrEmpty(heroSlide.SlideDescription))
+                                    {
+                                    <p class="hero-slider__teaser">@DataHelper.GetParsedString(heroSlide.SlideDescription, int.Parse(Translate.Text(Constants.Dictionary.MaxLength170)))</p>
+                                    }
+                                    @if (SymmonsHelper.IsValidLink(heroSlide.LearnMoreLink))
+                                    {
+                                        @RenderLink(heroSlide, x => x.LearnMoreLink, new { @class = "button-primary" }, true, Translate.Text(Constants.Dictionary.LearnMore))
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    </section>
+}

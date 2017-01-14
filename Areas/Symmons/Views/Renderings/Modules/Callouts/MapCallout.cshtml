@@ -1,0 +1,50 @@
+﻿@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Modules.Callouts.MapCallout>
+
+@if (Model != null)
+{
+    <aside role="complementary" class="aside-wrapper">
+        @if (!String.IsNullOrEmpty(Model.Title))
+        {
+            <div class="aside-title-wrapper">
+                <h3 class="aside-title-wrapper__title">@Editable(Model, x => x.Title)</h3>
+            </div>
+        }
+        @if (!String.IsNullOrEmpty(Model.SubTitle))
+        {
+            @Editable(Model, x => x.SubTitle)
+        }
+
+        @if (Model.ContactInfoList != null && Model.ContactInfoList.Any())
+        {
+            <section class="contact-links">
+
+                @foreach (var contactInfoCallout in Model.ContactInfoList)
+                {
+                    if (SymmonsHelper.IsValidLink(contactInfoCallout.ContactLinkUrl))
+                    {
+                        using (BeginRenderLink(contactInfoCallout, x => x.ContactLinkUrl, new { @class = "footer__contact-link" }, isEditable: true))
+                        {
+                            if (SymmonsHelper.IsValidImage(contactInfoCallout.Image))
+                            {
+                                @RenderImage(contactInfoCallout, x => x.Image, new { @class = "footer__contact-image" }, isEditable: true)
+                            }
+                            <span class="footer__contact-text">@contactInfoCallout.ContactLinkUrl.Text</span>
+                        }
+                    }
+                }
+            </section>
+        }
+        @if (!String.IsNullOrEmpty(Model.Address))
+        {
+            <section class="map-callout">
+                <iframe class="map-callout__directions" src=@Model.Url frameborder="0"></iframe>
+
+                <address class="map-callout__address">
+                    @Model.Name<br>@Model.Address
+                </address>
+            </section>
+        }
+    </aside>
+
+}

@@ -1,0 +1,40 @@
+﻿@model Sitecore.Forms.Mvc.Models.Fields.DropListField
+
+@if (!Model.Visible)
+{
+    return;
+}
+
+@{
+    Model.Refresh();
+}
+
+<div class="@Model.CssClass field-border">
+
+    @if (Model.ShowLegend)
+    {
+        <label for="@Html.AttributeEncode(Model.Name)" class="@Model.CssClass field-title">@Html.Encode(Model.Title)</label>
+    }
+
+    <div class="@Model.CssClass field-panel">
+
+        <div class="@Model.CssClass field-content">
+            @Html.HiddenFor(x => Model.FieldId)
+
+            @Html.DropDownList("Value", Model.Items)
+
+            @Html.ValidationMessageFor(field => Model.Value, null, new { @class = @Model.CssClass + " field-error", @data_valmsg_for = Model.Name })
+
+        </div>
+        @if (!String.IsNullOrEmpty(Model.Information))
+        {
+            <span class="@Model.CssClass field-info">@Html.Raw(Model.Information)</span>
+        }
+    </div>
+
+    @if (Model.IsRequired)
+    { 
+        <span class="@Model.CssClass field-required">*</span> 
+    }
+
+</div>

@@ -1,0 +1,125 @@
+﻿@using Glass.Mapper.Sc
+@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Symmons.Global
+@using Verndale.SharedSource.Helpers
+@using symmons.com.Areas.Symmons.Models.Global
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
+
+<div class="header__util-content">
+    <nav class="header__util-links mobile" role="Navigation">
+        <a class="header__util-item  nav-menu">
+            <i class="img-icon img-hamburger"></i>
+            <span class="header__util-text">@Translate.Text(Constants.Dictionary.Menu)</span>
+        </a>
+        <a class="header__util-item nav-support">
+            <i class="img-icon img-phone"></i> <span class="header__util-text">@Translate.Text(Constants.Dictionary.Support)</span>
+        </a>
+    </nav>
+    <div class="menu-navigation mobile-nav">
+        @using (Html.BeginForm("GetSearchResult", "SymmonsSearch", FormMethod.Post, new { name = "frmMobileSearch", id = "frmMobileSearch" }))
+        {
+            <div class="menu-navigation__search">
+                <label for="txtGlobalSearch" class="visually-hidden">@Translate.Text(Constants.Dictionary.Search)</label>
+                <i class="img-global-search"></i>
+                <input type="search" id="txtGlobalSearch_mobile" class="menu-navigation__searchfield" name="globalSearch" placeholder="Search Symmons" autocomplete="off" />
+            </div>
+        }
+
+        <nav class="menu-navigation__list" role="Navigation">
+            @if ((Model.PrimaryNavigationList != null) && (Model.PrimaryNavigationList.Any(x => x.ShowOnNavigation)))
+            {
+                foreach (var primaryNavigationItem in Model.PrimaryNavigationList)
+                {
+                    var childItems = SitecoreHelper.ItemMethods.GetItemFromGUID(primaryNavigationItem.Id.ToString()).GetChildren().Select(x => x.GlassCast<SuperCategory>()).ToList();
+                    if (childItems.Any())
+                    {
+                        if (!string.IsNullOrEmpty(primaryNavigationItem.NavigationTitle))
+                        {
+                            <h2 class="menu-navigation__title">@primaryNavigationItem.NavigationTitle</h2>
+                        }
+                        foreach (var item in childItems)
+                        {
+                            if (item != null && !string.IsNullOrEmpty(item.NavigationTitle))
+                            {
+                                <a href="@Editable(item, x => x.Url, null)" class="menu-navigation__link">@Editable(item, x => x.NavigationTitle)</a>
+                            }
+                        }
+                    }
+                }
+            }
+            @if ((Model.UtilityNavigationList != null) && (Model.UtilityNavigationList.Any()))
+            {
+                <h2 class="menu-navigation__title"></h2>
+                foreach (var utilityLink in Model.UtilityNavigationList)
+                {
+                    if (SymmonsHelper.IsValidLink(utilityLink.NavigationLinkUrl) && !String.IsNullOrEmpty(utilityLink.NavigationLinkUrl.Text))
+                    {
+                        @RenderLink(utilityLink, x => x.NavigationLinkUrl, new { @class = "menu-navigation__link" }, true)
+                    }
+                }
+            }
+
+        </nav>
+    </div>
+
+    <div class="support-navigation mobile-nav">
+        <section class="support-navigation__list">
+            @Html.Partial(Constants.ViewPaths.ContactInfoCallout, Model)
+            @foreach (var item in Model.CustomerSupportList)
+            {
+                if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
+                {
+                    @RenderLink(item, x => x.NavigationLinkUrl, new { @class = "support-navigation__link" }, true)
+                }
+            }
+        </section>
+        @if ((Model.CommercialCustomersList != null) && (Model.CommercialCustomersList.Any()))
+        {
+            <section class="support-navigation__commericial">
+                <h2 class="support-navigation__title">@Translate.Text(Constants.Dictionary.CommercialCustomers)</h2>
+                @foreach (var item in Model.CommercialCustomersList)
+                {
+                    if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
+                    {
+                        @RenderLink(item, x => x.NavigationLinkUrl, new { @class = "support-navigation__link" }, true)
+                    }
+                }
+            </section>
+        }
+    </div>
+</div>
+<script>
+    jQuery.noConflict();
+    jQuery(document).ready(function ($) {
+        var strSearchBox = jQuery("#txtGlobalSearch_mobile");
+
+        jQuery(document).on("keypress", "#txtGlobalSearch_mobile", function (event) {
+
+            strSearchBox.parent().removeClass("error");
+            if (event.keyCode == 13) {
+                if (jQuery.trim(strSearchBox.val()) != "") {
+                    jQuery("#frmMobileSearch").submit();
+                    return true;
+                } else {
+                    strSearchBox.parent().addClass("error");
+                    return false;
+                }
+            }
+        });
+
+        jQuery(".menu-navigation__search .img-global-search").click(function () {
+            strSearchBox.parent().removeClass("error");
+            if (jQuery.trim(strSearchBox.val()) != "") {
+                jQuery("#frmMobileSearch").submit();
+                return true;
+            } else {
+                strSearchBox.parent().addClass("error");
+                return false;
+            }
+
+        });
+    });
+
+</script>

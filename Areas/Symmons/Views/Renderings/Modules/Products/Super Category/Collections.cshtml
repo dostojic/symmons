@@ -1,0 +1,74 @@
+﻿@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+@using Sitecore.Globalization
+@using symmons.com._Classes.Symmons.Global
+@using symmons.com._Classes.Symmons.Helpers
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<IEnumerable<ProductCollection>>
+
+@if (Model != null && (Model.Any()))
+{
+    <ul class="browse-products__segment--listing">
+        @foreach (var collection in Model)
+        {
+            if (collection == null)
+            {
+                continue;
+            }
+
+
+            if (!String.IsNullOrWhiteSpace(collection.PageTitle)
+                || SymmonsHelper.IsValidImage(collection.SmallCollectionImage))
+            {
+                <li class="browse-products__segment--item">
+                    <a href="@collection.Url">
+                        <figure class="browse-products__segment--image">
+                            @if (SymmonsHelper.IsValidImage(collection.SmallCollectionImage))
+                            {
+                                @RenderImage(collection, x => x.SmallCollectionImage, isEditable: true)
+                            }
+                        </figure>
+                        <div class="browse-products__segmentheader">
+                            @if (!String.IsNullOrWhiteSpace(collection.PageTitle))
+                            {
+                                <h5 class="browse-products__segment--name">@Editable(collection, x => x.PageTitle)</h5>
+                            }
+                            <h6 class="browse-products__swipe">@Translate.Text(Constants.Dictionary.SwipeforPreview)</h6>
+                        </div>
+                    </a>
+
+                    <div class="hover-content">
+                        @if (!String.IsNullOrWhiteSpace(collection.PageTitle))
+                        {
+                            <h5 class="hover-content__title">
+                                @if (Sitecore.Context.PageMode.IsPageEditor)
+                                {
+                                    @Editable(collection, x => x.PageTitle)
+                                }
+                                else
+                                {
+                                    @DataHelper.GetParsedString(collection.PageTitle,Convert.ToInt16(Constants.ConstantValues.PageTitleLimitHover))
+                                }
+                            </h5>
+                        }
+                        @if (!String.IsNullOrWhiteSpace(collection.Teaser))
+                        {
+                            <p class="hover-content__teaser">
+                                @if (Sitecore.Context.PageMode.IsPageEditor)
+                                {
+                                    @Editable(collection, x => x.Teaser)
+                                }
+                                else
+                                {
+                                    @DataHelper.GetParsedString(collection.Teaser,Convert.ToInt16(Constants.ConstantValues.PageTeaserLimitHover))
+                                }
+                            </p>
+                        }
+                        <a href="@collection.Url" class="hover-content__cta">
+                            @Translate.Text(Constants.Dictionary.MoreAboutThisCollection)
+                        </a>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+}

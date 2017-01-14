@@ -1,0 +1,27 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+
+<div class="section-content-wrapper">
+    @if (!string.IsNullOrEmpty(Model.SupportTitle))
+    {
+        <h3 class="section-title">@Editable(x => x.SupportTitle)</h3>
+    }
+    @if (!string.IsNullOrEmpty(Model.SupportDescription))
+    {
+        <p class="section-teaser">@Html.Raw(Editable(x => x.SupportDescription))</p>
+    }
+    <ul class="support-links-wrapper">
+        @foreach (var support in Model.SupportLinks)
+        {
+            if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidLink(support.SupportLink))
+            {
+                <li>
+                    @RenderLink(support, x => x.SupportLink, new { @class = "support-links" }, true)
+                </li>
+            }
+        }
+    </ul>
+    <a href="javascript:void(0)" class="show-link show-support-links">@Translate.Text(Constants.Dictionary.ProductShowMoreLinks)</a>
+</div>

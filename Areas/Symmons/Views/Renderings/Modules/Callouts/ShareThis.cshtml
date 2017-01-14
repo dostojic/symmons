@@ -1,0 +1,35 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+
+
+<aside role="complementary" class="aside-wrapper">
+
+  <div class="aside-title-wrapper share-this">
+    <h3 class="share-this__title">@Translate.Text(Constants.Dictionary.ShareThis)</h3>
+  </div>
+
+  <div class="share-content">
+    <span class="share-content__item st_facebook_custom" title="Facebook Like"><i class='share-content__image--facebook'></i></span>
+    <span class='share-content__item st_twitter_custom' title="Tweet on Twitter"><i class='share-content__image--tweet'></i></span>
+    <span class='share-content__item st_plusone_custom g-plusone' title="+1 on Google" data-size="medium" data-annotation="none"></span>
+    <span class='share-content__item st_linkedin_custom' title="Share on LinkedIn"><i class='share-content__image--linkedin'></i></span>
+    
+    <script type="text/javascript">
+	  (function() {
+	    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+	    po.src = 'https://apis.google.com/js/platform.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	  })();
+    </script>
+
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+      stLight.options({
+        publisher: "@ViewBag.Publisher",
+        doNotHash: false,
+        doNotCopy: false,
+        hashAddressBar: false
+      });
+    </script>
+  </div>
+</aside>

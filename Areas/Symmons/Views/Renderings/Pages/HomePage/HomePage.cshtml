@@ -1,0 +1,13 @@
+﻿@using symmons.com.Areas.Symmons.Models.Pages.HomePage
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<HomePage>
+
+@if ((Model.SymmonsForCommercialList != null && Model.SymmonsForCommercialList.Any()) || (Model.SymmonsForHomeList != null && Model.SymmonsForHomeList.Any()))
+{
+    <section class="quicklinks-section" role="contentinfo">
+        @Html.Partial(Constants.ViewPaths.SymmonsCommercial, Model)
+        @Html.Partial(Constants.ViewPaths.SymmonsForHome, Model)
+    </section>
+}
+@Html.Partial(Constants.ViewPaths.IconCallout, Model)
+

@@ -1,0 +1,89 @@
+﻿@using Glass.Mapper.Sc
+@using symmons.com.Areas.Symmons.Models.Modules.Products
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Symmons.Global
+@using Verndale.SharedSource.Helpers
+@using symmons.com.Areas.Symmons.Models.Global
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
+
+@{
+    ProductSection symmonsForHome = null;
+    SuperCategory superCategoryForkitchen = null;
+    if (Model != null)
+    {
+        symmonsForHome = Model.PrimaryNavigationList.FirstOrDefault(x => Guid.Parse(Constants.PageIds.PrimaryNavSymmonsForHome) == x.Id);
+    }
+    if (symmonsForHome != null)
+    {
+        var childItems = SitecoreHelper.ItemMethods.GetItemFromGUID(symmonsForHome.Id.ToString()).GetChildren().Select(x => (x.GlassCast<SuperCategory>())).Where(x => x.ShowOnNavigation);
+        superCategoryForkitchen = childItems.FirstOrDefault(x => Guid.Parse(Constants.PageIds.PrimaryNavKitchen) == x.Id);
+    }
+}
+
+@if ((superCategoryForkitchen != null) && (superCategoryForkitchen.ShowOnNavigation))
+{
+    <section class="primary-navigation__kitchensection">
+        @if (SymmonsHelper.IsValidImage(superCategoryForkitchen.NavigationImage) || (SymmonsHelper.IsValidImage(superCategoryForkitchen.NavigationIcon)) || (!string.IsNullOrEmpty(superCategoryForkitchen.NavigationTitle)))
+        {
+            <a href="@superCategoryForkitchen.Url">
+                @{ var backgroundImage = superCategoryForkitchen.NavigationImage != null ? superCategoryForkitchen.NavigationImage.Src : String.Empty; }
+                <div class="primary-navigation__image" style="background-image: url('@backgroundImage')">
+                    <div class="primary-navigation__titlecontent">
+                        <div class="primary-navigation__wrap">
+                            @if (SymmonsHelper.IsValidImage(superCategoryForkitchen.NavigationIcon))
+                            {
+                                @RenderImage(superCategoryForkitchen, x => x.NavigationIcon, new { @class = "primary-navigation__icon" }, true)
+                            }
+                            @if (!string.IsNullOrEmpty(superCategoryForkitchen.NavigationTitle))
+                            {
+                                <h3 class="primary-navigation__headline">@Editable(superCategoryForkitchen, x => x.NavigationTitle)</h3>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+
+        @if (Model.ProductKitchenBrowseLinkList != null)
+        {
+            <div class="primary-navigation__kitchensection--listing">
+                @{
+            var browsePage = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.ProductBrowse);
+            var browsePageUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(browsePage);
+                }
+                @foreach (var category in Model.ProductKitchenBrowseLinkList)
+                {
+                    if (!string.IsNullOrEmpty(category.CategoryName))
+                    {
+                        var catUrl = browsePageUrl + "?" + Constants.QueryString.CategoryId + "={" + category.Id.ToString().ToLower() + "}&" + Constants.QueryString.SegmentId + "=" + "{" + Constants.ItemIds.ResidentialSegment.ToLower() + "}";
+                        <a href="@catUrl" class="primary-navigation__listingitem">@category.CategoryName</a>
+                    }
+                }
+            </div>
+        }
+
+        @if ((Model.SuperCategoryKitchenBrowseLinkList != null))
+        {
+            <div class="primary-navigation__kitchensection--quicklinks">
+                @{
+            var browsePage = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.Kitchen);
+            var browsePageUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(browsePage);
+                }
+                @foreach (var superCategoryKitchenBrowseLink in Model.SuperCategoryKitchenBrowseLinkList)
+                {
+
+                    if (!string.IsNullOrEmpty(superCategoryKitchenBrowseLink.BrowseTitle))
+                    {
+                        var url = browsePageUrl;
+                        if (!string.IsNullOrEmpty(superCategoryKitchenBrowseLink.ProductBrowseCategoryValue))
+                        {
+                            url += "?tab=" + superCategoryKitchenBrowseLink.ProductBrowseCategoryValue;
+                        }
+                        <a href="@url" class="primary-navigation__linkitem">@superCategoryKitchenBrowseLink.BrowseTitle</a>
+                    }
+                }
+            </div>
+        }
+    </section>
+}

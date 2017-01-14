@@ -1,0 +1,63 @@
+﻿@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Global.SymmonsSiteSettings>
+
+<footer id="footer" role="contentinfo" class="footer">
+    <div class="footer__navigation-wrapper">
+        <div class="container">
+            @if (Model != null || Sitecore.Context.PageMode.IsPageEditor)
+            {
+                if (Model != null)
+                {
+                    foreach (var navigationSection in Model.FooterNavigationList)
+                    {
+                        var navigationItemlast = Model.FooterNavigationList.Last();
+                        var navigationItemFirst = Model.FooterNavigationList.First();
+
+                        if (navigationSection.NavigationLinks.Any())
+                        {
+                            <nav class="footer__navigation-list" role="Navigation">
+                                @if (!String.IsNullOrEmpty(navigationSection.SectionName))
+                                {
+                                    <h2 class="footer__navigation-title">
+                                            @Editable(navigationSection, x => x.SectionName)
+                                    </h2>
+                                }
+
+                                @if (navigationSection.Equals(@navigationItemFirst))
+                                {
+                                    @Html.Partial(Constants.ViewPaths.ContactInfoCallout)
+                                }
+
+                                @foreach (var navigationLink in navigationSection.NavigationLinks)
+                                {
+                                    if (SymmonsHelper.IsValidLink(navigationLink.NavigationLinkUrl) && !String.IsNullOrEmpty(navigationLink.NavigationLinkUrl.Text))
+                                    {
+                                        @RenderLink(navigationLink, x => x.NavigationLinkUrl, new { @class = "footer__navigation-link" }, isEditable: true)
+                                    }
+                                }
+                                @if (navigationSection.Equals(@navigationItemlast))
+                                {
+                                    @Html.Partial(Constants.ViewPaths.SocialMediaConnect, Model)
+                                }
+                            </nav>
+                        }
+                    }
+                }
+            }
+
+        </div>
+    </div>
+
+    @if (Model != null)
+    {
+        if (!String.IsNullOrEmpty(Model.CopyrightText))
+        {
+            <div class="copyright-wrapper">
+                <div class="container">
+                    <p class="copyright-text">@Editable(x => x.CopyrightText)</p>
+                </div>
+            </div>
+        }
+    }
+</footer>

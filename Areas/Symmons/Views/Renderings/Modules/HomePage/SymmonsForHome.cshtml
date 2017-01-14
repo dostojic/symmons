@@ -1,0 +1,46 @@
+﻿@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Models.Pages.HomePage
+@using symmons.com._Classes.Symmons.Global
+@using symmons.com._Classes.Symmons.Helpers
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<HomePage>
+
+@if (Model.SymmonsForHomeList != null && Model.SymmonsForHomeList.Any())
+{
+    <aside class="home-section" role="complementary">
+        @if (!string.IsNullOrEmpty(Model.SymmonsHomeTitle))
+        {
+            <h2 class="quicklinks-title">@Editable(Model, x => x.SymmonsHomeTitle, null)</h2>
+        }
+        <ul class="quicklinks-listing">
+            @foreach (var homeItem in Model.SymmonsForHomeList.Take(2))
+            {
+                if (SymmonsHelper.IsValidImage(homeItem.SectionIcon) || SymmonsHelper.IsValidImage(homeItem.SectionImage) || !string.IsNullOrEmpty(homeItem.PageTitle))
+                {
+                    <li class="quicklinks-listing__item">
+                        @{
+                    var sectionImage = homeItem.SectionImage != null ? homeItem.SectionImage.Src : string.Empty;
+                        }
+                        <a href="@homeItem.Url" class="quicklinks-listing__link" style="background-image: url('@sectionImage')">
+                            @if (SymmonsHelper.IsValidImage(homeItem.SectionIcon) || !string.IsNullOrEmpty(homeItem.PageTitle))
+                            {
+                                <div class="quicklinks-listing__titlecontent">
+                                    <div class="quicklinks-listing__wrap">
+                                        @if (SymmonsHelper.IsValidImage(homeItem.SectionIcon))
+                                        {
+                                            @RenderImage(homeItem, x => x.SectionIcon, new {@class = "quicklinks-listing__icon"}, true)
+                                        }
+                                        @if (!string.IsNullOrEmpty(homeItem.PageTitle))
+                                        {
+                                            <h3 class="quicklinks-listing__headline">@DataHelper.GetParsedString(homeItem.PageTitle, int.Parse(Translate.Text(Constants.Dictionary.MaxLength15)))</h3>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </aside>
+}

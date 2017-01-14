@@ -1,0 +1,42 @@
+﻿@model symmons.com.Areas.Symmons.Models.Modules.Global.BulkUpload
+<div>
+
+    <b>Step 1: Export the products to CSV.</b><br /><br />
+    <fieldset>
+        <legend>Export the product file</legend>
+        <p>
+            @Html.ActionLink("Export CSV", "Export", "Utility")
+        </p>
+    </fieldset>
+    <br />
+    <b>Step 2: Upload the edited CSV file to update the price.</b>
+    <br /><br />
+    <fieldset>
+        <legend>Please upload the product file</legend>
+        @if (HttpContext.Current.Session["SuccessMessage"] != null)
+        {
+            <h3 style="color: green">@HttpContext.Current.Session["SuccessMessage"].ToString()</h3>
+        }
+
+        @using (Html.BeginForm("Upload", "Utility", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.TextBoxFor(m => m.file, new { type = "file" })
+            <br />
+            if (HttpContext.Current.Session["ErrorMessage"] != null)
+            {
+                <h4 style="color: red">@HttpContext.Current.Session["ErrorMessage"].ToString()</h4>
+            }
+            <input type="submit" value="Upload" id="upload" />
+        }
+    </fieldset>
+    <br />
+
+    <fieldset>
+        <legend>Click to Logout</legend>
+        <p>
+            @Html.ActionLink("Logout", "Logout", "Utility")
+        </p>
+    </fieldset>
+    <br />
+</div>

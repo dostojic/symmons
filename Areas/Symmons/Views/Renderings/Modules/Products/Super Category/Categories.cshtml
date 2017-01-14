@@ -1,0 +1,40 @@
+﻿@using symmons.com.Areas.Symmons.Models.Modules.Products
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<IEnumerable<ProductCategory>>
+
+@if (Model != null && (Model.Any()))
+{
+    var browsePageUrl = SymmonsHelper.GetPageUrl(Constants.PageIds.ProductBrowse);
+
+    <ul class="browse-products__segment--listing">
+        @foreach (var category in Model)
+        {
+            if (category == null)
+            {
+                continue;
+            }
+
+            var catUrl = browsePageUrl + "?" + Constants.QueryString.CategoryId + "={" + category.Id.ToString().ToLower() + "}&" + Constants.QueryString.SegmentId + "=" + ViewBag.SegmentId;
+
+            if (!String.IsNullOrWhiteSpace(category.CategoryName)
+                || SymmonsHelper.IsValidImage(category.SmallCategoryImage))
+            {
+                <li class="browse-products__segment--item">
+                    <a href="@catUrl">
+                        <figure class="browse-products__segment--image">
+                            @if (SymmonsHelper.IsValidImage(category.SmallCategoryImage))
+                            {
+                                @RenderImage(category, x => x.SmallCategoryImage, isEditable: true)
+                            }
+                        </figure>
+                        @if (!String.IsNullOrWhiteSpace(category.CategoryName))
+                        {
+                            <h5 class="browse-products__segment--name">@Editable(category, x => x.CategoryName)</h5>
+                        }
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+}

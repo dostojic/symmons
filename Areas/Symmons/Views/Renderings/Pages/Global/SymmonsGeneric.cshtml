@@ -1,0 +1,8 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Global.SymmonsGeneric>
+
+@if (!String.IsNullOrEmpty(Model.MainContent))
+{
+    <div class="rtf">
+        @Editable(x => x.MainContent)
+    </div>
+}

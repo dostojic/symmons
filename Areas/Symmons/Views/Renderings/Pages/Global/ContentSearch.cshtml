@@ -1,0 +1,84 @@
+﻿@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Models.Modules.Global
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ContentSearchModel>
+
+@{
+    var keyword = Request[Constants.QueryString.Keyword];
+    var hybridUrl = string.Empty;
+
+    if (Model != null)
+    {
+        var hybridPageUrl = symmons.com._Classes.Symmons.Global.SymmonsHelper.GetPageUrl(Constants.PageIds.HybridSearchPage);
+        if (Model.ProductResultCount > 0)
+        {
+            hybridUrl = hybridPageUrl + "?" + Constants.QueryString.Keyword + "=" + keyword;
+            
+            if (Request[Constants.QueryString.IsFromCallout] == "true")
+            {
+                hybridUrl = hybridUrl + "&" + Constants.QueryString.IsFromCallout + "=true";
+            }
+        }
+    }
+}
+
+@if (Model != null)
+{
+    <div class="container">
+        <section class="search-results__headercontent" data-search-type="content">
+            @if (!string.IsNullOrWhiteSpace(Model.SearchResultsText))
+            {
+                <label for="txtSearchResults">@Editable(x => x.SearchResultsText)</label>
+            }
+            <div class="search-results__searchbox">
+                <i class="img-global-search"></i>
+                <input type="search" name="filterSearch" id="txtSearchResults"
+                       class="search-results__searchfield" value="@Model.SearchParam" autocomplete="off" />
+            </div>
+
+            <h3 class="search-results__heading">
+                <span class="spn-contentresults"></span><span class="spn-productresults"></span>
+            </h3>
+            <a href="@hybridUrl" class="button-primary search-results__backcta">
+                @Translate.Text(Constants.Dictionary.Back)
+            </a>
+
+        </section>
+    </div>
+
+    <div class="one-cols-wrapper">
+        <div class="container">
+            <div class="search-results">
+
+                <section class="search-results__content">
+                    <h3 class="search-results__header">
+                        @Translate.Text(Constants.Dictionary.ContentResults)
+                    </h3>
+                    @Html.Partial(Constants.ViewPaths.Pagination)
+                    <ul class="search-results__contentlisting" data-ajax-url="@Url.Action("GetContentSearchResult", "SymmonsSearch")"></ul>
+                    <div class="loading-wrapper">
+                        <img src="/_Images/contentManaged/icons/ajax-loader.gif" alt="loading" />
+                    </div>
+                    <script id="template-contentsearchListing" type="x-handlebars-template">
+                        {{#each SearchListingData}}
+                        <li class="search-results__item">
+                            {{#if ListingTitle.length}}
+                            <h4 class="search-results__title"><a href="{{ListingCTA}}">{{ListingTitle}}</a></h4> {{/if}}
+                            {{#if ListingTeaserDesc.length}}
+                            <p class="search-results__teaser">{{ListingTeaserDesc}}</p> {{/if}}
+                            {{#if ListingShowUrl.length}}<a href="{{ListingCTA}}" class="search-results__cta">{{ListingCTA}}</a> {{/if}}
+                        </li>
+                        {{/each}}
+                    </script>
+                    @Html.Partial(Constants.ViewPaths.Pagination)
+                </section>
+                <section class="search-results__noresults" style="display: block">
+                    <div class="rtf txtKeyword">@Html.Raw(Model.NoResultText) </div>
+                </section>
+                <script type="text/javascript" src="/_JS/plugins/symmons.contentsearch-listing.js"></script>
+            </div>
+        </div>
+    </div>
+
+
+}

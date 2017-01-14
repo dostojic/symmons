@@ -1,0 +1,18 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+<div class='section-content-wrapper product-certifications'>
+    @foreach (var specialattribute in Model.SpecialAttributes)
+    {
+        if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidImage(specialattribute.Icon))
+        {
+            @RenderImage(specialattribute, x => x.Icon, new { @class = "product-certifications-logo" }, true)
+        }
+    }
+    @if (!string.IsNullOrEmpty(Model.SpecialAttributesDescription))
+    {
+        <p><strong>@Translate.Text(Constants.Dictionary.ProductSpecialFeaturesNote)</strong>@Editable(x => x.SpecialAttributesDescription)</p>
+    }
+</div>
+

@@ -1,0 +1,78 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Symmons.Global
+@using Glass.Mapper.Sc
+@using symmons.com.Areas.Symmons.Models.Global
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using Verndale.SharedSource.Helpers
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
+
+@if (Model.PrimaryNavigationList.Any())
+{
+    <nav id="primaryNavigation" role="navigation" class="primary-navigation">
+        <div class="container">
+
+            <ul class="primary-navigation__listing">
+                @foreach (var primaryNavigationItem in Model.PrimaryNavigationList.Where(x => x.ShowOnNavigation))
+                {
+                    if (Constants.PageIds.CustomerSupport.ToLower() != primaryNavigationItem.Id.ToString("B"))
+                    {
+                        <li class="primary-navigation__item">
+                            <a href="#" class="primary-navigation__link">@Editable(primaryNavigationItem, x => x.NavigationTitle)</a>
+                            @{ var childItems = SitecoreHelper.ItemMethods.GetItemFromGUID(primaryNavigationItem.Id.ToString()).GetChildren().Select(x => (x.GlassCast<SuperCategory>())).Where(x => x.ShowOnNavigation); }
+                            @if (Guid.Parse(Constants.PageIds.PrimaryNavCommercial) == primaryNavigationItem.Id)
+                            {
+                                <div class="primary-navigation__subitem commercial-subitem">
+                                    @Html.Partial(Constants.ViewPaths.PrimaryNavCommercial, childItems)
+                                </div>
+                            }
+                            else if (Guid.Parse(Constants.PageIds.PrimaryNavSymmonsForHome) == primaryNavigationItem.Id)
+                            {
+                                <div class="primary-navigation__subitem home-subitem">
+                                    @Html.Partial(Constants.ViewPaths.PrimaryNavBath, Model)
+                                    @Html.Partial(Constants.ViewPaths.PrimaryNavKitchen, Model)
+                                </div>
+                            }
+                        </li>
+                    }
+                    else if(primaryNavigationItem.ShowOnNavigation)
+                    {
+                        <li class="primary-navigation__item customer-support-item">
+                            @if (!string.IsNullOrEmpty(primaryNavigationItem.NavigationTitle))
+                            {
+                                <a href="#" class="primary-navigation__link">@Editable(primaryNavigationItem, x => x.NavigationTitle)</a>
+                            }
+                            <div class="primary-navigation__subitem support-subitem">
+                                <section class="support-navigation__list">
+                                    @Html.Partial(Constants.ViewPaths.ContactInfoCallout, Model)
+
+                                    @foreach (var item in Model.CustomerSupportList)
+                                    {
+                                        if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
+                                        {
+                                            @RenderLink(item, x => x.NavigationLinkUrl, new {@class = "support-navigation__link"}, true)
+                                        }
+                                    }
+                                </section>
+
+                                @if ((Model.CommercialCustomersList != null) && (Model.CommercialCustomersList.Any()))
+                                {
+                                    <section class="support-navigation__commericial">
+                                        <h2 class="support-navigation__title">@Translate.Text(Constants.Dictionary.CommercialCustomers)</h2>
+                                        @foreach (var item in Model.CommercialCustomersList)
+                                        {
+                                            if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
+                                            {
+                                                @RenderLink(item, x => x.NavigationLinkUrl, new {@class = "support-navigation__link"}, true)
+                                            }
+                                        }
+                                    </section>
+                                }
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </nav>
+}

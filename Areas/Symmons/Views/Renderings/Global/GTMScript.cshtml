@@ -1,0 +1,9 @@
+﻿@using symmons.com.Areas.Symmons.Controllers.Global
+@using symmons.com.Areas.Symmons.Models.Global
+@using symmons.com._Classes.Shared.Global
+
+@{
+    var siteSettingItem = SymmonsController.SitecoreCurrentContext.GetItem<SymmonsSiteSettings>(Constants.PageIds.SiteSettings);
+}
+
+@Html.Raw(siteSettingItem.GTMScript)

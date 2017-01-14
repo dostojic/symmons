@@ -1,0 +1,33 @@
+﻿@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Models.Pages
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<EventsListing>
+
+<section role="contentinfo" class="generic-listing-wrapper">
+
+    <ul class="generic-listing" id="generic-listing" data-ajax-url="@Url.Action("GetEventsListingData", "Listing")"></ul>
+    <p class="no-records-found">@Translate.Text(Constants.Dictionary.NoRecordsFound)</p>
+    <div class="loading-wrapper"> <img src="/_Images/contentManaged/icons/ajax-loader.gif" alt="loading" /> </div>
+
+    @Html.Partial(Constants.ViewPaths.Pagination)
+
+    <script id="template-genericListing" type="x-handlebars-template">
+        {{#each GenericListingData}}
+        <li class="generic-listing__item">
+            {{#if ListingTitle.length}}<h4 class='generic-listing__title'><a href='{{ListingUrl}}'>{{ListingTitle}}</a></h4>{{/if}}
+            {{#if ListingDate.length}}<h5 class='generic-listing__date'>@Translate.Text(Constants.Dictionary.Posted) {{ListingDate}}</h5>{{/if}}
+
+            {{#if ListingThumbImageUrl.length}}
+            <a href='{{ListingUrl}}' class='generic-listing__image'>
+                <img src='{{ListingThumbImageUrl}}' alt='{{ListingImageAlt}}' />
+            </a>{{/if}}
+
+            <div class='generic-listing__content'>
+                {{#if ListingTeaserDesc.length}}<p class='generic-listing__teaser'>{{ListingTeaserDesc}}</p>{{/if}}
+                {{#if ListingCTA.length}}<a href='{{ListingCtaUrl}}' class='generic-listing__cta'>@Translate.Text(Constants.Dictionary.ReadMore)</a>{{/if}}
+            </div>
+        </li>
+        {{/each}}
+    </script>
+</section>
+

@@ -1,0 +1,22 @@
+﻿@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Global.SymmonsSiteSettings>
+
+@if (Model.ContactInfoList != null && Model.ContactInfoList.Any())
+{
+    <aside role="complementary" class="aside-contact-wrapper">
+        @foreach (var contactInfoCallout in Model.ContactInfoList)
+        {
+            if (SymmonsHelper.IsValidLink(contactInfoCallout.ContactLinkUrl))
+            {
+                using (BeginRenderLink(contactInfoCallout, x => x.ContactLinkUrl, new { @class = "footer__contact-link" }, isEditable: true))
+                {
+                    if (SymmonsHelper.IsValidImage(contactInfoCallout.Image))
+                    {
+                        @RenderImage(contactInfoCallout, x => x.Image, new { @class = "footer__contact-image" }, isEditable: true)
+                    }
+                    <span class="footer__contact-text">@contactInfoCallout.ContactLinkUrl.Text</span>
+                }
+            }
+        }
+    </aside>
+}

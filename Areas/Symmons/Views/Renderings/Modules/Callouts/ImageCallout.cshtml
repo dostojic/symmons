@@ -1,0 +1,29 @@
+﻿@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Modules.Callouts.ImageCallout>
+
+@if (@Model != null)
+{
+    if (SymmonsHelper.IsValidImage(Model.Image) || !String.IsNullOrEmpty(Model.Description) || (SymmonsHelper.IsValidLink(Model.CTA)))
+    {
+        <aside role="complementary" class="aside-wrapper">
+            <figure class="image-callout">
+                @if (SymmonsHelper.IsValidImage(Model.Image))
+                {
+                    @RenderImage(x => x.Image, new { @class = "image-callout__content" }, isEditable: true)
+                }
+                @if (!String.IsNullOrEmpty(Model.Description) || (SymmonsHelper.IsValidLink(Model.CTA)))
+                {
+                    <figcaption class="image-callout__caption">
+                        <div class="rtf">
+                            @Html.Raw(Editable(x => x.Description))
+                        </div>
+                        @if (SymmonsHelper.IsValidLink(Model.CTA))
+                        {
+                            @RenderLink(x => x.CTA, new { @class = "image-callout__cta" }, isEditable: true)
+                        }
+                    </figcaption>
+                }
+            </figure>
+        </aside>
+    }
+}

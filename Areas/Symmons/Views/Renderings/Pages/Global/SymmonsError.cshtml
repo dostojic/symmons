@@ -1,0 +1,12 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Global.SymmonsError>
+@{
+    Response.StatusCode = Model.ErrorCode;
+    Response.StatusDescription = Model.ErrorDescription;
+}
+
+@if (!String.IsNullOrEmpty(Model.MainContent))
+{
+    <div class="rtf">
+        @Editable(x => x.MainContent)
+    </div>
+}

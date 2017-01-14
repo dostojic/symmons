@@ -1,0 +1,52 @@
+﻿@using symmons.com.Areas.Symmons.Controllers.Global
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+@using Sitecore.Globalization
+@using symmons.com._Classes.Symmons.Global
+@using Sitecore.Data.Items
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<IEnumerable<ProductStyle>>
+
+@{
+    var currentItem = SymmonsController.SitecoreCurrentContext.GetCurrentItem<Item>();
+    var superCategory = currentItem.ID.ToString().Equals(Constants.PageIds.Kitchen) ? Constants.ConstantValues.Kitchen : Constants.ConstantValues.Bath;
+}
+
+@if (Model != null && Model.Any())
+{
+
+    <ul class="browse-products__segment--listing">
+        @foreach (var style in Model)
+        {
+            if (style == null)
+            {
+                continue;
+            }
+            var smallStyleImage = currentItem.ID.ToString().Equals(Constants.PageIds.Kitchen) ? style.KitchenSmallStyleImage : style.BathSmallStyleImage;
+            if (SymmonsHelper.IsValidImage(smallStyleImage)
+                || !String.IsNullOrWhiteSpace(style.PageTitle)
+                || !String.IsNullOrWhiteSpace(style.Teaser))
+            {
+                <li class="browse-products__segment--item">
+                    @if (!String.IsNullOrWhiteSpace(style.PageTitle))
+                    {
+                        <h4 class="browse-products__segment--heading">@style.PageTitle</h4>
+                    }
+                    @if (SymmonsHelper.IsValidImage(smallStyleImage))
+                    {
+                        <figure class="browse-products__segment--image" style="background-image: url('@smallStyleImage.Src')">
+                        </figure>
+                    }
+                    @if (!String.IsNullOrWhiteSpace(style.Teaser))
+                    {
+                        <p class="browse-products__segment--teaser">@style.Teaser</p>
+                    }
+                    <a href="@string.Format("{0}?superCategory={1}", style.Url, superCategory)" class="browse-products__segment--cta">
+                        @Translate.Text(Constants.Dictionary.MoreAboutThisStyle)
+                    </a>
+
+                </li>
+            }
+        }
+
+    </ul>
+}

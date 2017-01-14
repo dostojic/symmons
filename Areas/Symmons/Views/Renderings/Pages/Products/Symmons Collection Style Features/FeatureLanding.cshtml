@@ -1,0 +1,18 @@
+﻿@using Sitecore.Globalization
+@using Sitecore.Mvc
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+
+@{
+    var csfModel = Model as CollectionStyleFeature;
+}
+
+@Html.Partial(Constants.ViewPaths.CsfCallout, csfModel)
+<section class="collection-listing" role="contentinfo">
+    <div class="container">
+        <h2 class="collection-listing__heading">
+            @Translate.Text(Constants.Dictionary.InThisFeature)
+        </h2>
+        @Html.Sitecore().Placeholder("scCSFCallout")
+    </div>
+</section>

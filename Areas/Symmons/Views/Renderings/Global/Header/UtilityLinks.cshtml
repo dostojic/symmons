@@ -1,0 +1,63 @@
+﻿@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Models.Global
+@using symmons.com._Classes.Symmons.Global
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
+
+<nav class="header__util-links desktop" role="Navigation">
+    @if ((Model.UtilityNavigationList != null) && (Model.UtilityNavigationList.Any()))
+    {
+        foreach (var utilityLink in Model.UtilityNavigationList.Take(3))
+        {
+            if (SymmonsHelper.IsValidLink(utilityLink.NavigationLinkUrl) && !String.IsNullOrEmpty(utilityLink.NavigationLinkUrl.Text))
+            {
+                @RenderLink(utilityLink, x => x.NavigationLinkUrl, new { @class = "header__util-item" }, true)
+            }
+        }
+    }
+    <a class="header__util-item search-item"><span>@Translate.Text(Constants.Dictionary.Search)</span> <i class="img-icon img-search"></i></a>
+</nav>
+@using (Html.BeginForm("GetSearchResult", "SymmonsSearch", FormMethod.Post, new { name = "frmGlobalSearch", id = "frmGlobalSearch" }))
+{   
+
+    <div class="header__searchbox">
+        <label for="txtGlobalSearch" class="visually-hidden">@Translate.Text(Constants.Dictionary.Search)</label>
+        <i class="img-global-search"></i>
+        <input name="globalSearch" id="txtGlobalSearch" class="header__searchfield" type="search" autocomplete="off" >
+    </div>
+}
+
+
+@Html.Partial(Constants.ViewPaths.PrimaryNavMobile, Model)
+
+<script>
+    jQuery.noConflict();
+    jQuery(document).ready(function ($) {
+       jQuery(document).on("keypress", "#txtGlobalSearch", function (event) {
+
+           jQuery("#txtGlobalSearch").parent().removeClass("error");
+            if (event.keyCode == 13) {
+                if (jQuery.trim(jQuery("#txtGlobalSearch").val()) != "") {
+                    jQuery("#frmGlobalSearch").submit();
+                    return true;
+                } else {
+                    jQuery("#txtGlobalSearch").parent().addClass("error");
+                    return false;
+                }
+            }
+        });
+
+        jQuery(".header__searchbox .img-global-search").click(function () {
+            jQuery("#txtGlobalSearch").parent().removeClass("error");
+            if (jQuery.trim(jQuery("#txtGlobalSearch").val()) != "") {
+                jQuery("#frmGlobalSearch").submit();
+                return true;
+            } else {
+                jQuery("#txtGlobalSearch").parent().addClass("error");
+                return false;
+            }
+
+        });
+    });
+
+</script>

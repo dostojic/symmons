@@ -1,0 +1,91 @@
+﻿@using Glass.Mapper.Sc
+@using symmons.com.Areas.Symmons.Models.Global
+@using symmons.com.Areas.Symmons.Models.Modules.Products
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Symmons.Global
+@using Verndale.SharedSource.Helpers
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
+
+@{
+    ProductSection symmonsForHome = null;
+    SuperCategory superCategoryForBath = null;
+    if (Model != null)
+    {
+        symmonsForHome = Model.PrimaryNavigationList.FirstOrDefault(x => Guid.Parse(Constants.PageIds.PrimaryNavSymmonsForHome) == x.Id);
+    }
+    if (symmonsForHome != null)
+    {
+        var childItems = SitecoreHelper.ItemMethods.GetItemFromGUID(symmonsForHome.Id.ToString()).GetChildren().Select(x => (x.GlassCast<SuperCategory>())).Where(x => x.ShowOnNavigation);
+        superCategoryForBath = childItems.FirstOrDefault(x => Guid.Parse(Constants.PageIds.PrimaryNavBath) == x.Id);
+    }
+}
+
+@if ((superCategoryForBath != null) && (superCategoryForBath.ShowOnNavigation))
+{
+    <section class="primary-navigation__bathsection">
+        @if (SymmonsHelper.IsValidImage(superCategoryForBath.NavigationImage) || (SymmonsHelper.IsValidImage(superCategoryForBath.NavigationIcon)) || (!string.IsNullOrEmpty(superCategoryForBath.NavigationTitle)))
+        {
+            <a href="@superCategoryForBath.Url">
+                @{ var backgroundImage = superCategoryForBath.NavigationImage != null ? superCategoryForBath.NavigationImage.Src : String.Empty; }
+                <div class="primary-navigation__image" style="background-image: url('@backgroundImage')">
+                    <div class="primary-navigation__titlecontent">
+                        <div class="primary-navigation__wrap">
+                            @if (SymmonsHelper.IsValidImage(superCategoryForBath.NavigationIcon))
+                            {
+                                @RenderImage(superCategoryForBath, x => x.NavigationIcon, new { @class = "primary-navigation__icon" }, true)
+                            }
+                            @if (!string.IsNullOrEmpty(superCategoryForBath.NavigationTitle))
+                            {
+                                <h3 class="primary-navigation__headline">@Editable(superCategoryForBath, x => x.NavigationTitle)</h3>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+
+        @if (Model.ProductBathBrowseLinkList != null)
+        {
+            if (Model.ProductBathBrowseLinkList.Any())
+            {
+                <div class="primary-navigation__bathsection--listing">
+                    @{
+                var catBrowsePage = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.ProductBrowse);
+                var catbrowsePageUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(catBrowsePage);
+                    }
+                    @foreach (var category in Model.ProductBathBrowseLinkList)
+                    {
+                        if (!string.IsNullOrEmpty(category.CategoryName))
+                        {
+                            var catUrl = catbrowsePageUrl + "?" + Constants.QueryString.CategoryId + "={" + category.Id.ToString().ToLower() + "}&" + Constants.QueryString.SegmentId + "=" +"{"+ Constants.ItemIds.ResidentialSegment.ToLower() +"}";
+                            <a href="@catUrl" class="primary-navigation__listingitem">@category.CategoryName</a>
+                        }
+                    }
+                </div>
+            }
+        }
+
+        @if ((Model.SuperCategoryBathBrowseLinkList != null))
+        {
+            <div class="primary-navigation__bathsection--quicklinks">
+                @{
+            var browsePage = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.Bath);
+            var browsePageUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(browsePage);
+                }
+                @foreach (var superCategoryBathBrowseLink in Model.SuperCategoryBathBrowseLinkList)
+                {
+                    if (!string.IsNullOrEmpty(superCategoryBathBrowseLink.BrowseTitle))
+                    {
+                        var url = browsePageUrl;
+                        if (!string.IsNullOrEmpty(superCategoryBathBrowseLink.ProductBrowseCategoryValue))
+                        {
+                            url += "?tab=" + superCategoryBathBrowseLink.ProductBrowseCategoryValue;
+                        }
+                        <a href="@url" class="primary-navigation__linkitem">@superCategoryBathBrowseLink.BrowseTitle</a>
+                    }
+                }
+            </div>
+        }
+    </section>
+}

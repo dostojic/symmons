@@ -1,0 +1,35 @@
+﻿@using symmons.com.Areas.Symmons.Models.Pages.HomePage
+@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<HomePage>
+
+@if (Model.IconsList != null && Model.IconsList.Any())
+{
+    <section class="iconslisting-section" role="contentinfo">
+        <ul class="icon-listing">
+            @foreach (var iconCallout in Model.IconsList.Take(3))
+            {
+                if (SymmonsHelper.IsValidLink(iconCallout.CalloutLink))
+                {
+                    if (SymmonsHelper.IsValidImage(iconCallout.Icon) || !string.IsNullOrEmpty(iconCallout.CalloutHeadline))
+                    {
+                        <li class="icon-listing__item">
+                            @using (BeginRenderLink(iconCallout, x => x.CalloutLink, new {@class = "icon-listing__link"}, isEditable: true))
+                            {
+                                <div class="icon-listing__content">
+                                    @if (SymmonsHelper.IsValidImage(iconCallout.Icon))
+                                    {
+                                        @RenderImage(iconCallout, x => x.Icon, new {@class = "icon-listing__image"}, isEditable: true)
+                                    }
+                                    @if (!String.IsNullOrEmpty(iconCallout.CalloutHeadline))
+                                    {
+                                        <h5 class="icon-listing__title">@Editable(iconCallout, x => x.CalloutHeadline)</h5>
+                                    }
+                                </div>
+                            }
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    </section>
+}

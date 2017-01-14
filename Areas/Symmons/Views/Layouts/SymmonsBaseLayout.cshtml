@@ -1,0 +1,37 @@
+﻿@using Sitecore.Mvc
+@using symmons.com.Areas.Symmons.Controllers.Global
+@using symmons.com._Classes.Shared.Global
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @Html.Partial(Constants.ViewPaths.HeaderIncludesPartial)
+</head>
+
+@{
+    var bodyClass = "";
+    if (SymmonsController.ContextItem.ID.ToString() == Constants.PageIds.Home ||
+        SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.SuperCategoryLandingPage || 
+        SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.CollectionLandingPage ||
+        SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.StyleLandingPage ||
+        SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.FeatureLandingPage)
+    {
+        bodyClass = "header-static";
+    }
+}
+<body class="@bodyClass">
+    @Html.Partial(Constants.ViewPaths.GTMScript)
+    @Html.Sitecore().Placeholder("scTop")
+    <main role="main" class="main-content">
+        <div class="outer-wrapper">
+            <div class="main-wrapper">
+                @Html.Sitecore().Placeholder("scContentTop")
+                @Html.Sitecore().Placeholder("scCenter")
+            </div>
+        </div>
+    </main>
+    @Html.Sitecore().Placeholder("scBottom")
+</body>
+
+</html>

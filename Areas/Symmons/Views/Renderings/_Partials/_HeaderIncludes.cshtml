@@ -1,0 +1,43 @@
+﻿@using symmons.com._Classes.Shared.Global
+@using System.Web.Optimization
+
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<!-- set the initial scale for all devices -->
+<meta name="viewport" id="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0" />
+
+@Html.Partial(Constants.ViewPaths.Seo)
+
+<!-- CSS styles -->
+<!-- Gotham font -->
+<link rel="stylesheet" type="text/css" href="//cloud.typography.com/67596/695466/css/fonts.css" />
+
+@Styles.Render("~/_CSS/styles.css")
+
+<!--[if lte IE 8]>
+    @Styles.Render("~/_CSS/ie8.css")
+<![endif]-->
+<!-- JS files include -->
+<!-- Load jQuery from CDN -->
+<!-- For IE8 -->
+<!--[if IE 8]><!-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!--<![endif]-->
+<!-- For all Browsers except IE8 -->
+<!--[if !IE 8]><!-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- A fallback for jQuery on local, just in case -->
+<script>
+    window.jQuery || document.write('<script src="/_JS/plugins/external/jquery.min.js">\x3C/script>')
+</script>
+<!--<![endif]-->
+<!-- Enable support for HTML 5 Elements in IE 8 and less -->
+<!--[if lt IE 9]>
+    <script src="/_JS/library/html5shiv.min.js"></script>
+<![endif]-->
+<!-- Enable support for media queries in IE 8 -->
+<!--[if lt IE 9]>
+    <script src="/_JS/library/respond.min.js"></script>
+<![endif]-->

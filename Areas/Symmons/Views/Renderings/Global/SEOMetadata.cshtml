@@ -1,0 +1,92 @@
+﻿@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+@using symmons.com.Areas.Symmons.Models.Global
+@using symmons.com.Areas.Symmons.Controllers.Global
+@using symmons.com.Areas.Symmons.Models.Global.Base
+@using symmons.com._Classes.Symmons.Global
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+@{
+    var googleAnalyticSnipplet = string.Empty;
+    var seoTitle = string.Empty;
+    var pageModel = SymmonsController.SitecoreCurrentContext.GetCurrentItem<ISymmonsBasePage>();
+    if (pageModel.Url.Contains("/product/,-w-,") || pageModel.Url.Contains("/where-to-buy/,-w-,"))
+    {
+        if (SymmonsHelper.WildCardItem != null)
+        {
+            pageModel = SymmonsController.SitecoreCurrentContext.GetItem<ProductDetails>(SymmonsHelper.WildCardItem.ID.ToString());
+        }
+    }
+}
+
+@if (pageModel != null)
+{
+    @* Redirect Logic *@
+    if (pageModel.RedirectLink != null && !String.IsNullOrWhiteSpace(pageModel.RedirectLink.Url))
+    {
+        @*If redirect type is not selected, but redirect link is set, we do a temporary (302) redirect *@
+        if (pageModel.RedirectType.ToString().ToLower() == Constants.ItemIds.RedirectType301.ToLower())
+        {
+            Response.StatusCode = 301;
+            Response.AddHeader("Location", pageModel.RedirectLink.Url);
+        }
+        else
+        {
+            Response.StatusCode = 302;
+            Response.Redirect(pageModel.RedirectLink.Url, true);
+        }
+    }
+
+    if (!string.IsNullOrEmpty(pageModel.SeoGoogleAnalyticsSnippet))
+    {
+        googleAnalyticSnipplet = pageModel.SeoGoogleAnalyticsSnippet;
+    }
+    else
+    {
+        var siteSettingItem = SymmonsController.SitecoreCurrentContext.GetItem<SymmonsSiteSettings>(Constants.PageIds.SiteSettings);
+        if (siteSettingItem != null)
+        {
+            if (!string.IsNullOrEmpty(siteSettingItem.SeoGlobalGoogleAnalyticsSnippet))
+            {
+                googleAnalyticSnipplet = siteSettingItem.SeoGlobalGoogleAnalyticsSnippet;
+            }
+        }
+    }
+
+    if (!string.IsNullOrEmpty(pageModel.SeoTitle))
+    {
+        seoTitle = pageModel.SeoTitle;
+    }
+    else if (!string.IsNullOrEmpty(pageModel.NavigationTitle))
+    {
+        seoTitle = pageModel.NavigationTitle;
+    }
+
+    var seoUrl = string.Format("{0}{1}", Request.Url.GetLeftPart(UriPartial.Authority), pageModel.SeoCanonicalReference != null ? pageModel.SeoCanonicalReference.Url : pageModel.Url);
+
+    var robots = "";
+
+    if (pageModel.MetaRobotsNofollow && pageModel.MetaRobotsNoIndex)
+    {
+        robots = "NOINDEX, NOFOLLOW";
+    }
+    else if (pageModel.MetaRobotsNofollow && !pageModel.MetaRobotsNoIndex)
+    {
+        robots = "INDEX, NOFOLLOW";
+    }
+    else if (!pageModel.MetaRobotsNofollow && pageModel.MetaRobotsNoIndex)
+    {
+        robots = "NOINDEX, FOLLOW";
+    }
+    <title>@seoTitle</title>
+    <meta name="keywords" id="keywords" content="@pageModel.SeoKeywords" />
+    <meta name="description" id="description" content="@pageModel.SeoDescription" />
+    <link rel="canonical" href="@seoUrl" />
+    @Html.Raw(googleAnalyticSnipplet)
+    if (!string.IsNullOrWhiteSpace(robots))
+    {
+        <meta name="robots" content="@robots" />
+    }
+}
+

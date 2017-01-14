@@ -1,0 +1,20 @@
+﻿@using Glass.Mapper.Sc.Fields
+@using Sitecore.Mvc
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<List<Image>>
+
+<div class="section-content-wrapper product-gallery-listing-wrapper">
+    <div class="gallery-content">
+
+        <div class="gallery-content-wrapper">
+            <ul class="product-gallery" data-slider data-duration="0" data-start-random="false"></ul>
+        </div>
+	<div class="loading-wrapper product-loader">
+	    <img src="/_Images/contentManaged/icons/ajax-loader.gif" alt="loading" />
+	</div>
+    </div>
+
+    <div class="gallery-share">
+        @Html.Sitecore().Placeholder("scShareThis")
+    </div>
+</div>
+

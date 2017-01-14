@@ -1,0 +1,21 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+<div class="cols-right">
+    <div class="section-content-wrapper">
+        @if (!string.IsNullOrEmpty(Model.InteractiveTourTitle))
+        {
+            <h3 class="section-title">@Editable(x => x.InteractiveTourTitle)</h3>
+        }
+        @if (!string.IsNullOrEmpty(Model.InteractiveTourTeaser))
+        {
+            <p class="section-teaser">@Editable(x => x.InteractiveTourTeaser)</p>
+        }
+        @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidImage(Model.InteractiveTourImage) && symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidLink(Model.InteractiveTourLink))
+        {
+            <div class="product-tour" style="background-image: url('@Model.InteractiveTourImage.Src')">
+                @RenderLink(x => x.InteractiveTourLink, new { @class = "button-primary launch-btn" }, true)
+            </div>
+        }
+    </div>
+
+</div>

@@ -1,0 +1,85 @@
+﻿@using symmons.com.Areas.Symmons.Controllers.Global
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+@using Sitecore.Globalization
+@using symmons.com._Classes.Symmons.Global
+@using symmons.com._Classes.Symmons.Helpers
+@using Sitecore.Data.Items
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<IEnumerable<ProductSmartFeatures>>
+
+@{
+    var currentItem = SymmonsController.SitecoreCurrentContext.GetCurrentItem<Item>();
+    var superCategory = currentItem.ID.ToString().Equals(Constants.PageIds.Bath) ? Constants.ConstantValues.Bath : Constants.ConstantValues.Kitchen;
+}
+
+@if (Model != null && Model.Any())
+{
+    <ul class="browse-products__segment--listing">
+        @foreach (var smartFeature in Model)
+        {
+            if (smartFeature == null)
+            {
+                continue;
+            }
+
+            if (!String.IsNullOrWhiteSpace(smartFeature.PageTitle)
+                || SymmonsHelper.IsValidImage(smartFeature.SmallFeatureImage))
+            {
+                <li class="browse-products__segment--item">
+                    <a href="@smartFeature.Url">
+
+                        <figure class="browse-products__segment--image">
+                            @if (SymmonsHelper.IsValidImage(smartFeature.SmallFeatureImage))
+                            {
+                                @RenderImage(smartFeature, x => x.SmallFeatureImage, isEditable: true)
+                            }
+                        </figure>
+                        <div class="browse-products__segmentheader">
+                            @if (!String.IsNullOrWhiteSpace(smartFeature.PageTitle))
+                            {
+                                <h5 class="browse-products__segment--name">
+                                    @Editable(smartFeature, x => x.PageTitle)
+                                </h5>
+                            }
+                            <h6 class="browse-products__swipe">
+                                @Translate.Text(Constants.Dictionary.SwipeforPreview)
+                            </h6>
+                        </div>
+                    </a>
+                    <div class="hover-content">
+                        @if (!String.IsNullOrWhiteSpace(smartFeature.PageTitle))
+                        {
+                            <h5 class="hover-content__title">
+                                @if (Sitecore.Context.PageMode.IsPageEditor)
+                                {
+                                    @Editable(smartFeature, x => x.PageTitle)
+                                }
+                                else
+                                {
+                                    @DataHelper.GetParsedString(smartFeature.PageTitle, Convert.ToInt16(Constants.ConstantValues.PageTitleLimitHover))
+                                }
+                            </h5>
+                        }
+                        @if (!String.IsNullOrWhiteSpace(smartFeature.Teaser))
+                        {
+                            <p class="hover-content__teaser">
+                                @if (Sitecore.Context.PageMode.IsPageEditor)
+                                {
+                                    @Editable(smartFeature, x => x.Teaser)
+                                }
+                                else
+                                {
+                                    @DataHelper.GetParsedString(smartFeature.Teaser, Convert.ToInt16(Constants.ConstantValues.PageTeaserLimitHover))
+                                }
+                            </p>
+                        }
+                        <a href="@string.Format("{0}?superCategory={1}", smartFeature.Url, superCategory)" class="hover-content__cta">
+                            @Translate.Text(Constants.Dictionary.MoreAboutThisFeature)
+                        </a>
+                    </div>
+                </li>
+            }
+        }
+
+    </ul>
+}

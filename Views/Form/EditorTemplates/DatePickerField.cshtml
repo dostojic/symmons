@@ -1,0 +1,68 @@
+﻿@using Sitecore
+@using Sitecore.Form.Web.UI.Controls
+@using Sitecore.Forms.Mvc.Extensions
+@model Sitecore.Forms.Mvc.Models.Fields.DatePickerField
+
+@if (!Model.Visible)
+{
+    return;
+}
+
+
+<div class="@Model.CssClass field-border">
+
+    @if (Model.ShowLegend)
+    {
+        <label for="@Html.AttributeEncode(Model.Name)" class="@Model.CssClass field-title">@Html.Encode(Model.Title)</label>
+    }
+
+    <div class="@Model.CssClass field-panel">
+        <div class="@Model.CssClass field-content">
+            @Html.HiddenFor(x => Model.FieldId)
+
+            @{               
+                var currentDate = DateUtil.IsoDateToDateTime(Model.Value.ToString());                       
+            }
+
+            <div class="@Model.CssClass field-content">
+                @Html.TextBox("Value", currentDate.ToString(Model.DateFormat), new { @readonly = "", @class = "field-datepicker" })
+            </div>
+
+        </div>
+
+        @Html.ValidationMessageFor(field => Model.Value, null, new { @class = @Model.CssClass + " field-error" })
+
+        @if (!String.IsNullOrEmpty(Model.Information))
+        {
+            <span class="@Model.CssClass field-info">@Html.DisplayFor(x => Model.Information)</span>
+        }
+    </div>
+
+    @if (Model.IsRequired)
+    { 
+        <span class="@Model.CssClass field-required">*</span> 
+    }
+
+</div>
+
+<script type="text/javascript">
+
+    if (typeof ($scw) === "undefined") {
+        window.$scw = jQuery.noConflict(true);
+    }
+    $scw(document).ready(function () {
+        $scw(".field-datepicker").datepicker({
+            'defaultDate': new Date('@currentDate.Year', '@(currentDate.Month - 1)', '@currentDate.Day'),
+            'dateFormat': '@ClientDateFormatConverter.ConvertToClientFormat(Model.DateFormat)',
+            'minDate': new Date('@Model.StartDate.Year', '@(Model.StartDate.Month - 1)', '@Model.StartDate.Day'),
+            'maxDate': new Date('@Model.EndDate.Year', '@(Model.EndDate.Month - 1)', '@Model.EndDate.Day'),
+
+        });
+    });
+
+</script>
+
+
+
+
+

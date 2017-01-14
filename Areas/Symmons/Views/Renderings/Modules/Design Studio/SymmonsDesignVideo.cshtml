@@ -1,0 +1,17 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Modules.Callouts.SymmonsVideo>
+
+@if (!String.IsNullOrEmpty(Model.Title))
+{
+    <h3 class="browse-products__title">@Editable(Model, x => x.Title)</h3>
+    <p>
+        @Editable(Model, x => x.SubTitle)
+    </p>
+}
+@if (!String.IsNullOrEmpty(Model.VideoUrl))
+{
+    var videoUrl = @Model.VideoUrl;
+    videoUrl = videoUrl + "?wmode=transparent";
+    <div class="video-responsive">
+        <iframe width="400" height="300" src="@videoUrl" frameborder="0" allowfullscreen="" wmode="Opaque"></iframe>
+    </div>
+}

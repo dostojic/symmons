@@ -1,0 +1,98 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+<div class="cols-right">
+    <div class="section-content-wrapper">
+        <div class="product-smart-listing">
+            @{
+                int smartFeatureNo = 1;
+                string strTab;
+            }
+
+            @foreach (var smartAttr in Model.SmartAttributes)
+            {
+                if (SymmonsHelper.IsValidImage(smartAttr.Icon) && SymmonsHelper.IsValidImage(smartAttr.OffIcon))
+                {
+                    strTab = "tab" + smartFeatureNo;
+
+                    if (smartFeatureNo == 1)
+                    {
+                        <a class="active item" data-tab=@strTab>
+                            @RenderImage(smartAttr, x => x.Icon, new { @class = "on" }, true)
+                            @RenderImage(smartAttr, x => x.OffIcon, new { @class = "off" }, true)
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="item" data-tab=@strTab>
+                            @RenderImage(smartAttr, x => x.Icon, new { @class = "on" }, true)
+                            @RenderImage(smartAttr, x => x.OffIcon, new { @class = "off" }, true)
+                        </a>
+                    }
+
+                    if (smartFeatureNo == 4)
+                    {
+                        break;
+                    }
+                    smartFeatureNo = smartFeatureNo + 1;
+                }
+            }
+        </div>
+
+        <div class="tab-content-wrapper">
+
+            @{
+                smartFeatureNo = 1;
+            }
+
+            @foreach (var smartAttr in Model.SmartAttributes)
+            {
+                if (SymmonsHelper.IsValidImage(smartAttr.Icon))
+                {
+                    strTab = "tab" + smartFeatureNo;
+                    if (smartFeatureNo == 1)
+                    {
+                        <div data-tab=@strTab class="tab-content active">
+                            @if (!string.IsNullOrEmpty(smartAttr.PageTitle))
+                            {
+                                <h3 class="section-title">@Editable(smartAttr, x => x.PageTitle)</h3>
+                            }
+                            @if (!string.IsNullOrEmpty(smartAttr.Teaser))
+                            {
+                                <p>@Editable(smartAttr, x => x.Teaser)</p>
+                            }
+                            <a href="@smartAttr.Url" class="smart-listing__cta">
+                                @Translate.Text(Constants.Dictionary.MoreAboutThisFeature)
+                            </a>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div data-tab=@strTab class="tab-content">
+                            @if (!string.IsNullOrEmpty(smartAttr.PageTitle))
+                            {
+                                <h3 class="section-title">@Editable(smartAttr, x => x.PageTitle)</h3>
+                            }
+                            @if (!string.IsNullOrEmpty(smartAttr.Teaser))
+                            {
+                                <p>@Editable(smartAttr, x => x.Teaser)</p>
+                            }
+                            <a href="@smartAttr.Url" class="smart-listing__cta">
+                                @Translate.Text(Constants.Dictionary.MoreAboutThisFeature)
+                            </a>
+                        </div>
+                    }
+
+                    if (smartFeatureNo == 4)
+                    {
+                        break;
+                    }
+                    smartFeatureNo = smartFeatureNo + 1;
+                }
+            }
+        </div>
+    </div>
+</div>

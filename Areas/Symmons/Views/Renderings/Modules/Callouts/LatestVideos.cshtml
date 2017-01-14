@@ -1,0 +1,71 @@
+﻿@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Modules.Callouts.GalleryModule>
+
+@if (Model != null)
+{
+    <div class="one-cols-wrapper">
+        <div class="container">
+
+            <section class="gallery-content-wrapper" data-module=@(Model.MaxVideos ? "gallery-module" : string.Empty)>
+                <div class="aside-title-wrapper">
+                    @if (Model.LatestVideoHeadline != null)
+                    {
+                        <h3 class="aside-title-wrapper__title">@Editable(x => x.LatestVideoHeadline)</h3>
+                    }
+                    @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidLink(Model.ShowMoreLink) && !Model.MaxVideos)
+                    {
+                        @RenderLink(x => x.ShowMoreLink, new { @class = "aside-title-wrapper__cta" }, true)
+                    }
+                </div>
+                <div class="featured-video">
+                    <h4 class="featured-video__title"></h4>
+                    <div class="featured-video__two-cols">
+                        <div class="cols">
+                            <aside role="complementary" class="featured-video__content pinned">
+                                @if (Model.GalleryList == null || !Model.GalleryList.Any())
+                                {
+                                    <p class="no-records-found">@Model.NoVideos</p>
+                                }
+                            </aside>
+                        </div>
+                        @if (Model.GalleryList != null && Model.GalleryList.Any())
+                        {
+                            <div class="cols">
+                                <section role="contentinfo">
+                                    <div class="gallery-thumbnail">
+                                        <ul class="gallery-thumbnail__listing" id="gallery-thumbnail__listing" data-listing-type="@Model.GalleryClass" data-ajax-url="@Url.Action("GetGalleryData", "Callout")"></ul>
+                                        <div class="loading-wrapper">
+                                            <img src="/_Images/contentManaged/icons/ajax-loader.gif" alt="loading" />
+                                        </div>
+                                    </div>
+                                    <script id="template-Thumbnaillisting" type="x-handlebars-template">
+                                        {{#each MasterListingData}}
+
+                                        <li data-content-type='{{ListingType}}' class='gallery-thumbnail__item'>
+                                            <a href='javascript:void(0)' class='gallery-thumbnail__teaser'>
+                                                <img class='gallery-thumbnail__image' src='{{ListingThumbImageUrl}}' data-video-url='{{ListingVideoUrl}}' data-image-url='{{ListingImageUrl}}' alt='{{ListingImageAlt}}' />
+                                                <div class='gallery-thumbnail__overlay-icon'></div>
+                                            </a>
+
+                                            <iframe border='0' allowfullscreen='' src='//www.youtube.com/embed/{{ListingVideoUrl}}?rel=0&amp;autohide=1&amp;showinfo=0&amp;playsinline=0&amp;wmode=transparent' class='gallery-thumbnail__iframe' wmode="Opaque"></iframe>
+                                            <div class='gallery-thumbnail__content'>
+                                                {{#if ListingTitle.length}}<h4 class='gallery-thumbnail__content-title'><a href='{{ListingUrl}}'>{{ListingTitle}}</a></h4>{{/if}}
+                                                {{#if ListingTeaserDesc.length}}<p class='gallery-thumbnail__content-teaser'>{{ListingTeaserDesc}}</p>{{/if}}
+                                            </div>
+                                        </li>
+
+                                        {{/each}}
+                                    </script>
+                                </section>
+                                @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidLink(Model.ShowMoreLink) && !Model.MaxVideos)
+                                {
+                                    @RenderLink(x => x.ShowMoreLink, new { @class = "button-primary show-for-small" }, true)
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+}
+<script type="text/javascript" src="/_JS/plugins/external/jquery.pin.js"></script>

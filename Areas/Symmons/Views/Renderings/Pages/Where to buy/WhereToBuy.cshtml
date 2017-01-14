@@ -1,0 +1,23 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.WheretoBuy>
+
+<div class="where-buy__tabscontent">
+    <div class="where-buy__tabs">
+        <a class="where-buy__item" data-tab="shop-store" id='storeTab1'>@Translate.Text(Constants.Dictionary.ShopInStore)</a>
+        <a class="where-buy__item" data-tab="shop-online" id='storeTab2'>@Translate.Text(Constants.Dictionary.ShopOnline)</a>
+        <a class="where-buy__item" data-tab="sales-rep" id='storeTab3'>@Translate.Text(Constants.Dictionary.FindASalesRep)</a>
+    </div>
+
+    <div class="content where-buy__segment active" data-content="shop-store">
+        @Html.Partial(Constants.ViewPaths.ShopInStore, Model)
+    </div>
+
+    <div class="content where-buy__segment" data-content="shop-online">
+        @Html.Partial(Constants.ViewPaths.ShopOnline, Model)
+    </div>
+
+    <div class="content where-buy__segment sales-reps" data-content="sales-rep">
+        @Html.Partial(Constants.ViewPaths.WTBSalesRep)
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+<div class="cols-left">
+    <div class="section-content-wrapper">
+        @if (!string.IsNullOrEmpty(Model.DimensionsTitle))
+        {
+            <h3 class="section-title">@Editable(x => x.DimensionsTitle)</h3>
+        }
+        @if (!string.IsNullOrEmpty(Model.Height) || !string.IsNullOrEmpty(Model.Width) || !string.IsNullOrEmpty(Model.Length))
+        {
+            <section class="dimension-details" role="contentinfo">
+                @if (!string.IsNullOrEmpty(Model.Height))
+                {
+                    <div>Height: @Editable(x => x.Height)</div>
+                }
+                @if (!string.IsNullOrEmpty(Model.Length))
+                {
+                    <div>Length: @Editable(x => x.Length)</div>
+                }
+                @if (!string.IsNullOrEmpty(Model.Width))
+                {
+                    <div>Width: @Editable(x => x.Width)</div>
+                }
+            </section>
+        }
+        <a href="#;" class="show-link show-diagram">@Translate.Text(Constants.Dictionary.ShowDiagram)</a>
+        @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidImage(Model.DimensionImage))
+        {
+            <figure class="dimension-content">
+                @RenderImage(x => x.DimensionImage, isEditable: true)
+            </figure>
+        }
+    </div>
+</div>

@@ -1,0 +1,85 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Helpers
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.CollectionStyleFeature>
+
+@if (!string.IsNullOrEmpty(Model.PageTitle))
+{
+    <section class="pagetitle-banner">
+        <div class="container">
+            <h2 class="pagetitle-banner__heading">
+                @Editable(x => x.PageTitle)
+            </h2>
+        </div>
+    </section>
+}
+@if (!string.IsNullOrEmpty(Model.CsfPriceRange) || Model.CsfFinishes.Any() || !string.IsNullOrEmpty(Model.Teaser))
+{
+    <section class="additional-information csf-additional">
+        <div class="container">
+            @if (!string.IsNullOrEmpty(Model.Teaser))
+            {
+                <aside class="left-cols">
+                    <p class="csf-additional__teaser">
+                        @Editable(x => x.Teaser)
+                    </p>
+                </aside>
+            }
+            @if (!string.IsNullOrEmpty(Model.CsfPriceRange) || Model.CsfFinishes.Any())
+            {
+                <aside class="right-cols">
+                    <ul class="csf-additional__listing">
+                        @if (LocationsHelper.IsCaSite())
+                        {
+                            if (!string.IsNullOrEmpty(Model.CsfCanPriceRange))
+                            {
+                                <li class="csf-additional__item">
+                                    <div class="csf-additional__pricelabel"> @Translate.Text(Constants.Dictionary.PriceRangeLabel)</div>
+                                    <div class="csf-additional__price">@Editable(x => x.CsfCanPriceRange)</div>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(Model.CsfPriceRange))
+                            {
+                                <li class="csf-additional__item">
+                                    <div class="csf-additional__pricelabel"> @Translate.Text(Constants.Dictionary.PriceRangeLabel)</div>
+                                    <div class="csf-additional__price">@Editable(x => x.CsfPriceRange)</div>
+                                </li>
+                            }
+                        }
+
+                        @if (Model.CsfFinishes.Any())
+                        {
+                            <li class="csf-additional__item">
+                                <div class="csf-additional__finishes">@Translate.Text(Constants.Dictionary.FinishesLabel)</div>
+                                <div class="csf-additional__finishesitems">
+                                    <ul class="csf-additional__list">
+                                        @foreach (var finish in Model.CsfFinishes)
+                                        {
+                                            <li>
+                                                @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidImage(finish.FinishIcon))
+                                                {
+
+                                                    @RenderImage(finish, x => x.FinishIcon, new { @class = "img-finish" }, true)
+                                                }
+                                                @if (!string.IsNullOrEmpty(finish.FinishName))
+                                                {
+                                                    <span>
+                                                        @Editable(finish, x => x.FinishName)
+                                                    </span>
+                                                }
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </aside>
+            }
+
+        </div>
+    </section>
+}

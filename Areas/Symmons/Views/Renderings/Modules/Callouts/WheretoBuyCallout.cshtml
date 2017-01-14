@@ -1,0 +1,65 @@
+﻿@using symmons.com._Classes.Shared.Global
+@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Models.Modules.Callouts
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ProductGenericCallout>
+
+@if (Model != null)
+{
+    <aside role="complementary" class="aside-wrapper">
+        <section class="service-callout" data-background="grey">
+            @if (!String.IsNullOrEmpty(Model.Title))
+            {
+                <h3 class="service-callout__title" for="txtWhereBuy">@Editable(Model, x => x.Title)</h3>
+            }
+            @if (!String.IsNullOrEmpty(Model.Teaser))
+            {
+                <p class="service-callout__teaser">
+                    @Editable(Model, x => x.Teaser)
+                </p>
+            }
+
+            @using (Html.BeginForm("WheretoBuyPage", "Callout", new { modelId = Model.Id.ToString() }, FormMethod.Post, new { name = "frmWheretoBuySearch", id = "frmWheretoBuySearch" }))
+            {
+                <div class="service-callout__searchbox">
+                    <input type="search" name="keyword" autocomplete="off" id="txtWhereBuy"
+                           class="service-callout__searchfield" placeholder="@Model.SearchDefaultText" />
+                    <a href="#" class="button-primary service-callout__cta"
+                       id="btnWheretoBuySearch">@Translate.Text(Constants.Dictionary.Go)</a>
+                </div>
+
+            }
+        </section>
+
+        <script>
+            jQuery.noConflict();
+            jQuery(document).ready(function ($) {
+                jQuery(document).on("keypress", "#txtWhereBuy", function (event) {
+
+                    jQuery("#txtWhereBuy").parent().removeClass("error");
+                    if (event.keyCode == 13) {
+                        if (jQuery.trim(jQuery("#txtWhereBuy").val()) != "") {
+                            jQuery("#frmWheretoBuySearch").submit();
+                            return true;
+                        } else {
+                            jQuery("#txtWhereBuy").parent().addClass("error");
+                            return false;
+                        }
+                    }
+                });
+
+                jQuery("#btnWheretoBuySearch").click(function () {
+                    jQuery("#txtWhereBuy").parent().removeClass("error");
+                    if (jQuery.trim(jQuery("#txtWhereBuy").val()) != "") {
+                        jQuery("#frmWheretoBuySearch").submit();
+                        return true;
+                    } else {
+                        jQuery("#txtWhereBuy").parent().addClass("error");
+                        return false;
+                    }
+
+                });
+            });
+        </script>
+    </aside>
+
+}

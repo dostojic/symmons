@@ -1,0 +1,67 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+
+<form id="formcontactus" class="frm__contactus" enctype="multipart/form-data" method="post" action="@Url.Action("SendContactUsMail", "ContactUs")">
+
+    <label class="field-wrapper sku-panel">
+        <span class="label-required">@Translate.Text(Constants.Dictionary.ProductSkuLabel)</span>
+        <div class="product-skuval"></div>
+        <input type="hidden" class="field" name="txtProductSKU" id="txtProductSKU">
+    </label>
+    <label class="field-wrapper design-studio-panel">
+        <span class="label-required">@Translate.Text(Constants.Dictionary.ContactUsDesignStudioText)</span>
+        <div class="design-studio-val"></div>
+        <input type="hidden" class="field" name="txtDesignStudioVal" id="txtDesignStudioVal">
+    </label>
+    <label class="field-wrapper">
+        <span class="label-required">@Translate.Text(Constants.Dictionary.FirstNameLabel)</span>
+        <input type="text" class="field" name="txtFirstName" data-msg-required="First name is required" required>
+    </label>
+    <label class="field-wrapper">
+        <span class="label-required">@Translate.Text(Constants.Dictionary.LastNameLabel)</span>
+        <input type="text" class="field" name="txtLastName" data-msg-required="Last name is required" required>
+    </label>
+    <label class="field-wrapper">
+        <span class="label-required">@Translate.Text(Constants.Dictionary.EmailLabel)</span>
+        <input type="email" class="field" name="txtEmail" data-msg-email="Email is invalid" data-msg-required="Email is required" required>
+    </label>
+    <label class="field-wrapper phone">
+        <span class="label-optional">@Translate.Text(Constants.Dictionary.PhoneNoLabel)</span>
+        <input type="tel" class="field numeric" name="txtPhoneNumber">
+    </label>
+
+    <label class="field-wrapper">
+        <span class="label-required">@Translate.Text(Constants.Dictionary.ContactUsMessageLabel)</span>
+        <textarea type="text" class="field" name="txtMessage" data-msg-required="Message is required" required></textarea>
+    </label>
+
+
+
+    <section class="file-upload__wrapper">
+        <p class="">@Translate.Text(Constants.Dictionary.ContactUsHelpTextLabel)</p>
+
+        <p>@Translate.Text(Constants.Dictionary.AttachPhotoLabel)</p>
+
+        <div class="drop-area">
+            <div class="drop-area-row">
+                <div class="drop-area-row__fieldwrap">
+                    <input type="text" class="field" name="txtPhotoFile_1" readonly />
+                    <i class="drop-area-row__close" title="Reset"></i>
+                </div>
+                <a class="field-browse">@Translate.Text(Constants.Dictionary.BrowseLabel)</a>
+                <input type="file" class="file-upload" id="txtPhotoFileUpload_1" name="files" />
+            </div>
+            <a class="field-addanother">@Translate.Text(Constants.Dictionary.AddAnotherFileLabel)</a>
+        </div>
+    </section>
+
+    <input type="hidden" id="txtHoneybotCheck" name="txtHoneybotCheck" value="" />
+
+    <button type="submit" class="primary-button btn-send" id="btnContactus">@Translate.Text(Constants.Dictionary.SendMessage)</button>
+    <div id="lblError" class="error-message">@Translate.Text(Constants.Dictionary.ContactUsError)</div>
+    <div class="contact-loading-wrapper"><img src="/_Images/contentManaged/icons/ajax-loader.gif" alt="loading" /> </div>
+
+</form>
+
+<script type="text/javascript" src="/_JS/plugins/external/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/_JS/plugins/symmons.contactus.js"></script>

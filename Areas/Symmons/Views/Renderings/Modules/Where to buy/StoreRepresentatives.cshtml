@@ -1,0 +1,60 @@
+﻿@using Sitecore.Data.Items
+@using symmons.com._Classes.Shared.Global
+@using Sitecore.Globalization
+@using symmons.com._Classes.Symmons.Helpers
+@using Verndale.SharedSource.Helpers
+
+<p>@Translate.Text(Constants.Dictionary.SalesRepsIn)</p>
+
+@{
+    var states = new List<SelectListItem>();
+    List<Item> stateItems;
+    if (LocationsHelper.IsCaSite())
+    {
+        stateItems = SearchHelper.GetItems(Constants.SearchIndex.Stores, Sitecore.Context.Language.ToString(),
+                Constants.TemplateIds.State, Constants.PageIds.CanadaStoresRepository, string.Empty, null);
+    }
+    else
+    {
+        var canadaStoreLocation = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.CanadaStoresRepository);
+        stateItems = SearchHelper.GetItems(Constants.SearchIndex.Stores, Sitecore.Context.Language.ToString(),
+                Constants.TemplateIds.State, Constants.FolderIds.StoresRepository, string.Empty, null).Where(x => !x.Axes.IsDescendantOf(canadaStoreLocation)).ToList();
+    }
+    
+
+    if (stateItems != null)
+    {
+        states = stateItems.Where(x => !Constants.ConstantValues.WTBExcludedStates.Contains(x[Constants.ConstantValues.Abbreviation])).Select(child => new SelectListItem { Text = child[Constants.ConstantValues.StateName], Value = child.ID.ToString() }).OrderBy(x => x.Text).ToList();
+    }
+    states.Insert(0, new SelectListItem()
+    {
+        Text = "not selected",
+        Value = "0",
+        Selected = true
+    });
+}
+
+@Html.DropDownList("States", states, new { @class = "custom sales-reps__state" })
+
+<div class="loading-wrapper" id="loader-3"> <img src="/_Images/contentManaged/icons/ajax-loader.gif" alt="loading" /> </div>
+
+<ul class="sales-reps__listing" id="salesrep-listing" data-ajax-url="@Url.Action("GetSalesRepresentatives", "WhereToBuy")"></ul>
+
+<script id="template-salesRepListing" type="x-handlebars-template">
+    {{#each SalesRepListingData}}
+
+    <li class='sales-reps__item'>
+        <h3 class='sales-reps__name'>{{#if ListingFirstName.length}}{{ListingFirstName}} {{/if}}{{#if ListingLastName.length}}<span class='sales-reps__fname'>{{ListingLastName}}</span>{{/if}}</h3>
+        <div class='sales-reps__info'>
+            {{#if ListingAddress.length}}<address class='sales-reps__address'>{{{ListingAddress}}}</address>{{/if}} {{#if ListingPhone.length}}
+            <h4 class='sales-reps__phone'>{{ListingPhone}}</h4>{{/if}} {{#if ListingEmail.length}}<a href='mailto:{{ListingEmail}}' target='_blank' class='sales-reps__email'>{{ListingEmail}}</a>{{/if}}
+        </div>
+    </li>
+    {{/each}}
+</script>
+<div id="pagination-3">
+    @Html.Partial(Constants.ViewPaths.Pagination)
+</div>
+<p class="no-records-found"> @Translate.Text(Constants.Dictionary.NoSalesRepFound)</p>
+
+<script type="text/javascript" src="/_JS/plugins/symmons.salesreps-listing.js"></script>

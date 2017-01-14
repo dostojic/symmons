@@ -1,0 +1,39 @@
+﻿@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+<section role="contentinfo" class="product-section">
+    <div class="one-cols-wrapper">
+        <div class="container">
+            <div class="section-content-wrapper">
+                @if (!String.IsNullOrEmpty(Model.RelatedCollectionTitle))
+                {
+                    <h3 class="section-title">@Editable(x => x.RelatedCollectionTitle)</h3>
+                }
+                <ul class='product-listing' data-slider data-duration="0" data-start-random="false">
+                    @foreach (var product in Model.CollectionProductLinks)
+                    {
+                        if (product != null)
+                        {
+                            <li class="product-listing-item">
+                                <a href="@SymmonsHelper.GetProductUrl(product, Request.Url)">
+                                    <figure class="product-image">
+                                        @if (SymmonsHelper.IsValidImage(product.ListingImage))
+                                        {
+                                            @RenderImage(product, x => x.ListingImage)
+                                        }
+                                    </figure>
+                                    @if (!string.IsNullOrEmpty(product.ProductName))
+                                    {
+                                        <h4 class="product-caption">
+                                            @Editable(product, x => x.ProductName)
+                                        </h4>
+                                    }
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

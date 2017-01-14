@@ -1,0 +1,20 @@
+﻿
+<div id="ISSUU-Callout-Container">
+    <div id="ISSUU-title-Container">
+        <h4>@Model.Title</h4>
+    </div>
+
+    <div id="ISSUU-script-container" class="video-container">
+        @Html.Raw(Model.embedScript)
+    </div>
+
+    <div id="ISSUU-caption" style="margin-top: -19px; margin-bottom: 40px;">
+        <figcaption class="image-callout__caption">
+            <div class="rtf">
+                @Html.Raw(Model.Content)
+            </div>
+        </figcaption>
+    </div>
+</div>  
+
+

@@ -1,0 +1,18 @@
+﻿@using symmons.com.Areas.Symmons.Models.Pages
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Global.Base.ISymmonsBasePage>
+
+@if (!String.IsNullOrEmpty(Model.MainContent) || Sitecore.Context.PageMode.IsPageEditor)
+{
+   <div class="rtf">
+       @Html.Raw(Editable(x => x.MainContent))
+    </div>
+}
+@if (Model is NewsListing)
+{
+    @Html.Partial(Constants.ViewPaths.NewsListing, Model as NewsListing)
+}
+else if (Model is EventsListing)
+{
+    @Html.Partial(Constants.ViewPaths.EventsListing, Model as EventsListing)
+}

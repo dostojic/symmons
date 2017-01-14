@@ -1,0 +1,21 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ProductDetails>
+
+<section role="contentinfo" class="product-section">
+    <div class="one-cols-wrapper">
+        <div class="container">
+            <div class="section-content-wrapper product-collection">
+                @if (!string.IsNullOrEmpty(Model.ProductCollection.PageTitle))
+                {
+                    <h3 class="section-title">@Editable(x => x.ProductCollection.PageTitle)</h3>
+                }
+                @if (!string.IsNullOrEmpty(Model.ProductCollection.Teaser))
+                {
+                    <p>@Editable(x => x.ProductCollection.Teaser)</p>
+                }
+                <a href="@Model.ProductCollection.Url" class="cta-link bold">@Translate.Text(Constants.Dictionary.ProductAboutThisCollection)</a>
+            </div>
+        </div>
+    </div>
+</section>

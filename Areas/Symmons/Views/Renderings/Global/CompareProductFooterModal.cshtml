@@ -1,0 +1,20 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+<section class="product-comparelist closed">
+  <div class="loading">
+    <span class="loading-text">Loading...</span>
+  </div>
+    <div class="container">
+        <div class="product-comparelist__header">
+            <h3 class="product-comparelist__title">@Translate.Text(Constants.Dictionary.CompareProducts)</h3>
+            <a href="@SymmonsHelper.GetPageUrl(Constants.PageIds.ProductCompare)" class="button-primary product-comparelist__cta">@Translate.Text(Constants.Dictionary.Compare)</a>
+        </div>
+        <ul class='product-comparelist__listing' id="compare-product-listing" data-ajax-url="@Url.Action("GetCompareProductJsonResult", "SymmonsProduct")"></ul>
+        <input type="hidden" value="@Translate.Text(Constants.Dictionary.ChooseAnotherProductDesc)" class="no-product__title" />
+        <input type="hidden" value="@Translate.Text(Constants.Dictionary.ChooseAnotherProduct)" class="no-product__cta" />
+        <input type="hidden" value="@SymmonsHelper.GetPageUrl(Constants.PageIds.ProductBrowse)" class="no-product__url" />
+        <input type="hidden" value="@Translate.Text(Constants.Dictionary.StartComparing)" class="hdnDefaultTitle" />
+        <input type="hidden" value="@Translate.Text(Constants.Dictionary.BrowseProducts)" class="hdnBrowseProductsLabel" />
+    </div>
+</section>

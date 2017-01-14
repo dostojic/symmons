@@ -1,0 +1,45 @@
+﻿@using Glass.Mapper.Sc
+@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Models.Modules.Global.FAQ
+@using Verndale.SharedSource.Helpers
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@using symmons.com.Areas.Symmons.Models.Modules.Callouts
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<FaqCallout>
+
+@if (@Model != null && (!string.IsNullOrEmpty(@Model.FaqHeadline) || @Model.Faqs != null))
+{
+    <section class="faq-section" role="contentinfo">
+        @if (!string.IsNullOrEmpty(Model.FaqHeadline))
+        {
+            <h3 class="faq-section__title">@Editable(Model, x => x.FaqHeadline)</h3>
+        }
+        @if (Model.Faqs != null && Model.Faqs.Any())
+        {
+            <ul class="faq-listing">
+                @foreach (var faqCategory in Model.Faqs.Where(x => !String.IsNullOrEmpty(x.CategoryName)))
+                {
+                    var faqs = SitecoreHelper.ItemMethods.GetItemFromGUID(faqCategory.Id.ToString()).GetChildren().Select(x => (x.GlassCast<FAQ>())).ToList();
+                    if (faqs.Any())
+                    {
+                        <li class="faq-listing__item">
+                            <h4 class="faq-listing__group">
+                                @Editable(faqCategory, x => x.CategoryName)
+                            </h4>
+                            <div class="faq-listing__wrap">
+                                @foreach (var faq in faqs.Where(x => !string.IsNullOrEmpty(x.Question) && !string.IsNullOrEmpty(x.Answer)))
+                                {
+                                    <h5 class="faq-listing__question">@Editable(faq, x => x.Question)</h5>
+                                    <p class="faq-listing__answer">@Editable(faq, x => x.Answer)</p>
+                                }
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        }
+        else
+        {
+            <p>@Translate.Text(Constants.Dictionary.FaqsGenericMessage)</p>
+        }
+    </section>
+}

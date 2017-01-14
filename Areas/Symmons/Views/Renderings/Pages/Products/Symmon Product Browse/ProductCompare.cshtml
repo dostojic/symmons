@@ -1,0 +1,29 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+<h1 class="product-title"></h1>
+<a href="#;" class="button-primary compare-back">@Translate.Text(Constants.Dictionary.Back)</a>
+<section class="product-comparelist product-listingcontent">
+
+
+    <table class="product-comparelist__table" id="compare-product-tablelisting" data-ajax-url="@Url.Action("GetCompareProductJsonResult", "SymmonsProduct")">
+        <tbody id='masterTBody'>
+            <tr id='tableHeader'>
+
+                <td>
+                    <p class='product-comparelist__chooseproduct'>@Translate.Text(Constants.Dictionary.ChooseAnotherProductDesc)</p><a class='product-comparelist__chooseproduct--cta' href='@SymmonsHelper.GetPageUrl(Constants.PageIds.ProductBrowse)'>@Translate.Text(Constants.Dictionary.ChooseAnotherProduct)</a>
+                </td>
+                <td>
+                    <p class='product-comparelist__chooseproduct'>@Translate.Text(Constants.Dictionary.ChooseAnotherProductDesc)</p><a class='product-comparelist__chooseproduct--cta' href='@SymmonsHelper.GetPageUrl(Constants.PageIds.ProductBrowse)'>@Translate.Text(Constants.Dictionary.ChooseAnotherProduct)</a>
+                </td>
+                <td>
+                    <p class='product-comparelist__chooseproduct'>@Translate.Text(Constants.Dictionary.ChooseAnotherProductDesc)</p><a class='product-comparelist__chooseproduct--cta' href='@SymmonsHelper.GetPageUrl(Constants.PageIds.ProductBrowse)'>@Translate.Text(Constants.Dictionary.ChooseAnotherProduct)</a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <input type="hidden" value="You can choose another product in this category to compare " class="no-product__title" />
+    <input type="hidden" value="Choose Another Product" class="no-product__cta" />
+    <input type="hidden" value="@SymmonsHelper.GetPageUrl(Constants.PageIds.ProductBrowse)" class="no-product__url" />
+</section>

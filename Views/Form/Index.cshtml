@@ -1,0 +1,31 @@
+﻿@using Sitecore.Forms.Mvc.Data.Analytics
+@using Sitecore.Forms.Mvc.Extensions
+
+@model Sitecore.Forms.Mvc.Models.FormModel
+
+@{
+    ViewContext.ViewData.TemplateInfo.HtmlFieldPrefix = Model.ShortFormId;
+    var id = "Form" + Model.ShortFormId;
+}
+
+
+<div id="@id">   
+    @Html.EditorFor(x => Model)
+
+    @if (Model.IsAjaxMvcForm)
+    {
+        <div id="result"></div>
+    }
+
+    <script type="text/javascript">
+        if (typeof ($scw) === "undefined") {
+            window.$scw = jQuery.noConflict(true);
+        }
+        $scw(document).ready(function () {            
+            $scw("#@Model.ID.ToShortGuid()").eventTracking({ pageId: "@Model.PageId", rules: "@TrackingValidationErrorsProvider.Current.GetValidationRulesMap()" });
+        });
+    </script>
+
+
+
+</div>

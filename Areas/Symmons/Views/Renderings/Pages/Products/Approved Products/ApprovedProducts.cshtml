@@ -1,0 +1,33 @@
+﻿@using Sitecore.Mvc
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Products.ApprovedProducts>
+
+<div class="page-header floating-header">
+    <div class="container">
+        @if (!string.IsNullOrEmpty(Model.PageTitle))
+        {
+            <h1 class='page-header__title'>@Editable(x => x.PageTitle)</h1>
+        }
+        @if (!String.IsNullOrEmpty(Model.PageSubTitle))
+        {
+            @Editable(Model, x => x.PageSubTitle)
+        }
+        @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidImage(Model.PageImage))
+        {
+            <figure class="page-header__image">
+                @RenderImage(x => x.PageImage, isEditable: true)
+            </figure>
+        }
+    </div>
+</div>
+<div class="one-cols-wrapper">
+    <div class="container">
+        <div class="approved-products">
+            <div class="left-cols" style="vertical-align:top">
+                @Html.Sitecore().Placeholder("scApprovedProductsCallout")
+            </div>
+            <div class="right-cols" style="vertical-align:top">
+                @Html.Sitecore().Placeholder("scApprovedProductsRightCallout")
+            </div>
+        </div>
+    </div>
+</div>

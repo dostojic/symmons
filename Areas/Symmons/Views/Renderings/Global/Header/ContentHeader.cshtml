@@ -1,0 +1,37 @@
+﻿@using Sitecore.Mvc
+@using symmons.com.Areas.Symmons.Controllers.Global
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Global.Base.ISymmonsBasePage>
+
+<div class="page-header">
+    <div class="container">
+        @if (!string.IsNullOrWhiteSpace(Model.PageTitle))
+        {
+        <h1 class='page-header__title'>@Editable(x => x.PageTitle)</h1>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.PageSubTitle))
+        {
+            <h2 class='page-header__subtitle'>@Editable(x => x.PageSubTitle)</h2>
+        }
+
+        @*Display Main Content only if Items are of generic listing type...*@
+        @if (SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.GenericListing)
+        {
+            <div class='page-header__content'>
+                @Html.Raw(Editable(Model, x => x.MainContent))
+                @Html.Sitecore().Placeholder("scContentHeaderCallout")                
+            </div>                       
+        }
+        else
+        {
+            if (!string.IsNullOrWhiteSpace(Model.Teaser) && (SymmonsController.ContextItem.TemplateID.ToString() != Constants.TemplateIds.GenericPage))
+            {
+                <div class='page-header__content'>
+                    @Editable(x => x.Teaser)
+                    @Html.Sitecore().Placeholder("scContentHeaderCallout")
+                </div>
+            }
+        }
+    </div>
+</div>

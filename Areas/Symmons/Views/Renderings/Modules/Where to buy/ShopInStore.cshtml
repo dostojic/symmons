@@ -1,0 +1,164 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.WheretoBuy>
+
+@{
+    var searchText = string.Empty;
+
+    if (Request.QueryString[Constants.QueryString.Keyword] != null)
+    {
+        searchText = Request.QueryString[Constants.QueryString.Keyword];
+    }
+}
+<section class="shop-store__header">
+    <div class="shop-store__locationwrap">
+        <p class="shop-store__locationnear"></p>
+        <h3 class="shop-store__location"></h3>
+    </div>
+     <div class="shop-store__btnwrap">
+      <a class="modify-arrow left shop-store__modifysearch" href="#;" data-title="@Translate.Text(Constants.Dictionary.ModifyYourSearch)"></a>
+    </div>
+</section>
+
+<section class="shop-store" data-section="section-1">
+    <aside class="shop-store__leftcols active" data-content="section-1">
+        <section class="shop-store__search">
+            <label for="txtSearchResults">@Translate.Text(Constants.Dictionary.FindLocationsNear)</label>
+            <div class="shop-store__searchbox">
+                <i class="img-global-search" id="imgMagnifybtn"></i>
+                <input type="search" placeholder="City, Town or Zip Code" autocomplete="off" name="txtLocationSearch" id="txtLocationSearch" class="search-results__searchfield" value="@searchText" />
+            </div>
+            <p class="invalid-location">@Translate.Text(Constants.Dictionary.NoLocationsEntered)</p>
+            <a href="#;" class="shop-store__preciselcoation">@Translate.Text(Constants.Dictionary.UsePreciseLocation)</a>
+        </section>
+        <section class="shop-store__searchcontent">
+            <h4>@Translate.Text(Constants.Dictionary.IncludeInYourSearch)</h4>
+            @foreach (var whereToBuyStoreType in Model.WhereToBuyStoreTypes)
+            {
+                <div class="check-box-row">
+                    <input type="checkbox" value="@whereToBuyStoreType.TemplateId" name="chkSearchOptions" id="@whereToBuyStoreType.Title" class="custom-checkbox" checked="checked" />
+                    <label for="@whereToBuyStoreType.Title" class="custom-checkbox-label">
+                        @whereToBuyStoreType.Title
+                    </label>
+                    @if (!string.IsNullOrEmpty(whereToBuyStoreType.HelpDescription))
+                    {
+                        <i class="shop-store__help"></i>
+                        <div class="shop-store__help-content">
+                            <i class="shop-store__close" title="Close"></i>
+                            <p>@whereToBuyStoreType.HelpDescription</p>
+                        </div>
+                    }
+                </div>
+            }
+            <p class="invalid-checkbox">@Translate.Text(Constants.Dictionary.NoStoresSelected)</p>
+            <a href="#;" class="button-primary shop-store__findlocation">@Translate.Text(Constants.Dictionary.FindLocations)</a>
+            <div class="store-loading-wrapper"> <img src="/_Images/contentManaged/icons/ajax-loader.gif" alt="loading" /> </div>
+        </section>
+    </aside>
+
+    <aside class="shop-store__leftcols" data-content="section-2">
+        <section class="shop-store__listingcontent stores-listing">
+            <ol class="stores-listing__master" id="stores-listing2" data-ajax-url2="@Url.Action("GetStoresByStoreTypes", "WhereToBuy")"></ol>
+            <p class="no-records-found" id="norecord-2">@Translate.Text(Constants.Dictionary.NoStoresResultsFound)</p>
+        </section>
+
+        <script id="template-storesListing2" type="x-handlebars-template">
+            {{#each StoresListingData}}
+            <li class="stores-listing__item" data-longitude="{{../LongitudeValues}}" data-latitude="{{../LatitudeValues}}">
+                <div class="stores-listing__header">
+                    {{#if StoreTypeName.length}} <h3 class="stores-listing__title">{{{StoreTypeName}}}</h3> {{/if}}
+                    {{#if Store.MoreLocationsLikeThis.length}}<a href="#" data-store-type="{{StoreTypeId}}" class="stores-listing__cta">{{Store.MoreLocationsLikeThis}}</a> {{/if}}
+                </div>
+                <div class="stores-listing__itemcontent">
+                    <i class="stores-listing__mappin">{{math @@index "+" 1}}</i>
+                    <div class="stores-listing__content">
+
+                        {{#if Store.StoreName.length}}<h4 class="stores-listing__store">{{{Store.StoreName}}}</h4> {{/if}}
+
+                        {{#if Store.IsSymmonsPreferred.length}}
+                          <p class="stores-listing__preferred">{{Store.IsSymmonsPreferred}}</p>
+                          {{#if Store.IsSymmonsPreferredDescription.length}}
+                            <i class="shop-store__help"></i>
+                            <div class="shop-store__help-content">
+                              <i class="shop-store__close" title="Close"></i>
+                              <p>{{{Store.IsSymmonsPreferredDescription}}}</p>
+                            </div>
+                          {{/if}}
+                        {{/if}}
+
+                        {{#if Store.Address.length}}<address class="stores-listing__address">{{{Store.Address}}}</address> {{/if}}
+
+                        {{#if Store.Distance.length}}<p class="stores-listing__miles">{{{Store.Distance}}}</p> {{/if}}
+
+                        {{#if Store.Directions.length}}<a href="{{{Store.Directions}}}" target='_blank' class="stores-listing__directions">{{Store.DirectionsTitle}}</a> {{/if}}
+
+                        {{#if Store.PhoneNo.length}}<p class="stores-listing__phone">{{Store.PhoneNo}}</p> {{/if}}
+
+                        {{#if Store.MoreLikeThis.length}}<a href="#" data-store-type="{{StoreTypeId}}" class='button-primary stores-listing__morelinks'>{{Store.MoreLikeThis}}</a> {{/if}}
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+        </script>
+    </aside>
+
+    <aside class="shop-store__leftcols" data-content="section-3">
+        <section class="shop-store__listingcontent stores-listing">
+            <ol class="stores-listing__master" id="stores-listing3" data-ajax-url="@Url.Action("GetAllStoresByStoreTypes", "WhereToBuy")"></ol>
+            <script id="template-storesListing3" type="x-handlebars-template">
+                {{#each MoreStores}}
+                <li class="stores-listing__item">
+                    <div class="stores-listing__itemcontent">
+                        <img src="{{{StoreMapPin}}}" class='stores-listing__imgpin' alt='{{{StoreName}}}' />
+                        <div class="stores-listing__content">
+                            {{#if StoreName.length}}
+                            <h4 class="stores-listing__store">{{{StoreName}}}</h4> {{/if}}
+                            {{#if IsSymmonsPreferred.length}}
+                              <p class="stores-listing__preferred">{{IsSymmonsPreferred}}</p>
+                              {{#if IsSymmonsPreferredDescription.length}}
+                                <i class="shop-store__help"></i>
+                                <div class="shop-store__help-content">
+                                  <i class="shop-store__close" title="Close"></i>
+                                  <p>{{{IsSymmonsPreferredDescription}}}</p>
+                                </div>
+                              {{/if}}
+                            {{/if}}
+                            {{#if Address.length}}<address class="stores-listing__address">{{{Address}}}</address> {{/if}}
+                            {{#if Distance.length}}
+                            <p class="stores-listing__miles">{{{Distance}}}</p>
+                            {{/if}}
+                            {{#if Directions.length}}<a href="{{{Directions}}}" target='_blank' class="stores-listing__directions">{{DirectionsTitle}}</a> {{/if}}
+                            {{#if PhoneNo.length}}
+                            <p class="stores-listing__phone">{{PhoneNo}}</p> {{/if}}
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </script>
+        </section>
+
+        <div id="pagination-2">
+            <section class="pagination-content">
+                <nav data-pager class="pagination" role="navigation">
+                    <button class="pagination__button" data-page-1="first">First</button>
+                    <button class="pagination__button" data-page-1="prev">Previous</button>
+                    <label class="pagination__pagenumber">
+                        Page
+                        <span class="pagination__input pagination__input_1">1</span> of <span class="pagination__totalpages pagination__totalpages_1">3</span>
+                    </label>
+                    <button class="pagination__button" data-page-1="next">Next</button>
+                    <button class="pagination__button" data-page-1="last">Last</button>
+                </nav>
+            </section>
+        </div>
+        <p class="no-records-found">@Translate.Text(Constants.Dictionary.NoStoresResultsFound)</p>
+    </aside>
+
+    <aside class="shop-store__rightcols">
+        <div id="map-canvas" class="map-canvas"></div>
+        <script src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=AIzaSyD3TQNZOtHXbuAvJ7dw6WvoJdq51YIcY7M"></script>
+        <input type="hidden" id="geolocation-key" value="AIzaSyAsIV5JDDm-k0EjpfKCwg65vvwTlb08Ffk">
+    </aside>
+</section>
+<input type="hidden" id="hdnLatitudeValues" value="12.9883791" />
+<input type="hidden" id="hdnLongitudeValues" value="77.59265110000001" />

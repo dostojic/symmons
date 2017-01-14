@@ -1,0 +1,136 @@
+@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@using Verndale.SharedSource.Helpers
+
+@{
+    var searchKeyword = Session[Constants.SessionConstants.Keyword];
+    var hybridPageItem = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.HybridSearchPage);
+    var hybridPageUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(hybridPageItem);
+    hybridPageUrl = hybridPageUrl + "?" + Constants.QueryString.Keyword + "=" + searchKeyword;
+    if (Request[Constants.QueryString.IsFromCallout] == "true")
+    {
+        hybridPageUrl = hybridPageUrl + "&" + Constants.QueryString.IsFromCallout + "=true";
+    }
+}
+<div class="product-browse">
+    <section class="product-browse__header">
+        <div class="product-browse__results mobile">
+            <div class="product-browse__product-count"><span class="product-browse__itemcount"></span> @Translate.Text(Constants.Dictionary.Products)</div>
+            <div class="product-browse__content-count"><span class="product-browse__contentcount"></span> @Translate.Text(Constants.Dictionary.ContentResults)</div>
+            @{
+                <a class="button-primary product-browse__backcta" href="@hybridPageUrl"> @Translate.Text(Constants.Dictionary.Back) </a>
+            }
+        </div>
+
+        <div class="product-browse__filtersheader">
+            <div class="product-browse__results desktop">
+                <div class="product-browse__product-count"><span class="product-browse__itemcount"></span> @Translate.Text(Constants.Dictionary.Products) </div>
+                <div class="product-browse__content-count"><span class="product-browse__contentcount"></span> @Translate.Text(Constants.Dictionary.ContentResults)</div>
+            </div>
+
+            <a class="product-browse__refinebutton mobile">@Translate.Text(Constants.Dictionary.ProductsRefine)</a>
+            <div class="product-browse__sortby">
+                <select name="ddlSortBy" class="custom product-browse__sortby--dropdown mobile">
+                    <option value="0">@Translate.Text(Constants.Dictionary.ProductsSortBy)</option>
+                    <option value="High">@Translate.Text(Constants.Dictionary.ProductsHighToLow)</option>
+                    <option value="Low">@Translate.Text(Constants.Dictionary.ProductsLowToHigh)</option>
+                    <option value="New">@Translate.Text(Constants.Dictionary.ProductsNew)</option>
+                </select>
+                <select name="ddlSortBy" class="custom product-browse__sortby--dropdown desktop">
+                    <option value="High">@Translate.Text(Constants.Dictionary.ProductsHighToLow)</option>
+                    <option value="Low">@Translate.Text(Constants.Dictionary.ProductsLowToHigh)</option>
+                    <option value="New">@Translate.Text(Constants.Dictionary.ProductsNew)</option>
+                </select>
+                <label for="ddlSortBy" class="product-browse__sortby--label desktop">@Translate.Text(Constants.Dictionary.ProductsSortBy)</label>
+            </div>
+            @{
+                <a class="button-primary product-browse__backcta-desktop" href="@hybridPageUrl"> @Translate.Text(Constants.Dictionary.Back) </a>
+            }
+        </div>
+        <div class="product-browse__filters-applied">
+            <h4 class="product-browse__filtershead">@Translate.Text(Constants.Dictionary.ProductsFilters)</h4>
+            <ul class="product-browse__filterslist" id="productAppliedFilters"></ul>
+        </div>
+
+    </section>
+    <section class="product-browse__filters">
+        <div class="product-browse__filterssearch">
+
+            <div class="product-browse__refineproducts mobile">
+                <h4 class="product-browse__refineproducts--refinehead">@Translate.Text(Constants.Dictionary.ProductsRefineDesktop)</h4>
+                <i class="img-close-green"></i>
+            </div>
+
+            <div class="product-browse__searchbox">
+                <label for="txtFilterSearch" class="visually-hidden">
+                    @Translate.Text(Constants.Dictionary.ProductsSearchFilters)
+                </label>
+                <i class="img-search-filters"></i>
+                <input type="search" name="txtFilterSearch" id="txtFilterSearch" class="product-browse__search" placeholder="@Translate.Text(Constants.Dictionary.SearchProducts)" />
+                <i class="img-close-grey"></i>
+            </div>
+        </div>
+
+        <div id="productFilterListing" data-ajax-url="@Url.Action("GetProductFiltersList", "SymmonsProduct")">
+        </div>
+
+        @*Products Browse Filters*@
+
+        <script id="template-productFiltersListing" type="x-handlebars-template">
+            {{#each ProductFiltersGroup}}
+
+            <section class='product-browse__filterssection'>
+                {{#if ProductFilterName.length}}
+                <h4 class='product-browse__filtershead'>{{ProductFilterName}}</h4>{{/if}}
+                <ul class='product-browse__filterlist' data-attr-group='{{ProductFilterId}}'>
+
+                    {{#each ProductFilterType}}
+                    <li class='product-browse__filterlist--item'>
+                        <input class='custom-checkbox' type='checkbox' value='{{FilterItemId}}' data-attr-filtername='{{FilterName}}' name='chk_{{FilterItemId}}' data-attr-group='{{../ProductFilterName}}__{{../ProductFilterId}}' id='chk_{{FilterItemId}}' />
+                        <label for='chk_{{FilterItemId}}' class='custom-checkbox-label'>{{FilterName}}</label>
+                    </li>
+                    {{/each}}
+                </ul>
+            </section>
+            {{/each}}
+
+        </script>
+
+        <div class="product-browse__filterfooter mobile">
+            <a class="product-browse__applybutton">@Translate.Text(Constants.Dictionary.ProductsFilterApply)</a>
+            <a class="product-browse__cancelbutton">@Translate.Text(Constants.Dictionary.ProductsFilterCancel)</a>
+        </div>
+
+    </section>
+
+
+    <section class="product-browse__listing">
+        <ul class="product-browse__listingcontent" id="productBrowseListing" data-ajax-url="@Url.Action("GetProductListing", "SymmonsProduct")"></ul>
+        <p class="no-records-found"> @Translate.Text(Constants.Dictionary.NoProductsFoundMessage)</p>
+        <div class="loading-wrapper"> <img src="/_Images/contentManaged/icons/ajax-loader.gif" alt="loading" /> </div>
+
+        @Html.Partial(Constants.ViewPaths.Pagination)
+
+        @*Products Browse Listing*@
+        <script id="template-productBrowseListing" type="x-handlebars-template">
+            {{#each ProductListingData}}
+            <li class='product-browse__listingcontent--item'>
+                <a href='{{ListingProductUrl}}' class='product-browse__listingcontent--productname'>
+                    {{#if ListingIsProductNew.length}}
+                    <div class='product-browse__listingcontent--newproduct'>New</div>{{/if}}
+                    <figure class='product-browse__listingcontent--image'>
+                        {{#if ListingProductImageUrl.length}}<img src='{{ListingProductImageUrl}}' alt='{{ListingProductImageAlt}}'>{{/if}}
+                    </figure>
+                    <div class='product-browse__listingcontent--productcontent'>
+                        {{#if ListingProductTitle.length}}{{{ListingProductTitle}}}
+                        {{/if}} {{#if ListingProductPrice.length}}
+                        <span class="product-browse__model-number">{{ListingProductModelNumber}}</span>
+                        <p class='product-browse__listingcontent--productprice'>@Translate.Text(Constants.Dictionary.ProductsListPrice) {{ListingProductPrice}}</p>{{/if}}
+                    </div>
+                </a>
+            </li>
+            {{/each}}
+        </script>
+    </section>
+</div>
+<script type="text/javascript" src="/_JS/plugins/symmons.product-browse.js"></script>

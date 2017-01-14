@@ -1,0 +1,41 @@
+﻿@model Sitecore.Forms.Mvc.Models.Fields.CheckBoxField
+
+@if (!Model.Visible)
+{
+    return;
+}
+
+<div class="@Model.CssClass checkbox-border">
+
+    <div class=" @Model.CssClass field-panel">
+
+        <span class="checkbox-content">
+            @Html.HiddenFor(x => Model.FieldId)
+
+            @{
+                var isChecked = (bool)Model.Value;
+            }
+
+            @Html.CheckBox("Value", isChecked)
+
+            @Html.Label("Value", Model.Title)
+
+        </span>
+
+    </div>
+    @if (!String.IsNullOrEmpty(Model.Information))
+    {
+        <span class="@Model.CssClass checkbox-info">@Html.DisplayFor(x => Model.Information)</span>
+    }
+
+    <div>
+        @Html.ValidationMessageFor(field => Model.Value, null, new { @class = @Model.CssClass + " field-error", @data_valmsg_for = Model.Name })
+    </div>
+
+
+    @if (Model.IsRequired)
+    { 
+        <span class="@Model.CssClass field-required">*</span> 
+    }
+
+</div>

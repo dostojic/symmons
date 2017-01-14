@@ -1,0 +1,36 @@
+﻿@using Sitecore.Globalization
+@using Sitecore.Mvc
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ProductStyle>
+
+@if (!string.IsNullOrEmpty(Model.PageTitle))
+{
+    <section class="pagetitle-banner">
+        <div class="container">
+            <h2 class="pagetitle-banner__heading">
+                @Editable(x => x.PageTitle)
+            </h2>
+        </div>
+    </section>
+}
+@if (!string.IsNullOrEmpty(Model.Teaser))
+{
+    <section class="additional-information csf-additional">
+        <div class="container">
+            <aside class="left-cols">
+                <p class="csf-additional__teaser">
+                    @Editable(x => x.Teaser)
+                </p>
+            </aside>
+        </div>
+    </section>
+}
+<section class="collection-listing" role="contentinfo">
+    <div class="container">
+        <h2 class="collection-listing__heading">
+            @Translate.Text(Constants.Dictionary.InThisStyle)
+        </h2>
+        @Html.Sitecore().Placeholder("scCSFCallout")
+    </div>
+</section>

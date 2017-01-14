@@ -1,0 +1,40 @@
+﻿@using Sitecore.Globalization
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Modules.Callouts.FeaturedNews>
+
+@if (Model.FeaturedArticle != null)
+{
+    <aside role="complementary" class="aside-wrapper">
+        <!-- Callout title -->
+        @if (!String.IsNullOrEmpty(@Model.FeaturedText) || Sitecore.Context.PageMode.IsPageEditor)
+        {
+            <div class="aside-title-wrapper">
+                <h3 class="aside-title-wrapper__title">@Editable(Model, x => x.FeaturedText)</h3>
+            </div>
+        }
+        <!-- Callout content -->
+        <article class="featured-article">
+            @if (!String.IsNullOrEmpty(Model.FeaturedArticle.PageTitle) || Sitecore.Context.PageMode.IsPageEditor)
+            {
+                <h4 class="featured-article__title">@Editable(x => x.FeaturedArticle.PageTitle)</h4>
+            }
+            @if (SymmonsHelper.IsValidImage(Model.FeaturedArticle.PageImage) || Sitecore.Context.PageMode.IsPageEditor)
+            {
+                @Editable(x => x.FeaturedArticle.PageImage, new { @class = "featured-article__image" } )
+            }
+            @if (!String.IsNullOrEmpty(Model.FeaturedArticle.Teaser) || Sitecore.Context.PageMode.IsPageEditor)
+            {
+                <div class="featured-article__teaser">
+                    <p class="featured-article__teaser-content">
+                        @Editable(x => x.FeaturedArticle.Teaser)
+                    </p>
+                    <a href="@Model.FeaturedArticle.Url" class="featured-article__teaser-cta">
+                        @Translate.Text(Constants.Dictionary.ReadMore)
+                    </a>
+                </div>
+            }
+        </article>
+    </aside>
+}
+

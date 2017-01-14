@@ -1,0 +1,251 @@
+﻿@using Sitecore.Globalization
+@using Sitecore.Mvc
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@using Verndale.SharedSource.Helpers
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ProductDetails>
+
+@{
+    var productCategoryIds = string.Empty;
+
+    foreach (var productCategory in Model.ProductCategory)
+    {
+        productCategoryIds += "{" + productCategory.Id + "},";
+    }
+    productCategoryIds = productCategoryIds.TrimEnd(',');
+}
+
+<section role="contentinfo" class="product-section">
+    <div class="one-cols-wrapper">
+        <div class="container">
+            @if (Model.ProductFinishes.Any())
+            {
+                var firstOrDefault = Model.ProductFinishes.FirstOrDefault();
+
+                var productFinish = ViewBag.SelectedFinish == null ? firstOrDefault : Model.ProductFinishes.FirstOrDefault(x => x.Finish.FinishName.Equals(ViewBag.SelectedFinish));
+                if (productFinish != null)
+                {
+                    var images = productFinish.Images;
+                    @Html.Partial(Constants.ViewPaths.PhotoGallery, images)
+                }
+
+            }
+            else
+            {
+                <div class="section-content-wrapper product-gallery-listing-wrapper">
+                    <div class="gallery-content">
+                        <div class="gallery-content-wrapper">
+                            <ul class="product-gallery" data-start-random="false" data-duration="0" data-slider="">
+                                <div class="bx-wrapper">
+                                    <figure class="product-gallery__image" style="margin-top: 38%;">
+                                        <img alt="Image Not Available" src="/_Images/contentManaged/imagenotavailable.gif">
+                                    </figure>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="gallery-share">
+                        @Html.Sitecore().Placeholder("scShareThis")
+                    </div>
+                </div>
+            }
+            <div class="section-content-wrapper product-details">
+                @Html.Partial(Constants.ViewPaths.Breadcrumb, Model)
+                @if (!string.IsNullOrEmpty(Model.ProductName))
+                {
+                    <h2 class="product-details__title">
+                        @Editable(x => x.ProductName)
+                    </h2>
+                }
+                @if (!string.IsNullOrEmpty(Model.ProductModelNumber))
+                {
+                    <h3 class="product-details__model" data-model="@Model.ProductModelNumber">
+                        @Translate.Text(Constants.Dictionary.ProductModel)
+                        @Editable(x => x.ProductModelNumber)
+                    </h3>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.LeadTime))
+                {
+                    <section role="contentinfo" class="product-details__time">
+                        <h4>@Translate.Text(Constants.Dictionary.DesignStudioLeadTime)</h4>
+                        <div class="time-content-wrap">
+                            <div class="time-content">@Editable(x => x.LeadTime)</div>
+                        </div>
+                    </section>
+
+                    <!-- Finish Information -->
+                    if (Model.ProductFinishes.Any())
+                    {
+                        <section role="contentinfo" class="product-details__finish no-radio">
+                            <h4>@Translate.Text(Constants.Dictionary.AvailableFinishes)</h4>
+                            @foreach (var productfinish in Model.ProductFinishes)
+                            {
+                                <div class="check-box-row">
+                                    <input type="radio" value="@productfinish.Finish.FinishName" name="rdlfinishDetails" id="rdlfinishDetails_@productfinish.Finish.FinishName" class="custom-radio" checked="@( ViewBag.SelectedFinish == null ? ((productfinish.Finish.FinishName == Model.ProductFinishes.FirstOrDefault().Finish.FinishName) ? "checked" : null) : (productfinish.Finish.FinishName == ViewBag.SelectedFinish ? "checked" : null))" />
+                                    <label for="rdlfinishDetails_@productfinish.Finish.FinishName" class="custom-radio-label">
+                                        @if (SymmonsHelper.IsValidImage(productfinish.Finish.FinishIcon))
+                                        {
+                                            @RenderImage(productfinish.Finish, x => x.FinishIcon, new { @class = "img-finish" })
+                                        }
+                                        <div class="finish-content-wrap">
+                                            @if (!string.IsNullOrEmpty(productfinish.Finish.FinishName))
+                                            {
+                                                <div class="finish-title">@Editable(productfinish, x => x.Finish.FinishName)</div>
+                                            }
+                                        </div>
+                                    </label>
+                                </div>
+                            }
+                        </section>
+                    }
+                    var contactUsItem = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.ContactUsPage);
+                    string contactUrl;
+                    if (!String.IsNullOrEmpty(Model.ProductModelNumber))
+                    {
+                        contactUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(contactUsItem) + "?sku=" + Model.ProductModelNumber.Replace('#', ' ').Trim() + "";
+                    }
+                    else
+                    {
+                        contactUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(contactUsItem);
+                    }
+                    <p>@Translate.Text(Constants.Dictionary.ReadyToStart)</p>
+                    <a href="@contactUrl" class="button-primary">@Translate.Text(Constants.Dictionary.ContactSymmons)</a>
+                    <div class="product-details__pricing" data-ajax-url="@Url.Action("ProductFinishJsonResult", "SymmonsProduct")"></div>
+                }
+                else
+                {
+                    @Html.Partial(Constants.ViewPaths.ProductPrice, Model)
+                    if (Model.ProductFinishes.Any())
+                    {
+                        if (Model.RetailExclusive != null && Model.RetailExclusive.Any())
+                        {
+                            <p class="selected-retailers">@Translate.Text(Constants.Dictionary.AvailableAtSelectRetailers)</p>
+                        }
+                        <section class="product-details__wheretobuy" role="contentinfo">
+                            <div class="cols">
+                                @{
+                        if (!string.IsNullOrEmpty(Model.LeadTime))
+                        {
+                            @RenderLink(Model, x => x.WhereToBuyLink, new { @class = "button-primary" }, true)
+                        }
+                        else
+                        {
+                            string strWheretoBuyPath;
+
+                            if (Model.RetailExclusive != null && Model.RetailExclusive.Any())
+                            {
+                                strWheretoBuyPath = SymmonsHelper.GetWheretoBuyProductUrl(Model);
+                            }
+                            else
+                            {
+                                strWheretoBuyPath = SymmonsHelper.GetPageUrl(Constants.PageIds.WhereToBuy);
+                            }
+                            <a href="@strWheretoBuyPath" class="button-primary">@Translate.Text(Constants.Dictionary.WhereToBuy)</a>
+                        }
+                                }
+                            </div>
+                            @if (string.IsNullOrEmpty(Model.LeadTime))
+                            {
+                                <div class="cols">
+                                    <a href="#" data-category="@productCategoryIds" data-product-id="{@Model.Id}" class="buy-cta add-comparison">@Translate.Text(Constants.Dictionary.ProductAddToComparison)</a>
+                                    @if (Model.UsefulLinks != null)
+                                    {
+                                        foreach (var link in Model.UsefulLinks)
+                                        {
+                                            if (SymmonsHelper.IsValidLink(link.UsefulLink))
+                                            {
+                                                link.UsefulLink.Text = "+ " + link.UsefulLink.Text;
+                                                @RenderLink(link, x => x.UsefulLink, new { @class = "buy-cta add-folder" }, true)
+                                            }
+                                        }
+                                    }
+                                </div>
+                            }
+                        </section>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (Model.ProductCollection != null)
+{
+    @Html.Partial(Constants.ViewPaths.ProductCollection, Model)
+}
+
+@if (Model.DesignStudioRtfCallouts != null)
+{
+    @Html.Partial(Constants.ViewPaths.DesignStudioProduct, Model)
+}
+
+
+@if (!string.IsNullOrEmpty(Model.FeatureDescription) || Model.SpecialAttributes.Any() || Model.SmartAttributes.Any())
+{
+    <section role="contentinfo" class="product-section">
+        <div class="two-cols-wrapper">
+            @if (!string.IsNullOrEmpty(Model.FeatureDescription) || Model.SpecialAttributes.Any())
+            {
+                <div class="cols-left">
+                    @Html.Partial(Constants.ViewPaths.ProductFeatures, Model)
+
+                    @if (Model.SpecialAttributes.Any())
+                    {
+                        @Html.Partial(Constants.ViewPaths.ProductSpecialAttribute, Model)
+                    }
+                </div>
+            }
+            @if (Model.SmartAttributes.Any())
+            {
+                @Html.Partial(Constants.ViewPaths.ProductSmartAttribute, Model)
+            }
+        </div>
+    </section>
+}
+@if (!string.IsNullOrEmpty(Model.Height) || !string.IsNullOrEmpty(Model.Width) || !string.IsNullOrEmpty(Model.Length) || SymmonsHelper.IsValidImage(Model.DimensionImage) || SymmonsHelper.IsValidLink(Model.InteractiveTourLink))
+{
+    var dimensionClass = String.Empty;
+    if (!string.IsNullOrEmpty(Model.LeadTime))
+    {
+        dimensionClass = "product-section";
+    }
+    <section role="contentinfo" class="@dimensionClass" data-product-type='design-dimension'>
+        <div class="two-cols-wrapper">
+            @if (!string.IsNullOrEmpty(Model.Height) || !string.IsNullOrEmpty(Model.Width) || !string.IsNullOrEmpty(Model.Length) || !string.IsNullOrEmpty(Model.DimensionsTitle) || SymmonsHelper.IsValidImage(Model.DimensionImage))
+            {
+                @Html.Partial(Constants.ViewPaths.ProductDimensions, Model)
+            }
+            @if (SymmonsHelper.IsValidLink(Model.InteractiveTourLink))
+            {
+                @Html.Partial(Constants.ViewPaths.ProductInteractiveTour, Model)
+            }
+        </div>
+    </section>
+}
+
+@if (Model.DocumentsLinks.Any() || Model.SupportLinks.Any())
+{
+    <section role="contentinfo" class="product-section">
+        <div class="two-cols-wrapper">
+            <div class="cols-left">
+                @if (Model.DocumentsLinks.Any())
+                {
+                    @Html.Partial(Constants.ViewPaths.DocumentsAndDownloads, Model)
+                }
+            </div>
+            <div class="cols-right">
+                @if (Model.SupportLinks.Any())
+                {
+                    @Html.Partial(Constants.ViewPaths.Support, Model)
+                }
+            </div>
+        </div>
+    </section>
+}
+
+@if (Model.CollectionProductLinks.Any())
+{
+    @Html.Partial(Constants.ViewPaths.ProductList, Model)
+}
