@@ -1,0 +1,70 @@
+{
+  "TotalRecordCount": "15",
+  "TotalPagesCount": "5",
+  "GenericListingData": [
+    {
+      "ListingId": "05",
+      "ListingTitle": "CNC Tool Grinder - Braintree, MA",
+      "ListingUrl": "//www.google.com",
+      "ListingThumbImageUrl": "/_Images/contentManaged/16.png",
+      "ListingImageAlt": "Image 5",
+      "ListingImageUrl": "/_Images/contentManaged/banner-2.png",
+      "ListingTeaserDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "May 13, 2014"
+
+        },
+    {
+      "ListingId": "01",
+      "ListingTitle": "CNC Tool Grinder - Braintree, MA",
+      "ListingUrl": "//www.verndale.com",
+      "ListingThumbImageUrl": "",
+      "ListingImageAlt": "Image 1",
+      "ListingTeaserDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "May 13, 2014"
+        },
+    {
+      "ListingId": "02",
+      "ListingTitle": "Senior Software Engineer - Boston, MA",
+      "ListingUrl": "//www.verndale.com",
+      "ListingThumbImageUrl": "/_Images/contentManaged/16.png",
+      "ListingImageAlt": "Image 2",
+      "ListingTeaserDesc": "Symmons Industries is seeking a CNC Tool Grinder to grind and repair simple and complex tooling used in the Screw machine and CNC department, as well as assisting other departments.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "May 13, 2014"
+        },
+    {
+      "ListingId": "03",
+      "ListingTitle": "Tech Analyst - Bangalore, KN",
+      "ListingUrl": "//www.verndale.com",
+      "ListingThumbImageUrl": "/_Images/contentManaged/15.png",
+      "ListingImageAlt": "Image 3",
+      "ListingVideoUrl": "EHw4F8eLlMk",
+      "ListingTeaserDesc": "Symmons Industries is seeking a CNC Tool Grinder to grind and repair simple and complex tooling used in the Screw machine and CNC department, as well as assisting other departments.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "May 13, 2014"
+        },
+    {
+      "ListingId": "04",
+      "ListingTitle": "Project Manager - Boston, MA",
+      "ListingUrl": "www.verndale.com",
+      "ListingThumbImageUrl": "/_Images/contentManaged/16.png",
+      "ListingImageAlt": "Image 4",
+      "ListingVideoUrl": "EHw4F8eLlMk",
+      "ListingTeaserDesc": "Subheader text will go here and wrap like this if necessary, and the other subheader text will go here and wrap like this if necessary.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "May 13, 2014"
+        },
+    {
+      "ListingId": "05",
+      "ListingTitle": "",
+      "ListingUrl": "",
+      "ListingThumbImageUrl": "/_Images/contentManaged/16.png",
+      "ListingImageAlt": "Image 5",
+      "ListingTeaserDesc": "Symmons Industries is seeking a CNC Tool Grinder to grind and repair simple and complex tooling used in the Screw machine and CNC department, as well as assisting other departments.Symmons Industries is seeking a CNC Tool Grinder to grind and repair simple and complex tooling used in the Screw machine and CNC department, as well as assisting other departments.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "May 13, 2014"
+        }
+    ]
+}

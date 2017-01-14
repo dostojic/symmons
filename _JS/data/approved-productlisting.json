@@ -1,0 +1,70 @@
+{
+  "TotalRecordCount": "15",
+  "TotalPagesCount": "5",
+  "GenericListingData": [
+    {
+      "ListingId": "05",
+      "ListingTitle": "Hampton Inn",
+      "ListingUrl": "//www.google.com",
+      "ListingThumbImageUrl": "/_Images/contentManaged/30.png",
+      "ListingImageAlt": "Image 5",
+      "ListingImageUrl": "/_Images/contentManaged/banner-2.png",
+      "ListingTeaserDesc": "Duis et commodo ipsum, in pretium ipsum. Aenean eget bibendum magna. Morbi a augue ex. Curabitur at pellentesque enim. Suspendisse nunc orci, faucibus id arcu sed, maximus ullamcorper nisl. Pellentesque mattis augue at pulvinar suscipit.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "Partner since 2011"
+
+        },
+    {
+      "ListingId": "01",
+      "ListingTitle": "Hampton Inn",
+      "ListingUrl": "//www.verndale.com",
+      "ListingThumbImageUrl": "",
+      "ListingImageAlt": "Image 1",
+      "ListingTeaserDesc": "Duis et commodo ipsum, in pretium ipsum. Aenean eget bibendum magna. Morbi a augue ex. Curabitur at pellentesque enim. Suspendisse nunc orci, faucibus id arcu sed, maximus ullamcorper nisl. Pellentesque mattis augue at pulvinar suscipit.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "Partner since 2011"
+        },
+    {
+      "ListingId": "02",
+      "ListingTitle": "Hampton Inn",
+      "ListingUrl": "//www.verndale.com",
+      "ListingThumbImageUrl": "/_Images/contentManaged/30.png",
+      "ListingImageAlt": "Image 2",
+      "ListingTeaserDesc": "Duis et commodo ipsum, in pretium ipsum. Aenean eget bibendum magna. Morbi a augue ex. Curabitur at pellentesque enim. Suspendisse nunc orci, faucibus id arcu sed, maximus ullamcorper nisl. Pellentesque mattis augue at pulvinar suscipit.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "Partner since 2011"
+        },
+    {
+      "ListingId": "03",
+      "ListingTitle": "Hampton Inn",
+      "ListingUrl": "//www.verndale.com",
+      "ListingThumbImageUrl": "/_Images/contentManaged/15.png",
+      "ListingImageAlt": "Image 3",
+      "ListingVideoUrl": "EHw4F8eLlMk",
+      "ListingTeaserDesc": "Symmons Industries is seeking a CNC Tool Grinder to grind and repair simple and complex tooling used in the Screw machine and CNC department, as well as assisting other departments.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "Partner since 2011"
+        },
+    {
+      "ListingId": "04",
+      "ListingTitle": "Hampton Inn",
+      "ListingUrl": "www.verndale.com",
+      "ListingThumbImageUrl": "/_Images/contentManaged/30.png",
+      "ListingImageAlt": "Image 4",
+      "ListingVideoUrl": "EHw4F8eLlMk",
+      "ListingTeaserDesc": "Duis et commodo ipsum, in pretium ipsum. Aenean eget bibendum magna. Morbi a augue ex. Curabitur at pellentesque enim. Suspendisse nunc orci, faucibus id arcu sed, maximus ullamcorper nisl. Pellentesque mattis augue at pulvinar suscipit.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "Partner since 2011"
+        },
+    {
+      "ListingId": "05",
+      "ListingTitle": "Hampton Inn",
+      "ListingUrl": "",
+      "ListingThumbImageUrl": "/_Images/contentManaged/30.png",
+      "ListingImageAlt": "Image 5",
+      "ListingTeaserDesc": "Symmons Industries is seeking a CNC Tool Grinder to grind and repair simple and complex tooling used in the Screw machine and CNC department, as well as assisting other departments.Symmons Industries is seeking a CNC Tool Grinder to grind and repair simple and complex tooling used in the Screw machine and CNC department, as well as assisting other departments.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "ListingCTA": "//www.verndale.com",
+      "ListingDate": "Partner since 2011"
+        }
+    ]
+}

@@ -1,0 +1,174 @@
+{
+  "CompareProductList": {
+    "ProductCategoryId": "{asd2123434}",
+    "ProductCategoryName": "Single-Handle Faucets",
+    "CollectionTitle": "Product Collection",
+    "FinishesTitle": "Product Finishes",
+    "SmartFeaturesTitle": "Smart Features",
+    "SpecialFeaturesTitle": "Special Attributes",
+    "HeightTitle": "Height",
+    "LengthTitle": "Length",
+    "WidthTitle": "Width",
+    "CompareProducts": [
+      {
+        "ProductId": "{379D6F39-1509-4726-9141-90E3BB87E84F}",
+        "ProductURL": "/product/test-product-12",
+        "CompareProductAttributes": {
+          "ProductCategoryId": null,
+          "MainProductImage": "/_Images/contentManaged/products/6.png",
+          "Title": "Symmons Naru Tub Shower Hand Shower System",
+          "IsNew": "",
+          "StartingPriceTitle": "Price Min",
+          "StartingPrice": "250.00",
+          "Collection": "Naru",
+          "ModelNumberTitle": "",
+          "ModelNumber": "#SLW-4112",
+          "Finishes": [
+            {
+              "FinishName": "Chrome",
+              "FinishIconUrl": ""
+                        },
+            {
+              "FinishName": "Satin Nickel",
+              "FinishIconUrl": "/_Images/contentManaged/icons/icon-satin-nickel.png"
+                        }
+                    ],
+          "SmartFeatures": [
+            {
+              "FeatureName": "SMART INSTALL",
+              "FeatureIconUrl": ""
+                        },
+            {
+              "FeatureName": "SMART QUALITY",
+              "FeatureIconUrl": ""
+                        },
+            {
+              "FeatureName": "SMART SAFE",
+              "FeatureIconUrl": ""
+                        }
+                    ],
+          "SpecialFeatures": [
+            {
+              "AttributeName": "ADA Water Sense",
+              "AttributeIconUrl": ""
+                        }
+                    ],
+          "Height": "6-3/8″",
+          "Length": "4-1/2″",
+          "Width": "8″"
+        }
+            }, {
+        "ProductId": "{379D6F39-1509-4726-9141-90E3BB87E84F1}",
+        "ProductURL": "/product/test-product-12",
+        "CompareProductAttributes": {
+          "ProductCategoryId": null,
+          "MainProductImage": "/_Images/contentManaged/products/8.png",
+          "Title": "Symmons Naru System",
+          "IsNew": "true",
+          "StartingPriceTitle": "Price Min",
+          "StartingPrice": "250.00",
+          "Collection": "Naru",
+          "ModelNumberTitle": "",
+          "ModelNumber": "#SLW-4112",
+          "Finishes": [
+            {
+              "FinishName": "Chrome",
+              "FinishIconUrl": ""
+                        },
+            {
+              "FinishName": "Satin Nickel",
+              "FinishIconUrl": "/_Images/contentManaged/icons/icon-satin-nickel.png"
+                        }
+                    ],
+          "SmartFeatures": [
+            {
+              "FeatureName": "SMART INSTALL",
+              "FeatureIconUrl": ""
+                        },
+            {
+              "FeatureName": "SMART QUALITY",
+              "FeatureIconUrl": ""
+                        },
+            {
+              "FeatureName": "SMART SAFE",
+              "FeatureIconUrl": ""
+                        }
+                    ],
+          "SpecialFeatures": [
+            {
+              "AttributeName": "ADA Water Sense",
+              "AttributeIconUrl": ""
+                        }
+                    ],
+          "Height": "6-3/8″",
+          "Length": "4-1/2″",
+          "Width": "8″"
+        }
+            },
+      {
+        "ProductId": "{D36E7888-84FE-48E0-9836-D38A7121E59D}",
+        "ProductURL": "/product/test-product-12",
+        "CompareProductAttributes": {
+          "ProductCategoryId": null,
+          "MainProductImage": "/_Images/contentManaged/products/7.png",
+          "Title": "Symmons Naru Two Handle Lavatory Facet",
+          "IsNew": "",
+          "StartingPriceTitle": "Price Min",
+          "StartingPrice": "500.00",
+          "Collection": "Naru",
+          "ModelNumberTitle": "",
+          "ModelNumber": "",
+          "Finishes": [
+            {
+              "FinishName": "Brushed Bronze",
+              "FinishIconUrl": "/_Images/contentManaged/icons/icon-satin-nickel.png"
+                        },
+            {
+              "FinishName": "Chrome",
+              "FinishIconUrl": "/_Images/contentManaged/icons/icon-chrome.png"
+                        }
+                    ],
+          "SmartFeatures": [
+            {
+              "FeatureName": "Smart Design",
+              "FeatureIconUrl": ""
+                        },
+            {
+              "FeatureName": "Smart Experience",
+              "FeatureIconUrl": ""
+                        },
+            {
+              "FeatureName": "SMART INSTALL",
+              "FeatureIconUrl": ""
+                        },
+            {
+              "FeatureName": "SMART QUALITY",
+              "FeatureIconUrl": ""
+                        },
+            {
+              "FeatureName": "SMART SAFE",
+              "FeatureIconUrl": ""
+                        },
+            {
+              "FeatureName": "Smart Sustain",
+              "FeatureIconUrl": ""
+                        },
+            {
+              "FeatureName": "TEST SMART FEATURE",
+              "FeatureIconUrl": ""
+                        }
+                    ],
+          "SpecialFeatures": [
+            {
+              "AttributeName": "Test Cert",
+              "AttributeIconUrl": ""
+                        }
+                    ],
+          "Height": "6-3/8″",
+          "Length": "4-1/2″",
+          "Width": "6-1/4″"
+        }
+            }
+        ]
+  }
+}

@@ -1,0 +1,83 @@
+{
+    "TotalRecordCount": 4,
+    "LocationNearTitle": "Find locations near:",
+    "LocationNear": "Newyork, NY",
+    "LatitudeValues": "40.7127837",
+    "LongitudeValues": "-74.00594130000002",
+    "StoresListingData": [
+        {
+
+            "StoreTypeName": "Showrooms",
+            "StoreTypeId": "{65416CBB-074A-4942-A1FA-ECBC1C35D658}",
+            "Store": {
+                "StoreMapPin": "/_Images/contentManaged/pins/icon-mapmarker_1.png",
+                "StoreName": "AJ Plumbing Supply",
+                "IsSymmonsPreferred": "Symmons Preferred",
+                "IsSymmonsPreferredDescription": "This is a description for symmons preferred",
+                "Address": "86 Forsyth Street New York, NY 10002",
+                "Distance": "0.73 miles",
+                "DirectionsTitle": "Direction",
+                "Directions":  "1+Mystic+View+Rd,+Gateway+Center,+Everett,+MA+02149,+USA",
+                "PhoneNo": "781-855-1234",
+                "Latitude": "40.717513",
+                "Longitude": "-73.993290",
+                "MoreLikeThis": "More Like This",
+                "MoreLocationsLikeThis": "More Locations Like This"
+            }
+        },
+        {
+            "StoreTypeName": "WholeSalers",
+            "StoreTypeId": "{5EA933E4-D376-477A-A2D7-661615D925B6}",
+            "Store": {
+                "StoreMapPin": "/_Images/contentManaged/pins/icon-mapmarker_2.png",
+                "StoreName": "Samuel Levine Plumbing",
+                "IsSymmonsPreferred": "",
+                "Address": "283 W. Broadway New York, NY 10013-2204",
+                "Distance": "1.25 miles",
+                "DirectionsTitle": "Direction",
+                "Directions":  "1+Mystic+View+Rd,+Gateway+Center,+Everett,+MA+02149,+USA",
+                "PhoneNo": "781-855-1234",
+                "Latitude": "40.720746",
+                "Longitude": "-74.005058",
+                "MoreLikeThis": "More Like This",
+                "MoreLocationsLikeThis": "More Locations Like This"
+            }
+        },
+        {
+            "StoreTypeName": "Home Centers and Hardware Stores",
+            "StoreTypeId": "{E3944DC9-2DD2-4E68-8086-D7E617BE1DF5}",
+            "Store": {
+                "StoreMapPin": "/_Images/contentManaged/pins/icon-mapmarker_3.png",
+                "StoreName": "Home Depot",
+                "IsSymmonsPreferred": "",
+                "Address": "150 Midland Ave Port Chester, NY 10573",
+                "Distance": "2.25 miles",
+                "DirectionsTitle": "Direction",
+                "Directions":  "1+Mystic+View+Rd,+Gateway+Center,+Everett,+MA+02149,+USA",
+                "PhoneNo": "781-855-1234",
+                "Latitude": "40.992372",
+                "Longitude": "-73.668935",
+                "MoreLikeThis": "More Like This",
+                "MoreLocationsLikeThis": "More Locations Like This"
+            }
+        },
+        {
+            "StoreTypeName": "Parts Distributors",
+            "StoreTypeId": "{E3944DC9-2DD2-4E68-8086-D7E617BE1DF5}",
+            "Store": {
+                "StoreMapPin": "/_Images/contentManaged/pins/icon-mapmarker_4.png",
+                "StoreName": "Home Depot",
+                "IsSymmonsPreferred": "Symmons Preferred",
+                "Address": "150 Midland Ave Port Chester, NY 10573",
+                "Distance": "3.25 miles",
+                "DirectionsTitle": "Direction",
+                "Directions":  "1+Mystic+View+Rd,+Gateway+Center,+Everett,+MA+02149,+USA",
+                "PhoneNo": "781-855-1234",
+                "Latitude": "40.992372",
+                "Longitude": "-73.668935",
+                "MoreLikeThis": "More Like This",
+                "MoreLocationsLikeThis": "More Locations Like This"
+            }
+        }
+    ]
+}

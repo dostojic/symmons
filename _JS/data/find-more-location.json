@@ -1,0 +1,54 @@
+{
+  "TotalRecordCount": 3,
+  "TotalPagesCount": 3,
+  "LocationNearTitle": "Stores near:",
+  "LocationNear": "Newyork, NY",
+  "LatitudeValues": "40.7127837",
+  "LongitudeValues": "-74.00594130000002",
+  "StoreTypeName": "Showrooms",
+  "StoreTypeId": "{65416CBB-074A-4942-A1FA-ECBC1C35D658}",
+  "MoreStores": [
+    {
+      "StoreMapPin": "/_Images/contentManaged/pins/icon-mapmarker_1.png", 
+      "StoreName": "AJ Plumbing Supply",
+      "IsSymmonsPreferred": "Symmons Preferred",
+      "Address": "86 Forsyth Street New York, NY 10002",
+      "Distance": " 0.7387110419680891",
+      "DirectionsTitle": "Direction",
+      "Directions": "1+Mystic+View+Rd,+Gateway+Center,+Everett,+MA+02149,+USA",
+      "PhoneNo": "781-855-1234",
+      "Latitude": "40.717513",
+      "Longitude": "-73.993290",
+      "MoreLikeThis": "More Like This",
+      "MoreLocationsLikeThis": "More Locations Like This"
+        },
+    {
+      "StoreMapPin": "/_Images/contentManaged/pins/icon-mapmarker_2.png", 
+      "StoreName": "Davis & Warshow",
+      "IsSymmonsPreferred": "Symmons Preferred",
+      "Address": "75 Ludlow Street New York, NY 10002",
+      "Distance": " 0.9192947268393169",
+      "DirectionsTitle": "Direction",
+      "Directions": "1+Mystic+View+Rd,+Gateway+Center,+Everett,+MA+02149,+USA",
+      "PhoneNo": "781-855-1234",
+      "Latitude": "40.717633",
+      "Longitude": "-73.989594",
+      "MoreLikeThis": "More Like This",
+      "MoreLocationsLikeThis": "More Locations Like This"
+        },
+    {
+      "StoreMapPin": "/_Images/contentManaged/pins/icon-mapmarker_3.png", 
+      "StoreName": "A&E Supply",
+      "IsSymmonsPreferred": "",
+      "Address": "18 Second Avenue New York, NY 10003",
+      "Distance": " 1.1166855540244915",
+      "DirectionsTitle": "Direction",
+      "Directions": "1+Mystic+View+Rd,+Gateway+Center,+Everett,+MA+02149,+USA",
+      "PhoneNo": "781-855-1234",
+      "Latitude": "40.724204",
+      "Longitude": "-73.990851",
+      "MoreLikeThis": "More Like This",
+      "MoreLocationsLikeThis": "More Locations Like This"
+        }
+    ]
+}

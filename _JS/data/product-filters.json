@@ -1,0 +1,298 @@
+{
+    "ProductFiltersGroup": [
+        {
+            "ProductFilterId": "1001",
+            "ProductFilterName": "Styles",
+            "ProductFilterType": [
+                {
+                    "FilterItemId": "{111AED}",
+                    "FilterName": "Traditional",
+                    "ItemCount": 20
+                },
+                {
+                    "FilterItemId": "{211AED}",
+                    "FilterName": "Transitional",
+                    "ItemCount": 21
+                },
+                {
+                    "FilterItemId": "{311AED}",
+                    "FilterName": "Contemporary",
+                    "ItemCount": 33
+                }
+            ]
+        },
+        {
+            "ProductFilterId": "1002",
+            "ProductFilterName": "Finish",
+            "ProductFilterType": [
+                {
+                    "FilterItemId": "{411AED}",
+                    "FilterName": "Brushed Bronze",
+                    "ItemCount": 0
+                },
+                {
+                    "FilterItemId": "{511AED}",
+                    "FilterName": "Chrome",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{611AED}",
+                    "FilterName": "Oil Rubbed Bronze",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{711AED}",
+                    "FilterName": "Polished Graphite",
+                    "ItemCount": 0
+                },
+                {
+                    "FilterItemId": "{811AED}",
+                    "FilterName": "Polished Nickel",
+                    "ItemCount": 0
+                },
+                {
+                    "FilterItemId": "{911AED}",
+                    "FilterName": "Satin Nickel",
+                    "ItemCount": 10
+                }
+            ]
+        },
+        {
+            "ProductFilterId": "1003",
+            "ProductFilterName": "Price Range",
+            "ProductFilterType": [
+                {
+                    "FilterItemId": "{1011AED}",
+                    "FilterName": "$50 to $100",
+                    "ItemCount": 98
+                },
+                {
+                    "FilterItemId": "{1111AED}",
+                    "FilterName": "$100 to $300",
+                    "ItemCount": 40
+                },
+                {
+                    "FilterItemId": "{1211AED}",
+                    "FilterName": "$300 to $500",
+                    "ItemCount": 0
+                },
+                {
+                    "FilterItemId": "{1311AED}",
+                    "FilterName": "$500 to $700",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1411AED}",
+                    "FilterName": "$700 and above",
+                    "ItemCount": 45
+                }
+            ]
+        },
+        {
+            "ProductFilterId": "1004",
+            "ProductFilterName": "Smart Features",
+            "ProductFilterType": [
+                {
+                    "FilterItemId": "{1511AED}",
+                    "FilterName": "Smart Design",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1611AED}",
+                    "FilterName": "Smart Sustain",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1711AED}",
+                    "FilterName": "Smart Experience ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1811AED}",
+                    "FilterName": "Smart Install ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1911AED}",
+                    "FilterName": "Smart Quality ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{2011AED}",
+                    "FilterName": "Smart Safe ",
+                    "ItemCount": 4
+                }
+            ]
+        },
+        {
+            "ProductFilterId": "1005",
+            "ProductFilterName": "Collections",
+            "ProductFilterType": [
+                {
+                    "FilterItemId": "{141111AED}",
+                    "FilterName": "Allura ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1411121AED}",
+                    "FilterName": "Ballina ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1413331AED}",
+                    "FilterName": "Canterbury  ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{14144451AED}",
+                    "FilterName": "Carrington  ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1411777AED}",
+                    "FilterName": "Degas  ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1415541AED}",
+                    "FilterName": "Deluxe Temptrol  ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{14118899AED}",
+                    "FilterName": "Dia  ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{14115343AED}",
+                    "FilterName": "Duro  ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{141657671AED}",
+                    "FilterName": "Elm  ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{141e4es1AED}",
+                    "FilterName": "Lucetta ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1411asdasAED}",
+                    "FilterName": "Museo ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{141331AED}",
+                    "FilterName": "Naru ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1411775AED}",
+                    "FilterName": "Oxford ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{141www61AED}",
+                    "FilterName": "Sereno ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1411666AED}",
+                    "FilterName": "Symmetrix ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{141177recdAED}",
+                    "FilterName": "Temptrol ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{14gfgdf11AED}",
+                    "FilterName": "Temptrol II ",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{14118787AED}",
+                    "FilterName": "Visu Temp with Clear Vue",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1411eA7565ED}",
+                    "FilterName": "Water Dance",
+                    "ItemCount": 40
+                },
+                {
+                    "FilterItemId": "{14134sdas1AED}",
+                    "FilterName": "Winslet",
+                    "ItemCount": 4
+                }
+            ]
+        },
+        {
+            "ProductFilterId": "1006",
+            "ProductFilterName": "Product Segment",
+            "ProductFilterType": [
+                {
+                    "FilterItemId": "{14112323232311AED}",
+                    "FilterName": "Hospitality",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{141122323asas323232311AED}",
+                    "FilterName": "Housing",
+                    "ItemCount": 4
+                }
+            ]
+        },
+        {
+            "ProductFilterId": "1007",
+            "ProductFilterName": "Product Family",
+            "ProductFilterType": [
+                {
+                    "FilterItemId": "{100714112323232311AED}",
+                    "FilterName": "Bath",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{1007141122323asas323232311AED}",
+                    "FilterName": "Kitchen",
+                    "ItemCount": 42
+                }
+            ]
+        },
+        {
+            "ProductFilterId": "1008",
+            "ProductFilterName": "Product Category",
+            "ProductFilterType": [
+                {
+                    "FilterItemId": "{asd2123434}",
+                    "FilterName": "Single handle",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{asasd22}",
+                    "FilterName": "Shower heads",
+                    "ItemCount": 42
+                }
+            ]
+        },
+        {
+            "ProductFilterId": "1009",
+            "ProductFilterName": "Special Attributes",
+            "ProductFilterType": [
+                {
+                    "FilterItemId": "{dreas1212sas}",
+                    "FilterName": "ater sense",
+                    "ItemCount": 4
+                },
+                {
+                    "FilterItemId": "{sdfsdf3w323}",
+                    "FilterName": "ater sense 1",
+                    "ItemCount": 42
+                }
+            ]
+        }
+    ]
+}

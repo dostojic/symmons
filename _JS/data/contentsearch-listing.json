@@ -1,0 +1,37 @@
+{
+  "TotalRecordCount": "10",
+  "TotalPagesCount": "2",
+  "TotalProductCount": "10",
+  "SearchListingData": [
+    {
+      "ListingId": "01",
+      "ListingTitle": "How to Choose a Faucet Configuration",
+      "ListingTeaserDesc": "Lorem ipsum dolor widespread sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "ListingCTA": "http://www.symmons.com/Customer-Service.aspx "
+    },
+   {
+      "ListingId": "02",
+      "ListingTitle": "How to Choose a Faucet Configuration",
+      "ListingTeaserDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "ListingCTA": "http://www.symmons.com/Customer-Service.aspx "
+    },
+    {
+      "ListingId": "03",
+      "ListingTitle": "How to Choose a Faucet Configuration",
+      "ListingTeaserDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "ListingCTA": "http://www.symmons.com/Customer-Service.aspx "
+    },
+    {
+      "ListingId": "04",
+      "ListingTitle": "How to Choose a Faucet Configuration",
+      "ListingTeaserDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "ListingCTA": "http://www.symmons.com/Customer-Service.aspx "
+    },
+    {
+      "ListingId": "05",
+      "ListingTitle": "How to Choose a Faucet Configuration",
+      "ListingTeaserDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "ListingCTA": "http://www.symmons.com/Customer-Service.aspx "
+    }
+    ]
+}

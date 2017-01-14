@@ -1,0 +1,65 @@
+{
+  "MasterListingData": [
+    
+    {
+    "ListingId": "05",
+    "ListingType": "image",
+    "ListingTitle": "Featured Image Title",
+    "ListingUrl": "//www.google.com",
+    "ListingThumbImageUrl": "/_Images/contentManaged/16.png",
+    "ListingImageAlt": "Image 5",
+    "ListingVideoUrl": "",
+    "ListingImageUrl": "/_Images/contentManaged/banner-2.png",
+    "ListingTeaserDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },{
+    "ListingId": "01",
+    "ListingType": "video",
+    "ListingTitle": "Featured Video Title Text",
+    "ListingUrl": "//www.verndale.com",
+    "ListingThumbImageUrl": "/_Images/contentManaged/15.png",
+    "ListingImageAlt": "Image 1",
+    "ListingVideoUrl": "HBC_Qhw10aQ",
+    "ListingImageUrl": "",
+    "ListingTeaserDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
+        }, {
+    "ListingId": "02",
+    "ListingType": "video",
+    "ListingTitle": "Hands",
+    "ListingUrl": "//www.verndale.com",
+    "ListingThumbImageUrl": "/_Images/contentManaged/16.png",
+    "ListingImageAlt": "Image 2",
+    "ListingVideoUrl": "EHw4F8eLlMk",
+    "ListingImageUrl": "",
+    "ListingTeaserDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }, {
+    "ListingId": "03",
+    "ListingType": "video",
+    "ListingTitle": "Video Title",
+    "ListingUrl": "//www.verndale.com",
+    "ListingThumbImageUrl": "/_Images/contentManaged/15.png",
+    "ListingImageAlt": "Image 3",
+    "ListingVideoUrl": "EHw4F8eLlMk",
+    "ListingImageUrl": "",
+    "ListingTeaserDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }, {
+    "ListingId": "04",
+    "ListingType": "video",
+    "ListingTitle": "Hands",
+    "ListingUrl": "www.verndale.com",
+    "ListingThumbImageUrl": "/_Images/contentManaged/16.png",
+    "ListingImageAlt": "Image 4",
+    "ListingVideoUrl": "EHw4F8eLlMk",
+    "ListingImageUrl": "",
+    "ListingTeaserDesc": "Subheader text will go here and wrap like this if necessary, and the other subheader text will go here and wrap like this if necessary."
+        }, {
+    "ListingId": "05",
+    "ListingType": "image",
+    "ListingTitle": "",
+    "ListingUrl": "",
+    "ListingThumbImageUrl": "/_Images/contentManaged/16.png",
+    "ListingImageAlt": "Image 5",
+    "ListingVideoUrl": "",
+    "ListingImageUrl": "/_Images/contentManaged/banner-2.png",
+    "ListingTeaserDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }]
+}

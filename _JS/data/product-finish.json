@@ -1,0 +1,68 @@
+{
+    "AvailableValve1Price": "97.4",
+    "AvailableValve1SKU": "1234",
+    "AvailableValve1Title": "Temptrol Valve 1: List Price +97.40",
+    "AvailableValve2Price": "197.6",
+    "AvailableValve2SKU": "1235",
+    "AvailableValve2Title": "Temptrol Valve 2: List Price +197.00",
+    "AvailableValve3Price": "0.0",
+    "AvailableValve3SKU": "",
+    "AvailableValve3Title": "",
+    "PlumbingOption1Price": "50.0",
+    "PlumbingOption1SKU": "2.5",
+    "PlumbingOption1Title": "2.5 gpm (9.5 L/min) flow restrictor",
+    "PlumbingOption2Price": "40.0",
+    "PlumbingOption2SKU": "2.0",
+    "PlumbingOption2Title": "2.0 gpm, (9.5 L/min) flow restrictor",
+    "PlumbingOption3Price": "0.0",
+    "PlumbingOption3SKU": "",
+    "PlumbingOption3Title": "",
+    "OtherOption1Price": "690.0",
+    "OtherOption1Title": "Integral service stops",
+    "OtherOption1SKU": "3.0",
+    "OtherOption2Price": "10.0",
+    "OtherOption2Title": "1/2\" female IPS connections",
+    "OtherOption2SKU": "2.9",
+    "OtherOption3Price": "0.0",
+    "OtherOption3Title": "",
+    "OtherOption3SKU": "",
+    "SliderImages": [
+        {
+            "ImagePath": "/_Images/contentManaged/products/5.png",
+            "ImageAlt": "Image alt 1"
+        }, {
+            "ImagePath": "/_Images/contentManaged/28.png",
+            "ImageAlt": "Image alt 2"
+        }, {
+            "ImagePath": "/_Images/contentManaged/55.jpg",
+            "ImageAlt": "Image alt 3"
+        }, {
+            "ImagePath": "/_Images/contentManaged/slider-mobile-1.png",
+            "ImageAlt": "Image alt 4"
+        }, {
+            "ImagePath": "/_Images/contentManaged/19.png",
+            "ImageAlt": "Image alt 4"
+        }, {
+            "ImagePath": "/_Images/contentManaged/products/2.jpg",
+            "ImageAlt": "Image alt 4"
+        }
+    ],
+    "SliderImages1": [
+        {
+            "ImagePath": "/_Images/contentManaged/22.png",
+            "ImageAlt": "Image alt 1"
+        }, {
+            "ImagePath": "/_Images/contentManaged/24.png",
+            "ImageAlt": "Image alt 2"
+        }, {
+            "ImagePath": "/_Images/contentManaged/25.jpg",
+            "ImageAlt": "Image alt 3"
+        }, {
+            "ImagePath": "/_Images/contentManaged/products/14.png",
+            "ImageAlt": "Image alt 4"
+        }, {
+            "ImagePath": "/_Images/contentManaged/products/13.png",
+            "ImageAlt": "Image alt 4"
+        }
+    ]
+}
