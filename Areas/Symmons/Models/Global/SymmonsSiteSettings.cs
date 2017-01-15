@@ -83,5 +83,11 @@ namespace symmons.com.Areas.Symmons.Models.Global
 
         [SitecoreField(FieldName = "Super Category Kitchen Browse Link List")]
         public virtual IEnumerable<ProductBrowseByType> SuperCategoryKitchenBrowseLinkList { get; set; }
+
+        [SitecoreField(FieldName = "Scripts")]
+        public virtual string trackingScripts { get; set; }
+
+        [SitecoreField(FieldName = "GTM Script")]
+        public virtual string GTMScript { get; set; }
     }
 }
