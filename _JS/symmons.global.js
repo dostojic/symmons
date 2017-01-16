@@ -113,6 +113,14 @@ function addExpandedText(objVal, objClick, objClassName, showText, hideText, isS
 jQuery.noConflict();
 jQuery(document).ready(function ($) {
 
+    jQuery(".header__rightcols").showHide({
+        triggerSelector: ".show-subitem",
+        contentSelector: ".header__util-item__subitem.support-subitem",
+        startClosed: true,
+        openedClass: "support-open",
+        closedClass: "support-closed"
+    });
+
     jQuery(".header__util-content").showHide({
         triggerSelector: ".nav-support",
         contentSelector: ".support-navigation",

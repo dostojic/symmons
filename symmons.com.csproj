@@ -1468,6 +1468,7 @@
     <Content Include="_CSS\blog-ie8.css" />
     <Content Include="_CSS\blog-styles.css" />
     <Content Include="_CSS\ie8.css" />
+    <Content Include="_CSS\navigation.css" />
     <Content Include="_CSS\styles.css" />
     <Content Include="_Documents\temp\UpdatePriceLog.txt" />
     <Content Include="_JS\plugins\blog\blazy.js" />
@@ -2947,7 +2948,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1374</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

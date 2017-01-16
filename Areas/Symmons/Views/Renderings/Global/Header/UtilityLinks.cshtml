@@ -5,17 +5,54 @@
 @inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
 
 <nav class="header__util-links desktop" role="Navigation">
-    @if ((Model.UtilityNavigationList != null) && (Model.UtilityNavigationList.Any()))
-    {
-        foreach (var utilityLink in Model.UtilityNavigationList.Take(3))
+    <ul>
+        @if ((Model.UtilityNavigationList != null) && (Model.UtilityNavigationList.Any()))
         {
-            if (SymmonsHelper.IsValidLink(utilityLink.NavigationLinkUrl) && !String.IsNullOrEmpty(utilityLink.NavigationLinkUrl.Text))
+            foreach (var utilityLink in Model.UtilityNavigationList.Take(3))
             {
-                @RenderLink(utilityLink, x => x.NavigationLinkUrl, new { @class = "header__util-item" }, true)
+                if (SymmonsHelper.IsValidLink(utilityLink.NavigationLinkUrl) && !String.IsNullOrEmpty(utilityLink.NavigationLinkUrl.Text))
+                {
+                    <li>
+                        @RenderLink(utilityLink, x => x.NavigationLinkUrl, new { @class = "header__util-item" }, true)
+                    </li>
+                }
             }
         }
-    }
-    <a class="header__util-item search-item"><span>@Translate.Text(Constants.Dictionary.Search)</span> <i class="img-icon img-search"></i></a>
+
+        <li>
+            <a href="javascript:;" class="header__util-item show-subitem">CUSTOMER SERVICE</a>
+            <div class="header__util-item__subitem support-subitem">
+                <section class="support-navigation__list">
+                    @Html.Partial(Constants.ViewPaths.ContactInfoCallout, Model)
+
+                    @foreach (var item in Model.CustomerSupportList)
+                    {
+                        if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
+                        {
+                            @RenderLink(item, x => x.NavigationLinkUrl, new { @class = "support-navigation__link" }, true)
+                        }
+                    }
+                </section>
+
+                @if ((Model.CommercialCustomersList != null) && (Model.CommercialCustomersList.Any()))
+                {
+                    <section class="support-navigation__commericial">
+                        <h2 class="support-navigation__title">@Translate.Text(Constants.Dictionary.CommercialCustomers)</h2>
+                        @foreach (var item in Model.CommercialCustomersList)
+                        {
+                            if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
+                            {
+                                @RenderLink(item, x => x.NavigationLinkUrl, new { @class = "support-navigation__link" }, true)
+                            }
+                        }
+                    </section>
+                }
+            </div>
+        </li>
+        <li>
+            <a class="header__util-item search-item"><span>@Translate.Text(Constants.Dictionary.Search)</span> <i class="img-icon img-search"></i></a>
+        </li>
+    </ul>
 </nav>
 @using (Html.BeginForm("GetSearchResult", "SymmonsSearch", FormMethod.Post, new { name = "frmGlobalSearch", id = "frmGlobalSearch" }))
 {   
