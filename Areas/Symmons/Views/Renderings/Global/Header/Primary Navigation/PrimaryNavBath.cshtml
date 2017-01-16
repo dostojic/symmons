@@ -8,17 +8,8 @@
 @inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
 
 @{
-    ProductSection symmonsForHome = null;
-    SuperCategory superCategoryForBath = null;
-    if (Model != null)
-    {
-        symmonsForHome = Model.PrimaryNavigationList.FirstOrDefault(x => Guid.Parse(Constants.PageIds.PrimaryNavSymmonsForHome) == x.Id);
-    }
-    if (symmonsForHome != null)
-    {
-        var childItems = SitecoreHelper.ItemMethods.GetItemFromGUID(symmonsForHome.Id.ToString()).GetChildren().Select(x => (x.GlassCast<SuperCategory>())).Where(x => x.ShowOnNavigation);
-        superCategoryForBath = childItems.FirstOrDefault(x => Guid.Parse(Constants.PageIds.PrimaryNavBath) == x.Id);
-    }
+    var bathProductSection = Model.PrimaryNavigationList.FirstOrDefault(x => Guid.Parse(Constants.PageIds.PrimaryNavBath) == x.Id);
+    var superCategoryForBath = SitecoreHelper.ItemMethods.GetItemFromGUID(bathProductSection.Id.ToString()).GlassCast<SuperCategory>();
 }
 
 @if ((superCategoryForBath != null) && (superCategoryForBath.ShowOnNavigation))

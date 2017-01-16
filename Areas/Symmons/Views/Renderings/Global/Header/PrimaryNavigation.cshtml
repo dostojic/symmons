@@ -20,7 +20,20 @@
                         <li class="primary-navigation__item">
                             <a href="#" class="primary-navigation__link">@Editable(primaryNavigationItem, x => x.NavigationTitle)</a>
                             @{ var childItems = SitecoreHelper.ItemMethods.GetItemFromGUID(primaryNavigationItem.Id.ToString()).GetChildren().Select(x => (x.GlassCast<SuperCategory>())).Where(x => x.ShowOnNavigation); }
-                            @if (Guid.Parse(Constants.PageIds.PrimaryNavCommercial) == primaryNavigationItem.Id)
+                            
+                            @if (Guid.Parse(Constants.PageIds.PrimaryNavBath) == primaryNavigationItem.Id)
+                            {
+                                <div class="primary-navigation__subitem bath-subitem">
+                                    @Html.Partial(Constants.ViewPaths.PrimaryNavBath, Model)
+                                </div>
+                            }
+                            else if (Guid.Parse(Constants.PageIds.PrimaryNavKitchen) == primaryNavigationItem.Id)
+                            {
+                                <div class="primary-navigation__subitem kitchen-subitem">
+                                    @Html.Partial(Constants.ViewPaths.PrimaryNavKitchen, Model)
+                                </div>
+                            }
+                            else if (Guid.Parse(Constants.PageIds.PrimaryNavCommercial) == primaryNavigationItem.Id)
                             {
                                 <div class="primary-navigation__subitem commercial-subitem">
                                     @Html.Partial(Constants.ViewPaths.PrimaryNavCommercial, childItems)
@@ -30,13 +43,6 @@
                             {
                                 <div class="primary-navigation__subitem design-studio-subitem">
                                     @Html.Partial(Constants.ViewPaths.PrimaryDesignStudio, SitecoreHelper.ItemMethods.GetItemFromGUID(primaryNavigationItem.Id.ToString()).GlassCast<SuperCategory>())
-                                </div>
-                            }
-                            else if (Guid.Parse(Constants.PageIds.PrimaryNavSymmonsForHome) == primaryNavigationItem.Id)
-                            {
-                                <div class="primary-navigation__subitem home-subitem">
-                                    @Html.Partial(Constants.ViewPaths.PrimaryNavBath, Model)
-                                    @Html.Partial(Constants.ViewPaths.PrimaryNavKitchen, Model)
                                 </div>
                             }
                         </li>

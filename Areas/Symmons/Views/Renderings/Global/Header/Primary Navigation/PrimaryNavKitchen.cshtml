@@ -8,17 +8,8 @@
 @inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
 
 @{
-    ProductSection symmonsForHome = null;
-    SuperCategory superCategoryForkitchen = null;
-    if (Model != null)
-    {
-        symmonsForHome = Model.PrimaryNavigationList.FirstOrDefault(x => Guid.Parse(Constants.PageIds.PrimaryNavSymmonsForHome) == x.Id);
-    }
-    if (symmonsForHome != null)
-    {
-        var childItems = SitecoreHelper.ItemMethods.GetItemFromGUID(symmonsForHome.Id.ToString()).GetChildren().Select(x => (x.GlassCast<SuperCategory>())).Where(x => x.ShowOnNavigation);
-        superCategoryForkitchen = childItems.FirstOrDefault(x => Guid.Parse(Constants.PageIds.PrimaryNavKitchen) == x.Id);
-    }
+    var kitchenProductSection = Model.PrimaryNavigationList.FirstOrDefault(x => Guid.Parse(Constants.PageIds.PrimaryNavKitchen) == x.Id);
+    var superCategoryForkitchen = SitecoreHelper.ItemMethods.GetItemFromGUID(kitchenProductSection.Id.ToString()).GlassCast<SuperCategory>();
 }
 
 @if ((superCategoryForkitchen != null) && (superCategoryForkitchen.ShowOnNavigation))
