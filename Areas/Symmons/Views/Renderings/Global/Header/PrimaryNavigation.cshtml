@@ -26,6 +26,12 @@
                                     @Html.Partial(Constants.ViewPaths.PrimaryNavCommercial, childItems)
                                 </div>
                             }
+                            else if (Guid.Parse(Constants.PageIds.PrimaryDesignStudio) == primaryNavigationItem.Id)
+                            {
+                                <div class="primary-navigation__subitem design-studio-subitem">
+                                    @Html.Partial(Constants.ViewPaths.PrimaryDesignStudio, SitecoreHelper.ItemMethods.GetItemFromGUID(primaryNavigationItem.Id.ToString()).GlassCast<SuperCategory>())
+                                </div>
+                            }
                             else if (Guid.Parse(Constants.PageIds.PrimaryNavSymmonsForHome) == primaryNavigationItem.Id)
                             {
                                 <div class="primary-navigation__subitem home-subitem">
@@ -33,42 +39,6 @@
                                     @Html.Partial(Constants.ViewPaths.PrimaryNavKitchen, Model)
                                 </div>
                             }
-                        </li>
-                    }
-                    else if(primaryNavigationItem.ShowOnNavigation)
-                    {
-                        <li class="primary-navigation__item customer-support-item">
-                            @if (!string.IsNullOrEmpty(primaryNavigationItem.NavigationTitle))
-                            {
-                                <a href="#" class="primary-navigation__link">@Editable(primaryNavigationItem, x => x.NavigationTitle)</a>
-                            }
-                            <div class="primary-navigation__subitem support-subitem">
-                                <section class="support-navigation__list">
-                                    @Html.Partial(Constants.ViewPaths.ContactInfoCallout, Model)
-
-                                    @foreach (var item in Model.CustomerSupportList)
-                                    {
-                                        if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
-                                        {
-                                            @RenderLink(item, x => x.NavigationLinkUrl, new {@class = "support-navigation__link"}, true)
-                                        }
-                                    }
-                                </section>
-
-                                @if ((Model.CommercialCustomersList != null) && (Model.CommercialCustomersList.Any()))
-                                {
-                                    <section class="support-navigation__commericial">
-                                        <h2 class="support-navigation__title">@Translate.Text(Constants.Dictionary.CommercialCustomers)</h2>
-                                        @foreach (var item in Model.CommercialCustomersList)
-                                        {
-                                            if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
-                                            {
-                                                @RenderLink(item, x => x.NavigationLinkUrl, new {@class = "support-navigation__link"}, true)
-                                            }
-                                        }
-                                    </section>
-                                }
-                            </div>
                         </li>
                     }
                 }

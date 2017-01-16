@@ -1,0 +1,40 @@
+﻿@using Sitecore.Globalization
+@using symmons.com.Areas.Symmons.Models.Pages.Products
+@using symmons.com._Classes.Symmons.Global
+@using Constants = symmons.com._Classes.Shared.Global.Constants
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SuperCategory>
+
+@if (Model.ShowOnNavigation)
+{
+    <section class="primary-navigation__designstudio">
+        <div class="custom-solutions">
+            <div class="custom-solutions__content">
+                @{ var backgroundImage = Model.NavigationImage != null ? Model.NavigationImage.Src : String.Empty; }
+                <div class="custom-solutions__image" style="background-image: url('@backgroundImage')">
+                    @if ((SymmonsHelper.IsValidImage(Model.NavigationIcon) || !string.IsNullOrEmpty(Model.NavigationTitle)))
+                    {
+                        <div class="custom-solutions__contentbox">
+                            <div class="custom-solutions__wrap">
+                                <a href="@Editable(Model, x => x.Url)">
+                                    @if (SymmonsHelper.IsValidImage(Model.NavigationIcon))
+                                    {
+                                        @RenderImage(Model, x => x.NavigationIcon, new { @class = "custom-solutions__icon" }, true);
+                                    }
+                                    <h3 class="custom-solutions__headline">@Editable(Model, x => x.NavigationTitle)</h3>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="custom-solutions__teasercontent">
+                <h4 class="custom-solutions__subheadline">@Editable(Model, x => x.PageSubTitle)</h4>
+                <p class="custom-solutions__teaser">@Editable(Model, x => x.Teaser)</p>
+                @if (!string.IsNullOrEmpty(Model.Url))
+                {
+                    <a href="@Editable(Model, x => x.Url)" class="custom-solutions__cta">@Translate.Text(Constants.Dictionary.LearnMore)</a>
+                }
+            </div>
+        </div>
+    </section>
+}

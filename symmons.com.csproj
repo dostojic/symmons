@@ -2433,6 +2433,7 @@
     <Content Include="Views\Form\Web.config" />
     <Content Include="Views\Shared\ExperienceExplorerView.cshtml" />
     <Content Include="default.htm.sitedown" />
+    <Content Include="Areas\Symmons\Views\Renderings\Global\Header\Primary Navigation\PrimaryNavDesignStudio.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

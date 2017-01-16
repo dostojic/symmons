@@ -314,6 +314,10 @@ namespace symmons.com._Classes.Shared.Global
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_PrimaryNavCommercial"]; }
             }
+            public static string PrimaryDesignStudio
+            {
+                get { return ConfigurationManager.AppSettings["ViewPath_PrimaryDesignStudio"]; }
+            }
             public static string PrimaryNavBath
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_PrimaryNavBath"]; }
@@ -435,6 +439,10 @@ namespace symmons.com._Classes.Shared.Global
             public static string PrimaryNavCommercial
             {
                 get { return ConfigurationManager.AppSettings["PageId_PrimaryNavCommercial"]; }
+            }
+            public static string PrimaryDesignStudio
+            {
+                get { return ConfigurationManager.AppSettings["PageId_PrimaryDesignStudio"]; }
             }
             public static string PrimaryNavCustomSolutions
             {

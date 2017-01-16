@@ -25,39 +25,5 @@
                 }
             }
         </ul>
-
-        @{ var customSolutions = Model.FirstOrDefault(x => Guid.Parse(Constants.PageIds.PrimaryNavCustomSolutions) == x.Id); }
-        @if ((customSolutions != null) && (customSolutions.ShowOnNavigation))
-        { <div class="custom-solutions">
-            <div class="custom-solutions__content">
-                @{ var backgroundImage = customSolutions.NavigationImage != null ? customSolutions.NavigationImage.Src : String.Empty; }
-                <div class="custom-solutions__image" style="background-image: url('@backgroundImage')">
-                    @if ((SymmonsHelper.IsValidImage(customSolutions.NavigationIcon) || !string.IsNullOrEmpty(customSolutions.NavigationTitle)))
-                    {
-                        <div class="custom-solutions__contentbox">
-                            <div class="custom-solutions__wrap">
-                              <a href="@Editable(customSolutions, x => x.Url)">
-                                  @if (SymmonsHelper.IsValidImage(customSolutions.NavigationIcon))
-                                  {
-                                      @RenderImage(customSolutions, x => x.NavigationIcon, new { @class = "custom-solutions__icon" }, true);
-                                  }
-                                  <h3 class="custom-solutions__headline">@Editable(customSolutions, x => x.NavigationTitle)</h3>
-                              </a>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-            <div class="custom-solutions__teasercontent">
-                <h4 class="custom-solutions__subheadline">@Editable(customSolutions, x => x.PageSubTitle)</h4>
-                <p class="custom-solutions__teaser">@Editable(customSolutions, x => x.Teaser)</p>
-                @if (!string.IsNullOrEmpty(customSolutions.Url))
-                {
-                    <a href="@Editable(customSolutions, x => x.Url)" class="custom-solutions__cta">@Translate.Text(Constants.Dictionary.LearnMore)</a>
-                }
-            </div>
-        </div>
-        }
-
     </section>
 }
