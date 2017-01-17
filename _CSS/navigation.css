@@ -28,6 +28,7 @@
 }
 .header__util-links.desktop ul li a {
 	padding: 0 !important;
+	border: 0 !important;
 }
 .header__rightcols .support-subitem {
 	position: absolute;
@@ -55,8 +56,8 @@
 .design-studio-subitem {
 	padding: 0;
 }
-.primary-navigation__designstudio {
-
+.primary-navigation__designstudio .custom-solutions {
+	border-top: none !important;
 }
 .primary-navigation__subitem.bath-subitem,
 .primary-navigation__subitem.kitchen-subitem {
@@ -70,4 +71,8 @@
 	border-bottom: 7px solid #57ae55;
 	margin: 0;
 	background: #fff;
+	padding: 0 25px 15px 25px;
+}
+.custom-solutions__teasercontent {
+	padding-right: 15px;
 }
