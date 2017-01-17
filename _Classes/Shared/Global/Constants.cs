@@ -496,6 +496,10 @@ namespace symmons.com._Classes.Shared.Global
             {
                 get { return ConfigurationManager.AppSettings["PageId_CustomerSupport"]; }
             }
+            public static string CustomerService
+            {
+                get { return ConfigurationManager.AppSettings["PageId_CustomerService"];  }
+            }
             public static string ShowroomStore
             {
                 get { return ConfigurationManager.AppSettings["PageId_ShowroomStore"]; }

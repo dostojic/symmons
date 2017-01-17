@@ -12,43 +12,49 @@
             {
                 if (SymmonsHelper.IsValidLink(utilityLink.NavigationLinkUrl) && !String.IsNullOrEmpty(utilityLink.NavigationLinkUrl.Text))
                 {
-                    <li>
-                        @RenderLink(utilityLink, x => x.NavigationLinkUrl, new { @class = "header__util-item" }, true)
-                    </li>
+                    if (Guid.Parse(Constants.PageIds.CustomerService) != utilityLink.NavigationLinkUrl.TargetId)
+                    {
+                        <li>
+                            @RenderLink(utilityLink, x => x.NavigationLinkUrl, new { @class = "header__util-item" }, true)
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="javascript:;" class="header__util-item show-subitem">@utilityLink.NavigationLinkUrl.Text</a>
+                            <div class="header__util-item__subitem support-subitem">
+                                <section class="support-navigation__list">
+                                    @Html.Partial(Constants.ViewPaths.ContactInfoCallout, Model)
+
+                                    @foreach (var item in Model.CustomerSupportList)
+                                    {
+                                        if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
+                                        {
+                                            @RenderLink(item, x => x.NavigationLinkUrl, new { @class = "support-navigation__link" }, true)
+                                        }
+                                    }
+                                </section>
+
+                                @if ((Model.CommercialCustomersList != null) && (Model.CommercialCustomersList.Any()))
+                                {
+                                    <section class="support-navigation__commericial">
+                                        <h2 class="support-navigation__title">@Translate.Text(Constants.Dictionary.CommercialCustomers)</h2>
+                                        @foreach (var item in Model.CommercialCustomersList)
+                                        {
+                                            if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
+                                            {
+                                                @RenderLink(item, x => x.NavigationLinkUrl, new { @class = "support-navigation__link" }, true)
+                                            }
+                                        }
+                                    </section>
+                                }
+                            </div>
+                        </li>
+                    }
                 }
             }
         }
 
-        <li>
-            <a href="javascript:;" class="header__util-item show-subitem">CUSTOMER SERVICE</a>
-            <div class="header__util-item__subitem support-subitem">
-                <section class="support-navigation__list">
-                    @Html.Partial(Constants.ViewPaths.ContactInfoCallout, Model)
-
-                    @foreach (var item in Model.CustomerSupportList)
-                    {
-                        if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
-                        {
-                            @RenderLink(item, x => x.NavigationLinkUrl, new { @class = "support-navigation__link" }, true)
-                        }
-                    }
-                </section>
-
-                @if ((Model.CommercialCustomersList != null) && (Model.CommercialCustomersList.Any()))
-                {
-                    <section class="support-navigation__commericial">
-                        <h2 class="support-navigation__title">@Translate.Text(Constants.Dictionary.CommercialCustomers)</h2>
-                        @foreach (var item in Model.CommercialCustomersList)
-                        {
-                            if (SymmonsHelper.IsValidLink(item.NavigationLinkUrl))
-                            {
-                                @RenderLink(item, x => x.NavigationLinkUrl, new { @class = "support-navigation__link" }, true)
-                            }
-                        }
-                    </section>
-                }
-            </div>
-        </li>
         <li>
             <a class="header__util-item search-item"><span>@Translate.Text(Constants.Dictionary.Search)</span> <i class="img-icon img-search"></i></a>
         </li>
