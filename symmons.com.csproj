@@ -2524,6 +2524,7 @@
     <Compile Include="Areas\Symmons\Models\Modules\Callouts\GalleryCallout.cs" />
     <Compile Include="Areas\Symmons\Models\Modules\Callouts\GalleryModule.cs" />
     <Compile Include="Areas\Symmons\Models\Modules\Callouts\ImageCallout.cs" />
+    <Compile Include="Areas\Symmons\Models\Modules\Callouts\ISSUUCallout.cs" />
     <Compile Include="Areas\Symmons\Models\Modules\Callouts\MapCallout.cs" />
     <Compile Include="Areas\Symmons\Models\Modules\Callouts\ProductGenericCallout.cs" />
     <Compile Include="Areas\Symmons\Models\Modules\Callouts\ProductLibraryCallout.cs" />

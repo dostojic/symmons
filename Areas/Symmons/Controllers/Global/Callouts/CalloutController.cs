@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using symmons.com._Classes.Symmons.Global;
 using Verndale.SharedSource.Helpers;
 using Sitecore.Data.Items;
+using symmons.com._Classes.Symmons.Helpers;
 
 namespace symmons.com.Areas.Symmons.Controllers.Global.Callouts
 {
@@ -168,6 +169,26 @@ namespace symmons.com.Areas.Symmons.Controllers.Global.Callouts
         {
             var calloutModel = (DatasourceItem == null ? null : DatasourceItem.GlassCast<SymmonsVideo>());
             return View(Constants.ViewPaths.SymmonsTimelineVideoCallout, calloutModel);
+        }
+
+        public ActionResult RenderISSUUCallout()
+        {
+            if (SymmonsController.DatasourceItem == null)
+            {
+                return (ActionResult)null;
+            }
+
+            if (((BaseItem)SymmonsController.DatasourceItem).Fields["US Callout"].Value.Trim().Replace("\r", string.Empty).Replace("\n", string.Empty).Length <= 0)
+            {
+                return (ActionResult)null;
+            }
+
+            return View(Constants.ViewPaths.ISSUUScript, (object)new ISSUUCallout()
+            {
+                embedScript = (!LocationsHelper.IsCaSite() || ((BaseItem)SymmonsController.DatasourceItem).Fields["CA Callout"].Value.Trim().Replace("\r", string.Empty).Replace("\n", string.Empty).Length <= 0 ? ((BaseItem)SymmonsController.DatasourceItem).Fields["US Callout"].Value : ((BaseItem)SymmonsController.DatasourceItem).Fields["CA Callout"].Value),
+                Title = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName("Title", SymmonsController.DatasourceItem, false),
+                Content = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName("Content", SymmonsController.DatasourceItem, false)
+            });
         }
     }
 }
