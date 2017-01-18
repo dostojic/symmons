@@ -39,12 +39,65 @@
                         {
                             <h2 class="menu-navigation__title">@primaryNavigationItem.NavigationTitle</h2>
                         }
-                        foreach (var item in childItems)
+
+                        if (primaryNavigationItem.Id == Guid.Parse(Constants.PageIds.DesignStudio))
                         {
-                            if (item != null && !string.IsNullOrEmpty(item.NavigationTitle))
+                            <a href="@primaryNavigationItem.Url" class="menu-navigation__link">Learn more</a>
+                        }
+                        else
+                        {
+                            foreach (var item in childItems)
                             {
-                                <a href="@Editable(item, x => x.Url, null)" class="menu-navigation__link">@Editable(item, x => x.NavigationTitle)</a>
+                                if (item != null && !string.IsNullOrEmpty(item.NavigationTitle))
+                                {
+                                    <a href="@Editable(item, x => x.Url, null)" class="menu-navigation__link">@Editable(item, x => x.NavigationTitle)</a>
+                                }
                             }
+                        }
+                    }
+                    else if (primaryNavigationItem.Id == Guid.Parse(Constants.PageIds.PrimaryNavBath))
+                    {
+                        if (Model.ProductBathBrowseLinkList != null)
+                        {
+                            if (Model.ProductBathBrowseLinkList.Any())
+                            {
+                                <h2 class="menu-navigation__title">@primaryNavigationItem.NavigationTitle</h2>
+
+                                var catBrowsePage = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.ProductBrowse);
+                                var catbrowsePageUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(catBrowsePage);
+
+                                foreach (var category in Model.ProductBathBrowseLinkList)
+                                {
+                                    if (!string.IsNullOrEmpty(category.CategoryName))
+                                    {
+                                        var catUrl = catbrowsePageUrl + "?" + Constants.QueryString.CategoryId + "={" + category.Id.ToString().ToLower() + "}&" + Constants.QueryString.SegmentId + "=" + "{" + Constants.ItemIds.ResidentialSegment.ToLower() + "}";
+                                        <a href="@catUrl" class="menu-navigation__link">@category.CategoryName</a>
+                                    }
+                                }
+
+                                <a href="@primaryNavigationItem.Url" class="menu-navigation__link">Learn more</a>
+                            }
+                        }
+                    }
+                    else if (primaryNavigationItem.Id == Guid.Parse(Constants.PageIds.PrimaryNavKitchen))
+                    {
+                        if (Model.ProductKitchenBrowseLinkList != null)
+                        {
+                            <h2 class="menu-navigation__title">@primaryNavigationItem.NavigationTitle</h2>
+
+                            var browsePage = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.ProductBrowse);
+                            var browsePageUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(browsePage);
+
+                            foreach (var category in Model.ProductKitchenBrowseLinkList)
+                            {
+                                if (!string.IsNullOrEmpty(category.CategoryName))
+                                {
+                                    var catUrl = browsePageUrl + "?" + Constants.QueryString.CategoryId + "={" + category.Id.ToString().ToLower() + "}&" + Constants.QueryString.SegmentId + "=" + "{" + Constants.ItemIds.ResidentialSegment.ToLower() + "}";
+                                    <a href="@catUrl" class="menu-navigation__link">@category.CategoryName</a>
+                                }
+                            }
+
+                            <a href="@primaryNavigationItem.Url" class="menu-navigation__link">Learn more</a>
                         }
                     }
                 }
