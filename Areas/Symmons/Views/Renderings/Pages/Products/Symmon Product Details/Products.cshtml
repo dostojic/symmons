@@ -150,7 +150,7 @@
                             {
                                 <div class="cols">
                                     <a href="#" data-category="@productCategoryIds" data-product-id="{@Model.Id}" class="buy-cta add-comparison">@Translate.Text(Constants.Dictionary.ProductAddToComparison)</a>
-                                    @if (Model.UsefulLinks != null)
+                                    @*@if (Model.UsefulLinks != null)
                                     {
                                         foreach (var link in Model.UsefulLinks)
                                         {
@@ -160,7 +160,7 @@
                                                 @RenderLink(link, x => x.UsefulLink, new { @class = "buy-cta add-folder" }, true)
                                             }
                                         }
-                                    }
+                                    }*@
                                 </div>
                             }
                         </section>
