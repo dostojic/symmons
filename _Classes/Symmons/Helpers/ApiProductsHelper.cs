@@ -244,7 +244,7 @@ namespace symmons.com._Classes.Symmons.Helpers
 
                 product.SmartAttributes = GetMultilistFieldValue(itm.Parent.Fields["Smart Features"]);
                 product.ProductCategory = GetMultilistFieldValue(itm.Parent.Fields["Product Category"]);
-                product.ProductFinishesMultiList = GetMultilistFieldValue(itm.Parent.Fields["Product Finishes"]);
+              //  product.ProductFinishesMultiList = GetMultilistFieldValue(itm.Parent.Fields["Product Finishes"]);
                 product.ProductSegment = GetMultilistFieldValue(itm.Parent.Fields["Product Segment"]);
                 product.SpecialAttributes =
                     GetSpecialAttributes(
@@ -331,7 +331,13 @@ namespace symmons.com._Classes.Symmons.Helpers
                     product.ProductStyle = target.Name;
                 }
 
-               
+                //Finish Product Product Finish 
+                ReferenceField finishField = itm.Fields["Finish"];
+                if (finishField != null && finishField.TargetItem != null)
+                {
+                    var target = finishField.TargetItem;
+                    product.ProductFinishesMultiList = target.Name;
+                }
             }
             catch (Exception exception)
             {
