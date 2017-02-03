@@ -12,7 +12,7 @@
             {
                 if (SymmonsHelper.IsValidLink(utilityLink.NavigationLinkUrl) && !String.IsNullOrEmpty(utilityLink.NavigationLinkUrl.Text))
                 {
-                    if (Guid.Parse(Constants.PageIds.CustomerService) != utilityLink.NavigationLinkUrl.TargetId)
+                    if (Guid.Parse(Constants.PageIds.CustomerSupport) != utilityLink.NavigationLinkUrl.TargetId)
                     {
                         <li>
                             @RenderLink(utilityLink, x => x.NavigationLinkUrl, new { @class = "header__util-item" }, true)
@@ -21,7 +21,7 @@
                     else
                     {
                         <li>
-                            <a href="javascript:;" class="header__util-item show-subitem">CUSTOMER SUPPORT</a>
+                            <a href="javascript:;" class="header__util-item show-subitem">@utilityLink.NavigationLinkUrl.Text</a>
                             <div class="header__util-item__subitem support-subitem">
                                 <section class="support-navigation__list">
                                     @Html.Partial(Constants.ViewPaths.ContactInfoCallout, Model)
