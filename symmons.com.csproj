@@ -1470,6 +1470,7 @@
     <Content Include="_CSS\ie8.css" />
     <Content Include="_CSS\navigation.css" />
     <Content Include="_CSS\styles.css" />
+    <Content Include="_CSS\updates.css" />
     <Content Include="_Documents\temp\UpdatePriceLog.txt" />
     <Content Include="_JS\plugins\blog\blazy.js" />
     <Content Include="_JS\plugins\blog\blog-init.js" />
@@ -2434,6 +2435,8 @@
     <Content Include="Views\Shared\ExperienceExplorerView.cshtml" />
     <Content Include="default.htm.sitedown" />
     <Content Include="Areas\Symmons\Views\Renderings\Global\Header\Primary Navigation\PrimaryNavDesignStudio.cshtml" />
+    <Content Include="Areas\Symmons\Views\Renderings\Pages\Design Studio\DesignStudioCarousel.cshtml" />
+    <Content Include="Areas\Symmons\Views\Renderings\Pages\Design Studio\DesignStudioProcesses.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2517,6 +2520,10 @@
     <Compile Include="Areas\Symmons\Models\Global\SymmonsListing.cs" />
     <Compile Include="Areas\Symmons\Models\Global\SymmonsSiteSettings.cs" />
     <Compile Include="Areas\Symmons\Models\Modules\Callouts\ContactInfoCallout.cs" />
+    <Compile Include="Areas\Symmons\Models\Modules\Callouts\Design Studio\DesignStudioProcess.cs" />
+    <Compile Include="Areas\Symmons\Models\Modules\Callouts\Design Studio\DesignStudioProcesses.cs" />
+    <Compile Include="Areas\Symmons\Models\Modules\Callouts\Design Studio\DesignStudioCarouselItem.cs" />
+    <Compile Include="Areas\Symmons\Models\Modules\Callouts\Design Studio\DesignStudioCarousel.cs" />
     <Compile Include="Areas\Symmons\Models\Modules\Callouts\Design Studio\TimelineCallout.cs" />
     <Compile Include="Areas\Symmons\Models\Modules\Callouts\Design Studio\TimelineModule.cs" />
     <Compile Include="Areas\Symmons\Models\Modules\Callouts\FAQCallout.cs" />

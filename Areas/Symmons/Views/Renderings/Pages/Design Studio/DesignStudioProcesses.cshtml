@@ -1,0 +1,50 @@
+﻿@using symmons.com.Areas.Symmons.Models.Modules.Callouts.Design_Studio
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<DesignStudioProcesses>
+
+@if (Model != null)
+{
+    <section class="design-studio process-steps">
+        <div class="container">
+            <div class="design-studio__teaser">
+                <h4>@Model.Title</h4>
+                <p>@Model.Text</p>
+            </div>
+            <div class="design-studio__content">
+                @foreach (var process in Model.Children)
+                {
+                    var imageUrl = process.Image != null ? process.Image.Src : string.Empty;
+                    var linkUrl = process.Link != null ? process.Link.Url : string.Empty;
+
+                    <div class="design-option">
+                        <h4 class="design-option__heading"><span>@process.Title</span></h4> 
+                        <div class="design-option__row design-option__row-zero">
+                            <div class="image-modal">
+                                <a href="@linkUrl">
+                                    <img src="@imageUrl" alt="" />
+                                </a>
+                            </div>
+                            <figure class="image-responsive video-responsive--mobile">
+                                <a href="@linkUrl">
+                                    <img src="@imageUrl" alt="" />
+                                </a>
+                            </figure>
+                        </div>
+                        <div class="design-studio__content--design-options">
+                            <div class="design-option__row design-option__row-one">
+                                <p class="design-option__description">
+                                    @process.Text
+                                </p>
+                                <p class="design-option__heading--mobile" data-show-text="Show More" data-hide-text="Show Less">Show More</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            @{ 
+                var getStartedLink = Model.Link != null ? Model.Link.Url : string.Empty;
+                var getStartedLinkText = Model.Link != null ? Model.Link.Text : string.Empty;
+            }
+            <a href="@getStartedLink" class="design-studio__cta">@getStartedLinkText</a>
+        </div>
+    </section>
+}

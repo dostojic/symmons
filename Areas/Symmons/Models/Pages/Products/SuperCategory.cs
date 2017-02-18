@@ -29,6 +29,8 @@ namespace symmons.com.Areas.Symmons.Models.Pages.Products
 
         public virtual string MainContent { get; set; }
 
+        public virtual Link Link { get; set; }
+
         public virtual Image PageImage { get; set; }
 
         public virtual string Teaser { get; set; }

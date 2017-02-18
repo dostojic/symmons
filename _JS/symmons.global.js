@@ -111,6 +111,9 @@ function addExpandedText(objVal, objClick, objClassName, showText, hideText, isS
 
 
 jQuery.noConflict();
+
+var slider = jQuery('.design-studio-slider').bxSlider();
+
 jQuery(document).ready(function ($) {
 
     jQuery(".header__rightcols").showHide({
@@ -512,4 +515,12 @@ jQuery(document).ready(function ($) {
         });
 
       }*/
+});
+
+jQuery(window).resize(function () {
+
+    if ($('.studio-slider-wrap').length > 0) {
+        slider.reloadSlider();
+    }
+
 });

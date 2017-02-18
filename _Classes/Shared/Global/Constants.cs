@@ -358,6 +358,14 @@ namespace symmons.com._Classes.Shared.Global
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_DesignStudio"]; }
             }
+            public static string DesignStudioCarousel
+            {
+                get { return ConfigurationManager.AppSettings["ViewPath_DesignStudioCarousel"]; }
+            }
+            public static string DesignStudioProcesses
+            {
+                get { return ConfigurationManager.AppSettings["ViewPath_DesignStudioProcesses"]; }
+            }
             public static string SymmonsTimelineVideoCallout
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_SymmonsTimelineVideoCallout"]; }

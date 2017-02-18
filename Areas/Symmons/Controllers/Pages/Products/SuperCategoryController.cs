@@ -79,6 +79,16 @@ namespace symmons.com.Areas.Symmons.Controllers.Pages.Products
             return View(Constants.ViewPaths.DesignStudio);
         }
 
+        public ActionResult GetDesignStudioCarousel()
+        {
+            return View(Constants.ViewPaths.DesignStudioCarousel);
+        }
+
+        public ActionResult GetDesignStudioProcesses()
+        {
+            return View(Constants.ViewPaths.DesignStudioProcesses);
+        }
+
         // *****************************************************************************************************************
         // *****************************************************************************************************************
     }

@@ -1,0 +1,27 @@
+﻿@using symmons.com.Areas.Symmons.Models.Modules.Callouts.Design_Studio
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<DesignStudioCarousel>
+
+@if (Model != null)
+{
+    <h3 class="browse-products__title">@Model.Title</h3>
+    <p>@Model.Text</p>
+    <div class="studio-slider-wrap">
+        <div class="design-studio-slider">
+            @foreach (var item in Model.Children)
+            {
+                var imageUrl = item.Image != null ? item.Image.Src : string.Empty;
+                var linkUrl = item.Link != null ? item.Link.Url : string.Empty;
+
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="{@imageUrl} " alt="" />
+                        <div class="slide-text">
+                            <a href="@linkUrl"><strong>@item.Title</strong></a>
+                            <span>@item.Text</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
