@@ -1,9 +1,8 @@
-﻿@using Sitecore.Globalization
-@using symmons.com._Classes.Symmons.Global
-@using Glass.Mapper.Sc
+﻿@using Glass.Mapper.Sc
 @using symmons.com.Areas.Symmons.Models.Global
 @using symmons.com.Areas.Symmons.Models.Pages.Products
 @using Verndale.SharedSource.Helpers
+@using symmons.com.Areas.Symmons.Models.Pages.Temptrol
 @using Constants = symmons.com._Classes.Shared.Global.Constants
 @inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
 
@@ -45,10 +44,16 @@
                                     @Html.Partial(Constants.ViewPaths.PrimaryDesignStudio, SitecoreHelper.ItemMethods.GetItemFromGUID(primaryNavigationItem.Id.ToString()).GlassCast<SuperCategory>())
                                 </div>
                             }
+                            else if (Guid.Parse(Constants.PageIds.PrimaryTemptrol) == primaryNavigationItem.Id)
+                            {
+                                <div class="primary-navigation__subitem temptrol-subitem">
+                                    @Html.Partial(Constants.ViewPaths.PrimaryTemptrol, SitecoreHelper.ItemMethods.GetItemFromGUID(primaryNavigationItem.Id.ToString()).GlassCast<Temptrol>())
+                                </div>
+                            }
                         </li>
                     }
                 }
             </ul>
         </div>
     </nav>
-}
+                                }

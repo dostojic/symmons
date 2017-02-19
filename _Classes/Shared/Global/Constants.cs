@@ -318,6 +318,10 @@ namespace symmons.com._Classes.Shared.Global
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_PrimaryDesignStudio"]; }
             }
+            public static string PrimaryTemptrol
+            {
+                get { return ConfigurationManager.AppSettings["ViewPath_PrimaryTemptrol"]; }
+            }
             public static string PrimaryNavBath
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_PrimaryNavBath"]; }
@@ -454,6 +458,10 @@ namespace symmons.com._Classes.Shared.Global
             public static string PrimaryDesignStudio
             {
                 get { return ConfigurationManager.AppSettings["PageId_PrimaryDesignStudio"]; }
+            }
+            public static string PrimaryTemptrol
+            {
+                get { return ConfigurationManager.AppSettings["PageId_PrimaryTemptrol"]; }
             }
             public static string PrimaryNavCustomSolutions
             {
@@ -859,6 +867,10 @@ namespace symmons.com._Classes.Shared.Global
             public static string FeatureLandingPage
             {
                 get { return ConfigurationManager.AppSettings["TemplateId_FeatureLandingPage"]; }
+            }
+            public static string TemptrolPage
+            {
+                get { return ConfigurationManager.AppSettings["TemplateId_TemptrolPage"]; }
             }
             public static string SalesRepresntative
             {
