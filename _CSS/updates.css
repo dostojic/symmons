@@ -94,11 +94,11 @@ body {
 	height: 20px;
 }
 .studio-slider-wrap .bx-prev {
-    background: url('_Images/contentManaged/icons/icon-slider-studio-prev.png') no-repeat 0 0;
+    background: url('/_Images/contentManaged/icons/icon-slider-studio-prev.png') no-repeat 0 0;
 	left: -30px;
 }
 .studio-slider-wrap .bx-next {
-    background: url('_Images/contentManaged/icons/icon-slider-studio-next.png') no-repeat 0 0;
+    background: url('/_Images/contentManaged/icons/icon-slider-studio-next.png') no-repeat 0 0;
 	right: -30px;
 }
 .studio-slider-wrap .bx-wrapper .bx-pager.bx-default-pager a {
