@@ -1,0 +1,127 @@
+﻿@using symmons.com.Areas.Symmons.Models.Pages.Temptrol
+@using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Global
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<Temptrol>
+        
+@if (Model != null)
+{
+    if (SymmonsHelper.IsValidImage(Model.PageImage))
+    {
+        <section class="page-banner temptrol-banner">
+            <div class="page-banner__image" style="background-image: url('@Model.PageImage.Src')">
+                <div class="container">
+                    <div class="page-banner__content">
+                        <div class="page-banner__titlecontent">
+                            <img src="@Model.Logo.Src" class="page-banner__logo" alt="Temptrol Valve" />
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+        </section>
+    }
+
+    <section class="additional-information">
+        <div class="container">
+            <div class="additional-cols-wrapper additional-cols-wrapper--temptrol-valve">
+                <div class="inner">
+                    <aside class="left-cols">
+                        @Html.Raw(Editable(Model, x => x.MainContent))
+                    </aside>
+                    <aside class="right-cols">
+                        <div class="right-cols__image has-border">
+                            <h4 class="linked-list__title">
+                                @RenderLink(Model, x => x.FeatureLink, new { @class = "linked-list__link" }, true)
+                            </h4>
+                            @RenderImage(Model, x => x.FeatureImage, null, true)
+                        </div>
+                    </aside>
+                </div>
+                <div class="inner equal">
+                    <aside class="left-cols">
+                        <div class="left-cols__image is-aligned">
+                            @RenderImage(Model, x => x.TemptrolImage, null, true)
+                        </div>
+                    </aside>
+                    <aside class="right-cols">
+                        @Html.Raw(Editable(Model, x => x.Features))
+                    </aside>
+                </div>
+            </div>
+            <div class="additional-cols-wrapper additional-cols-wrapper--temptrol-valve">
+                <div class="inner equal">
+                    <aside class="left-cols">
+                        <h2 class="left-cols__heading"><strong>@Editable(x => x.MiddleSectionTitle)</strong></h2>
+                        <div class="left-cols__image is-full-width">
+                            @RenderImage(Model, x => x.MiddleSectionImage, null, true)
+                        </div>
+                        <h3 class="left-cols__heading">@Editable(x => x.MiddleSectionSubtitle)</h3>
+                        <p>
+                            @Editable(x => x.MiddleSectionText)
+                        </p>
+                    </aside>
+                    <aside class="right-cols">
+                        <div class="right-cols__content">
+                            <h4 class="right-cols__heading">@Editable(x => x.RightControl1Title)</h4>
+                            <p>@Editable(x => x.RightControl1Text)</p>
+                            <div class="right-cols__image is-aligned">
+                                @RenderImage(Model, x => x.RightControl1Image, null, true)
+                            </div>
+                        </div>
+                        <div class="right-section__content">
+                            <h4 class="right-cols__heading">@Editable(x => x.RightControl2Title)</h4>
+                            <p>
+                                @Editable(x => x.RightControl2Text)
+                            </p>
+                            <div class="right-cols__image is-aligned">
+                                @RenderImage(Model, x => x.RightControl2Image, null, true)
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+            <div class="additional-cols-wrapper additional-cols-wrapper--temptrol-valve">
+                <div class="inner medium">
+                    <aside class="left-cols">
+                        <div class="left-cols__image is-aligned">
+                            @RenderImage(Model, x => x.BottomSectionImage, null, true)
+                        </div>
+                    </aside>
+                    <aside class="right-cols">
+                        <h2>@Editable(x => x.BottomSectionTitle)</h2>
+                        <p>
+                            @Editable(x => x.BottomSectionText)
+                        </p>
+                    </aside>
+                </div>
+            </div>
+            <div class="additional-cols-wrapper additional-cols-wrapper--temptrol-valve last">
+                <div class="inner medium">
+                    <aside class="left-cols">
+                        <h4 class="linked-list__title">
+                            @RenderLink(Model, x => x.LeftColumnLink, new { @class = "linked-list__link" }, true)
+                        </h4>
+                        <p>
+                            @Editable(x => x.LeftColumnText)
+                        </p>
+                        <div class="left-cols__image">
+                            @RenderImage(Model, x => x.LeftColumnImage, null, true)
+                        </div>
+                    </aside>
+                    <aside class="right-cols">
+                        <h4 class="linked-list__title">
+                            @RenderLink(Model, x => x.RightColumnLink, new { @class = "linked-list__link" }, true)
+                        </h4>
+                        <p>
+                            @Editable(x => x.RightColumnText)
+                        </p>
+                        <div class="right-cols__image">
+                            @RenderImage(Model, x => x.RightControl2Image, null, true)
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @Html.Partial(Constants.ViewPaths.FooterIncludesPartial)
+}

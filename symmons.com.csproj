@@ -2437,6 +2437,7 @@
     <Content Include="Areas\Symmons\Views\Renderings\Global\Header\Primary Navigation\PrimaryNavDesignStudio.cshtml" />
     <Content Include="Areas\Symmons\Views\Renderings\Pages\Design Studio\DesignStudioCarousel.cshtml" />
     <Content Include="Areas\Symmons\Views\Renderings\Pages\Design Studio\DesignStudioProcesses.cshtml" />
+    <Content Include="Areas\Symmons\Views\Renderings\Pages\Temptrol\Temptrol.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2515,6 +2516,7 @@
     <Compile Include="Areas\Symmons\Controllers\Pages\Products\CollectionStyleFeatureController.cs" />
     <Compile Include="Areas\Symmons\Controllers\Pages\Products\SuperCategoryController.cs" />
     <Compile Include="Areas\Symmons\Controllers\Pages\Products\SymmonsProductController.cs" />
+    <Compile Include="Areas\Symmons\Controllers\Pages\Temptrol\TemptrolController.cs" />
     <Compile Include="Areas\Symmons\Controllers\Pages\Utilities\UtilityController.cs" />
     <Compile Include="Areas\Symmons\Models\Global\Base\ISymmonsBasePage.cs" />
     <Compile Include="Areas\Symmons\Models\Global\SymmonsListing.cs" />
@@ -2602,6 +2604,7 @@
     <Compile Include="Areas\Symmons\Models\Pages\Products\ProductSmartFeatures.cs" />
     <Compile Include="Areas\Symmons\Models\Pages\Products\ProductStyle.cs" />
     <Compile Include="Areas\Symmons\Models\Pages\Products\SuperCategory.cs" />
+    <Compile Include="Areas\Symmons\Models\Pages\Temptrol\Temptrol.cs" />
     <Compile Include="Areas\Symmons\Models\Pages\Where to buy\WheretoBuy.cs" />
     <Compile Include="Areas\Symmons\SymmonsAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">

@@ -386,7 +386,10 @@ namespace symmons.com._Classes.Shared.Global
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_ContactUsPage"]; }
             }
-
+            public static string TemptrolValvePage
+            {
+                get { return ConfigurationManager.AppSettings["ViewPath_TemptrolValvePage"]; }
+            }
             public static string GTMScript
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_GTMScript"]; }
