@@ -76,3 +76,59 @@
 .custom-solutions__teasercontent {
 	padding-right: 15px;
 }
+
+.temptrol-subitem {
+	width: 825px;
+	padding-left: 0;
+	padding-right: 0;
+}
+.primary-navigation__temptrol--listing {
+	padding: 0;
+}
+.primary-navigation__temptrol--item {
+	float: left;
+	border-left: 1px solid #eee;
+	padding: 0 25px;
+	width: 33.333333%;
+}
+.primary-navigation__temptrol--item:first-child {
+	border-left: 0;
+}
+.primary-navigation__temptrol--item:last-child {
+
+}
+.primary-navigation__temptrol--headline {
+	color: #292929;
+	text-align: center;
+	margin-bottom: 15px;
+	font-size: 1.2rem;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+.primary-navigation__temptrol--headline span {
+	display: block;
+}
+.primary-navigation__temptrol--headline sup {
+	font-size: 18px;
+}
+.primary-navigation__temptrol--teaser {
+	color: #292929;
+	font-size: 0.875rem;
+	line-height: 20px;
+}
+.primary-navigation__temptrol--image {
+	height: 190px;
+	width: 100%;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.primary-navigation__temptrol--image:before {
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+	height: 100%;
+}
+.primary-navigation__temptrol--image img {
+	display: inline-block;
+	vertical-align: middle;
+}
