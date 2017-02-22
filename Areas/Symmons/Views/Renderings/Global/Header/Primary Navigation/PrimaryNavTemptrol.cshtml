@@ -1,46 +1,63 @@
-﻿@using symmons.com.Areas.Symmons.Models.Pages.Temptrol
+﻿@using symmons.com.Areas.Symmons.Models.Pages.Temptrol;
+@using Verndale.SharedSource.Helpers;
+@using symmons.com._Classes.Shared.Global;
+@using symmons.com._Classes.Symmons.Helpers;
 @inherits Glass.Mapper.Sc.Web.Mvc.GlassView<Temptrol>
+
+@{ 
+    var temptrolCommercial = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.PrimaryTemptrolCommercial);
+    var temptrolCommercialImageUrl = DataHelper.GetImageURL(temptrolCommercial.Fields["Navigation Image"]);
+    var temptrolCommercialTitle = DataHelper.GetTextualFieldValue(temptrolCommercial.Fields["Navigation Title"]);
+    var temptrolCommercialText = DataHelper.GetTextualFieldValue(temptrolCommercial.Fields["Navigation Text"]);
+    var temptrolCommercialPageUrl = DataHelper.GetItemUrl(temptrolCommercial);
+
+    var originsCollection = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.PrimaryOriginsCollection);
+    var originsCollectionImageUrl = DataHelper.GetImageURL(originsCollection.Fields["Navigation Image"]);
+    var originsCollectionTitle = DataHelper.GetTextualFieldValue(originsCollection.Fields["Navigation Title"]);
+    var originsCollectionText = DataHelper.GetTextualFieldValue(originsCollection.Fields["Navigation Text"]);
+    var originsCollectionPageUrl = DataHelper.GetItemUrl(originsCollection);
+}
 
 @if (Model.ShowOnNavigation)
 {
     <section class="primary-navigation__temptrol">
         <ul class="primary-navigation__temptrol--listing">
             <li class="primary-navigation__temptrol--item">
-                <a href="#" class="primary-navigation__temptrol--link">
+                <a href="@Model.Url" class="primary-navigation__temptrol--link">
                     <div class="primary-navigation__temptrol--image">
-                        <img src="/_images/contentManaged/temptrol-nav-01.jpg" alt="" />
+                        @RenderImage(Model, x => x.NavigationImage, null, true)
                     </div>
                     <h3 class="primary-navigation__temptrol--headline">
-                        <span>TEMPTROL<sup>&reg;</sup></span>Valve
+                        @Html.Raw(Model.NavigationSubtitle)
                     </h3>
                     <p class="primary-navigation__temptrol--teaser">
-                        Learn what makes the Temptrol Pressure balancing, anti-scald valve so unique.
+                        @Model.NavigationText
                     </p>
                 </a>
             </li>
             <li class="primary-navigation__temptrol--item">
-                <a href="#" class="primary-navigation__temptrol--link">
+                <a href="@originsCollectionPageUrl" class="primary-navigation__temptrol--link">
                     <div class="primary-navigation__temptrol--image">
-                        <img src="/_images/contentManaged/temptrol-nav-02.jpg" alt="" />
+                        <img src="@originsCollectionImageUrl" alt="" />                        
                     </div>
                     <h3 class="primary-navigation__temptrol--headline">
-                        <span>THE ORIGINS<sup>&reg;</sup></span>COLLECTION
+                        @Html.Raw(originsCollectionTitle)
                     </h3>
                     <p class="primary-navigation__temptrol--teaser">
-                        A transformation of the previous Temptrol Shower Trim. Learn more about this stylish and cost-efficient collection.
+                        @originsCollectionText
                     </p>
                 </a>
             </li>
             <li class="primary-navigation__temptrol--item">
-                <a href="#" class="primary-navigation__temptrol--link">
+                <a href="@temptrolCommercialPageUrl" class="primary-navigation__temptrol--link">
                     <div class="primary-navigation__temptrol--image">
-                        <img src="/_images/contentManaged/temptrol-nav-03.jpg" alt="" />
+                        <img src="@temptrolCommercialImageUrl" alt="" />
                     </div>
                     <h3 class="primary-navigation__temptrol--headline">
-                        <span>TEMPTROL<sup>&reg;</sup></span>commercial
+                        @Html.Raw(temptrolCommercialTitle)
                     </h3>
                     <p class="primary-navigation__temptrol--teaser">
-                        The Temptrol Commercial Collection continues to be constructed of high quality, heavy duty materials. Learn more for your next project.
+                        @temptrolCommercialText
                     </p>
                 </a>
             </li>

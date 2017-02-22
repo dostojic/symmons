@@ -463,6 +463,14 @@ namespace symmons.com._Classes.Shared.Global
             {
                 get { return ConfigurationManager.AppSettings["PageId_PrimaryTemptrol"]; }
             }
+            public static string PrimaryTemptrolCommercial
+            {
+                get { return ConfigurationManager.AppSettings["PageId_PrimaryCommercial"]; }
+            }
+            public static string PrimaryOriginsCollection
+            {
+                get { return ConfigurationManager.AppSettings["PageId_PrimaryOriginsCollection"]; }
+            }
             public static string PrimaryNavCustomSolutions
             {
                 get { return ConfigurationManager.AppSettings["PageId_PrimaryNavCustomSolutions"]; }
