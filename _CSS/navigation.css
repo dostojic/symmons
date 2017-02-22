@@ -109,8 +109,9 @@
 	display: block;
 }
 .primary-navigation__temptrol--headline sup {
-	font-size: 18px;
-}
+	font-size: 24px;
+	top: 2px;
+} 
 .primary-navigation__temptrol--teaser {
 	color: #292929;
 	font-size: 0.875rem;
