@@ -121,7 +121,7 @@ namespace symmons.com.Areas.Symmons.Models.Pages.Temptrol
         [SitecoreField(FieldName = "Right Column Text")]
         public virtual string RightColumnText { get; set; }
 
-        [SitecoreField(FieldName = "Left Column Image")]
+        [SitecoreField(FieldName = "Right Column Image")]
         public virtual Image RightColumnImage { get; set; }
 
         [SitecoreField(FieldName = "Navigation Image")]
