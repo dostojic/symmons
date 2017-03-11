@@ -9,7 +9,7 @@ namespace symmons.com._Classes.Symmons.Helpers
     {
         public static bool IsDotComHost()
         {
-            return HttpContext.Current.Request.UserHostAddress.EndsWith(".com");
+            return HttpContext.Current.Request.Url.Host.EndsWith(".com");
         }
     }
 }

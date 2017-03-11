@@ -10,8 +10,8 @@
 
 @{
     var showSeeCustomOptionsLink = UIHelper.IsDotComHost() &&
-        (Model.ProductCollection.Id.ToString() == Constants.ItemIds.ProductCollectionDia ||
-         Model.ProductCollection.Id.ToString() == Constants.ItemIds.ProductCollectionDuro);
+        (Model.ProductCollection.Id == new Guid(Constants.ItemIds.ProductCollectionDia) ||
+         Model.ProductCollection.Id == new Guid(Constants.ItemIds.ProductCollectionDuro));
 
     var siteSettings = SitecoreContext.GetItem<SymmonsSiteSettings>(Constants.PageIds.SiteSettings);
 
@@ -137,7 +137,11 @@
                                     if (!string.IsNullOrEmpty(Model.LeadTime))
                                     {
                                         @RenderLink(Model, x => x.WhereToBuyLink, new { @class = "button-primary", @style = "margin-bottom:10px" }, true)
-                                        @RenderLink(siteSettings, x => x.SeeCustomOptions, new { @target = "_blank" })
+
+                                        if (showSeeCustomOptionsLink)
+                                        {
+                                            @RenderLink(siteSettings, x => x.SeeCustomOptions, new { @target = "_blank" })
+                                        }
                                     }
                                     else
                                     {
@@ -153,7 +157,11 @@
                                         }
 
                                         <a href="@strWheretoBuyPath" class="button-primary" style="margin-bottom:10px">@Translate.Text(Constants.Dictionary.WhereToBuy)</a>
-                                        @RenderLink(siteSettings, x => x.SeeCustomOptions, new { @target = "_blank" })
+
+                                        if (showSeeCustomOptionsLink)
+                                        {
+                                            @RenderLink(siteSettings, x => x.SeeCustomOptions, new { @target = "_blank" })
+                                        }
                                     }
                                 }
                             </div>
