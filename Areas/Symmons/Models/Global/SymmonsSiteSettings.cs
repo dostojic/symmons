@@ -89,5 +89,8 @@ namespace symmons.com.Areas.Symmons.Models.Global
 
         [SitecoreField(FieldName = "GTM Script")]
         public virtual string GTMScript { get; set; }
+
+        [SitecoreField(FieldName = "See Custom Options")]
+        public Link SeeCustomOptions { get; set; }
     }
 }

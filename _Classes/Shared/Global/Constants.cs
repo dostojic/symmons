@@ -627,6 +627,14 @@ namespace symmons.com._Classes.Shared.Global
             {
                 get { return ConfigurationManager.AppSettings["ItemId_RedirectType301"]; }
             }
+            public static string ProductCollectionDuro
+            {
+                get { return ConfigurationManager.AppSettings["ItemId_ProductCollectionDuro"];  }
+            }
+            public static string ProductCollectionDia
+            {
+                get { return ConfigurationManager.AppSettings["ItemId_ProductCollectionDia"]; }
+            }
         }
 
         // **********************************************************************************************************************
