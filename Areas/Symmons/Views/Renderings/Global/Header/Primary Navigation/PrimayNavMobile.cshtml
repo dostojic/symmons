@@ -4,6 +4,7 @@
 @using symmons.com._Classes.Symmons.Global
 @using Verndale.SharedSource.Helpers
 @using symmons.com.Areas.Symmons.Models.Global
+@using symmons.com._Classes.Symmons.Helpers;
 @using Constants = symmons.com._Classes.Shared.Global.Constants
 @inherits Glass.Mapper.Sc.Web.Mvc.GlassView<SymmonsSiteSettings>
 
@@ -99,6 +100,23 @@
 
                             <a href="@primaryNavigationItem.Url" class="menu-navigation__link">Learn more</a>
                         }
+                    }
+                    else if (primaryNavigationItem.Id == Guid.Parse(Constants.PageIds.PrimaryTemptrol))
+                    {
+                        var temptrolCommercial = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.PrimaryTemptrolCommercial);
+                        var temptrolCommercialTitle = DataHelper.GetTextualFieldValue(temptrolCommercial.Fields["Page Title"]);
+                        var temptrolCommercialPageUrl = DataHelper.GetItemUrl(temptrolCommercial);
+
+                        var originsCollection = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.PrimaryOriginsCollection);
+                        var originsCollectionTitle = DataHelper.GetTextualFieldValue(originsCollection.Fields["Page Title"]);
+                        var originsCollectionPageUrl = DataHelper.GetItemUrl(originsCollection);
+
+                        <h2 class="menu-navigation__title">@primaryNavigationItem.NavigationTitle</h2>
+
+                        <a href="@originsCollectionPageUrl" class="menu-navigation__link">@originsCollectionTitle</a>
+                        <a href="@temptrolCommercialPageUrl" class="menu-navigation__link">@temptrolCommercialTitle</a>
+
+                        <a href="@primaryNavigationItem.Url" class="menu-navigation__link">Learn more</a>
                     }
                 }
             }
