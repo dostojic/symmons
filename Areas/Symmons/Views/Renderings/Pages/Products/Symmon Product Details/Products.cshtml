@@ -4,9 +4,17 @@
 @using symmons.com._Classes.Shared.Global
 @using symmons.com._Classes.Symmons.Global
 @using Verndale.SharedSource.Helpers
+@using symmons.com._Classes.Symmons.Helpers
+@using symmons.com.Areas.Symmons.Models.Global
 @inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ProductDetails>
 
 @{
+    var showSeeCustomOptionsLink = UIHelper.IsDotComHost() &&
+        (Model.ProductCollection.Id == new Guid(Constants.ItemIds.ProductCollectionDia) ||
+         Model.ProductCollection.Id == new Guid(Constants.ItemIds.ProductCollectionDuro));
+
+    var siteSettings = SitecoreContext.GetItem<SymmonsSiteSettings>(Constants.PageIds.SiteSettings);
+
     var productCategoryIds = string.Empty;
 
     foreach (var productCategory in Model.ProductCategory)
@@ -126,41 +134,42 @@
                         <section class="product-details__wheretobuy" role="contentinfo">
                             <div class="cols">
                                 @{
-                        if (!string.IsNullOrEmpty(Model.LeadTime))
-                        {
-                            @RenderLink(Model, x => x.WhereToBuyLink, new { @class = "button-primary" }, true)
-                        }
-                        else
-                        {
-                            string strWheretoBuyPath;
+                                    if (!string.IsNullOrEmpty(Model.LeadTime))
+                                    {
+                                        @RenderLink(Model, x => x.WhereToBuyLink, new { @class = "button-primary", @style = "margin-bottom:10px" }, true)
 
-                            if (Model.RetailExclusive != null && Model.RetailExclusive.Any())
-                            {
-                                strWheretoBuyPath = SymmonsHelper.GetWheretoBuyProductUrl(Model);
-                            }
-                            else
-                            {
-                                strWheretoBuyPath = SymmonsHelper.GetPageUrl(Constants.PageIds.WhereToBuy);
-                            }
-                            <a href="@strWheretoBuyPath" class="button-primary">@Translate.Text(Constants.Dictionary.WhereToBuy)</a>
-                        }
+                                        if (showSeeCustomOptionsLink)
+                                        {
+                                            @RenderLink(siteSettings, x => x.SeeCustomOptions, new { @target = "_blank" })
+                                        }
+                                    }
+                                    else
+                                    {
+                                        string strWheretoBuyPath;
+
+                                        if (Model.RetailExclusive != null && Model.RetailExclusive.Any())
+                                        {
+                                            strWheretoBuyPath = SymmonsHelper.GetWheretoBuyProductUrl(Model);
+                                        }
+                                        else
+                                        {
+                                            strWheretoBuyPath = SymmonsHelper.GetPageUrl(Constants.PageIds.WhereToBuy);
+                                        }
+
+                                        <a href="@strWheretoBuyPath" class="button-primary" style="margin-bottom:10px">@Translate.Text(Constants.Dictionary.WhereToBuy)</a>
+
+                                        if (showSeeCustomOptionsLink)
+                                        {
+                                            @RenderLink(siteSettings, x => x.SeeCustomOptions, new { @target = "_blank" })
+                                        }
+                                    }
                                 }
                             </div>
+
                             @if (string.IsNullOrEmpty(Model.LeadTime))
                             {
                                 <div class="cols">
                                     <a href="#" data-category="@productCategoryIds" data-product-id="{@Model.Id}" class="buy-cta add-comparison">@Translate.Text(Constants.Dictionary.ProductAddToComparison)</a>
-                                    @*@if (Model.UsefulLinks != null)
-                                    {
-                                        foreach (var link in Model.UsefulLinks)
-                                        {
-                                            if (SymmonsHelper.IsValidLink(link.UsefulLink))
-                                            {
-                                                link.UsefulLink.Text = "+ " + link.UsefulLink.Text;
-                                                @RenderLink(link, x => x.UsefulLink, new { @class = "buy-cta add-folder" }, true)
-                                            }
-                                        }
-                                    }*@
                                 </div>
                             }
                         </section>

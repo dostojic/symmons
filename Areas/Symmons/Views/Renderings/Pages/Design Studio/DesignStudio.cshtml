@@ -13,19 +13,39 @@
     var productBrowseItem = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.DesignStudioProductBrowse);
     var browseMobileUrl = SitecoreHelper.ItemRenderMethods.GetItemUrl(productBrowseItem);
 }
-        
+
 @if (Model != null)
 {
     if (SymmonsHelper.IsValidImage(Model.PageImage))
     {
-        <section class="page-banner design-studio-banner" data-product-type="@prodType">
+        <section class="page-banner" data-product-type="@prodType">
             <div class="page-banner__image" style="background-image: url('@Model.PageImage.Src')">
                 <div class="container">
-                    <div class="page-banner__content">
-                        <div class="page-banner__titlecontent">
-                            <img src="@Model.BannerOverlayIcon.Src" class="page-banner__logo" alt="Design Studio" />
+
+                    @if (!String.IsNullOrWhiteSpace(Model.BannerOverlayUpperText)
+                         || SymmonsHelper.IsValidImage(Model.BannerOverlayIcon)
+                         || !String.IsNullOrWhiteSpace(Model.BannerOverlayLowerText))
+                    {
+                        <div class="page-banner__content">
+                            @if (!String.IsNullOrWhiteSpace(Model.BannerOverlayUpperText))
+                            {
+                                <h3 class="page-banner__family">@Model.BannerOverlayUpperText</h3>
+                            }
+                            @if (SymmonsHelper.IsValidImage(Model.BannerOverlayIcon) || !String.IsNullOrWhiteSpace(Model.BannerOverlayLowerText))
+                            {
+                                <div class="page-banner__titlecontent">
+                                    @if (SymmonsHelper.IsValidImage(Model.BannerOverlayIcon))
+                                    {
+                                        @RenderImage(x => x.BannerOverlayIcon, new { @class = "page-banner__icon" }, true)
+                                    }
+                                    @if (!String.IsNullOrWhiteSpace(Model.BannerOverlayLowerText))
+                                    {
+                                        <h1 class="page-banner__title">@Model.BannerOverlayLowerText</h1>
+                                    }
+                                </div>
+                            }
                         </div>
-                    </div>                   
+                    }
                 </div>
             </div>
         </section>
@@ -50,11 +70,6 @@
                     {
                         <aside class="left-cols">
                             @Html.Raw(Editable(x => x.MainContent))
-
-                            @if (Model.Link != null)
-                            {
-                                <a href="@Model.Link.Url" class="design-studio__cta">@Model.Link.Text</a>
-                            }
                         </aside>
                     }
                     <aside class="right-cols">

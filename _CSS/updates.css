@@ -24,142 +24,21 @@
 body {
 	font-family:'Gotham HTF';
 }*/
-.design-studio-banner .page-banner__content {
-	width: 190px;
-	height: 120px;
-	top: auto;
-	bottom: 20%;
-}
+
 .temptrol-banner .page-banner__content {
-    width: 190px;
-	height: 120px;
+	width: 186px;
+	height: 183px;
 	top: auto;
 	bottom: 20%;
 }
 .temptrol-banner .page-banner__titlecontent {
-	background-color:rgba(163, 163, 163, 0.9);
-	padding: 10px 15px;
-}
-.design-studio-banner .page-banner__titlecontent {
-	padding: 10px 15px;
-}
-.design-studio-banner .page-banner__image {
-
-}
-.design-studio__teaser {
-	width: 60%;
-}
-.design-studio__teaser h4 {
-	font-size: 1.625rem;
-	margin-bottom: 25px;
-}
-.design-studio__teaser p {
-	font-size: 1rem;
-	font-weight: 400;
-	line-height: 26px;
-}
-.design-studio__cta {
-	text-transform: uppercase;
-	font-style: normal;
-	font-weight: bold;
-	color: #57ae55;
-	line-height: normal;
-	padding-top: 8px;
-	vertical-align: middle;
-	font-size: 16px;
-}
-.design-studio__cta:after {
-	content: " > ";
-}
-.process-steps .design-option__heading span {
-	font-weight: bold;
-}
-.process-steps .design-option__description {
-	text-align: left;
-	color: #000;
-	font-size: 14px;
-	line-height: 20px;
-}
-.process-steps .design-studio__cta {
-	float: right;
+	background-color: transparent;
 	padding: 0;
-}
-.studio-slider-wrap {
-	border: 3px solid #eee;
-	position: relative;
-}
-.studio-slider-wrap .bx-prev,
-.studio-slider-wrap .bx-next {
-	width: 20px;
-	height: 20px;
-}
-.studio-slider-wrap .bx-prev {
-    background: url('/_Images/contentManaged/icons/icon-slider-studio-prev.png') no-repeat 0 0;
-	left: -30px;
-}
-.studio-slider-wrap .bx-next {
-    background: url('/_Images/contentManaged/icons/icon-slider-studio-next.png') no-repeat 0 0;
-	right: -30px;
-}
-.studio-slider-wrap .bx-wrapper .bx-pager.bx-default-pager a {
-	border-color: #eee;
-}
-.studio-slider-wrap .bx-wrapper .bx-pager.bx-default-pager a {
-	background: #fff;
-	width: 12px;
-	height: 12px;
-}
-.studio-slider-wrap .bx-wrapper .bx-pager.bx-default-pager a:hover,
-.studio-slider-wrap .bx-wrapper .bx-pager.bx-default-pager a.active {
-	background: #eee;
-}
-.studio-slider-wrap .bx-wrapper img {
-	margin: 0 auto;
-}
-.studio-slider-wrap .slide-content {
-	height: 185px;
-}
-.studio-slider-wrap .slide {
-
-}
-.studio-slider-wrap .slide-content img {
-	height: 185px;
-}
-.studio-slider-wrap .slide-text {
-	position: absolute;
-	bottom: 0;
-	left: 10px;
-}
-.studio-slider-wrap .slide-text strong,
-.studio-slider-wrap .slide-text a {
-	color: #4fab53;
-}
-.studio-slider-wrap .slide-text span {
-	color: #a3a3a3;
-}
-.studio-slider-wrap .slide-text strong,
-.studio-slider-wrap .slide-text span {
-	display: block;
-	font-size: 15px;
-}
-.studio-slider-wrap .bx-controls-direction {
-	top: 50%;
-    margin-top: -10px;
-}
-.design-studio.process-steps .design-studio__content {
-    float: left;
-    width: 100%;
-	padding-bottom: 10px;
-}
-.design-studio.process-steps .design-studio__content .design-option {
-	margin-top: 0;
+	border: none;
 }
 .additional-cols-wrapper--temptrol-valve.last {
 	border: none;
 	padding-bottom: 0;
-}
-.additional-information .additional-cols-wrapper--designstudio .browse-products__title {
-	margin-bottom: 10px;
 }
 .additional-cols-wrapper--temptrol-valve p {
 	font-size: 0.875rem;
@@ -217,7 +96,7 @@ body {
 	margin: 0;
 }
 .additional-cols-wrapper--temptrol-valve .inner .left-cols__image.is-aligned img {
-	width: 90%;
+	width: 100%;
 	display: block;
 	margin: 0;
 }
@@ -280,7 +159,6 @@ body {
 	line-height: 16px;
 	font-style: italic;
 }
-
 @media only screen and (min-width: 120px) and (max-width: 767px) {
 	.additional-cols-wrapper--temptrol-valve .inner.equal .right-cols,
 	.additional-cols-wrapper--temptrol-valve .inner.equal .left-cols,
