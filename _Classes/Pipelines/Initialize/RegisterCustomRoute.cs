@@ -13,10 +13,17 @@ namespace symmons.com._Classes.Pipelines.Initialize
         public static void Register()
         {
             var routes = RouteTable.Routes;
+
             routes.MapRoute("productApi", "Products/GetAllProducts", new
             {
                 controller = "Products",
                 action = "GetAllProducts"
+            });
+
+            routes.MapRoute("supplierApi", "Suppliers/GetAllSuppliers", new
+            {
+                controller = "Suppliers",
+                action = "GetAllSuppliers"
             });
 
             routes.MapRoute("productbyId", "Products/GetProductbyId/{id}", new
