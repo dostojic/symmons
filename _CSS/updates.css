@@ -159,6 +159,13 @@ body {
 	line-height: 16px;
 	font-style: italic;
 }
+.product-details__model_text {
+    font-size: .700rem;
+    font-style: normal;
+    font-weight: 400;
+    color: #b9b9b9;
+    margin-bottom: 20px;
+}
 @media only screen and (min-width: 120px) and (max-width: 767px) {
 	.additional-cols-wrapper--temptrol-valve .inner.equal .right-cols,
 	.additional-cols-wrapper--temptrol-valve .inner.equal .left-cols,

@@ -136,11 +136,15 @@
                                 @{
                                     if (!string.IsNullOrEmpty(Model.LeadTime))
                                     {
-                                        @RenderLink(Model, x => x.WhereToBuyLink, new { @class = "button-primary", @style = "margin-bottom:10px" }, true)
+                                        @RenderLink(Model, x => x.WhereToBuyLink, new { @class = "button-primary", @style = "margin-bottom:17px" }, true)
 
                                         if (showSeeCustomOptionsLink)
                                         {
                                             @RenderLink(siteSettings, x => x.SeeCustomOptions, new { @target = "_blank" })
+                                            <br/>
+                                            <span class="product-details__model_text">
+                                                @siteSettings.SeeCustomOptionsText
+                                            </span>
                                         }
                                     }
                                     else
@@ -156,11 +160,14 @@
                                             strWheretoBuyPath = SymmonsHelper.GetPageUrl(Constants.PageIds.WhereToBuy);
                                         }
 
-                                        <a href="@strWheretoBuyPath" class="button-primary" style="margin-bottom:10px">@Translate.Text(Constants.Dictionary.WhereToBuy)</a>
+                                        <a href="@strWheretoBuyPath" class="button-primary" style="margin-bottom:17px">@Translate.Text(Constants.Dictionary.WhereToBuy)</a>
 
                                         if (showSeeCustomOptionsLink)
                                         {
                                             @RenderLink(siteSettings, x => x.SeeCustomOptions, new { @target = "_blank" })
+                                            <span class="product-details__model_text">
+                                                @siteSettings.SeeCustomOptionsText
+                                            </span>
                                         }
                                     }
                                 }
