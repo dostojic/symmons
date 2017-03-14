@@ -166,6 +166,10 @@ body {
     color: #b9b9b9;
     margin-bottom: 20px;
 }
+@media screen and (min-width: 1028px){
+.product-details__wheretobuy {
+    margin: 20px 0 0 !important;
+}
 @media only screen and (min-width: 120px) and (max-width: 767px) {
 	.additional-cols-wrapper--temptrol-valve .inner.equal .right-cols,
 	.additional-cols-wrapper--temptrol-valve .inner.equal .left-cols,
