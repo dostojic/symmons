@@ -9,7 +9,7 @@
 @inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ProductDetails>
 
 @{
-    var showSeeCustomOptionsLink = UIHelper.IsDotComHost() &&
+    var showSeeCustomOptionsLink = UIHelper.IsDotComHost() && Model.ProductCollection != null &&
         (Model.ProductCollection.Id == new Guid(Constants.ItemIds.ProductCollectionDia) ||
          Model.ProductCollection.Id == new Guid(Constants.ItemIds.ProductCollectionDuro));
 
