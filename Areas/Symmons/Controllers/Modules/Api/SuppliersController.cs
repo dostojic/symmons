@@ -80,7 +80,7 @@ namespace symmons.com.Areas.Symmons.Controllers.Modules.Api
         public FileContentResult GetAllSuppliersCsv()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Name,Address1,Address2,City,State,Zip,Phone,Fax,Email,Manager,Url,Latitude,Longitude");
+            sb.AppendLine("Name|Address1|Address2|City|State|Zip|Phone|Fax|Email|Manager|Url|Latitude|Longitude");
 
             var getSuppliersJson = ApiSuppliersHelper.ConvertAllAPiSupplierstoIList();
             var suppliersApiModels = getSuppliersJson as IList<SupplierApiModel> ?? getSuppliersJson.ToList();
@@ -88,7 +88,7 @@ namespace symmons.com.Areas.Symmons.Controllers.Modules.Api
             foreach (var supplier in suppliersApiModels)
             {
                 sb.AppendLine(string.Format(
-                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}",
+                    "{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}",
                     supplier.Name,
                     supplier.Address1,
                     supplier.Address2,
