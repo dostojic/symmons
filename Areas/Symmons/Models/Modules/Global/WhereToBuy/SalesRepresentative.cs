@@ -41,6 +41,15 @@ namespace symmons.com.Areas.Symmons.Models.Modules.Global.WhereToBuy
         [SitecoreField(FieldName = "Manager")]
         public string Manager { get; set; }
 
+        [SitecoreField(FieldName = "Latitude")]
+        public string Latitude { get; set; }
+
+        [SitecoreField(FieldName = "Longitude")]
+        public string Longitude { get; set; }
+
+        [SitecoreField(FieldName = "Url")]
+        public string Url { get; set; }
+
         public string FirstName
         {
             get
