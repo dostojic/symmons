@@ -6,6 +6,8 @@
 @using Verndale.SharedSource.Helpers
 @using symmons.com._Classes.Symmons.Helpers
 @using symmons.com.Areas.Symmons.Models.Global
+@using Glass.Mapper.Sc.Fields
+@using Sitecore.Data.Items
 @inherits Glass.Mapper.Sc.Web.Mvc.GlassView<ProductDetails>
 
 @{
@@ -34,7 +36,20 @@
                 var productFinish = ViewBag.SelectedFinish == null ? firstOrDefault : Model.ProductFinishes.FirstOrDefault(x => x.Finish.FinishName.Equals(ViewBag.SelectedFinish));
                 if (productFinish != null)
                 {
-                    var images = productFinish.Images;
+                    var productItem = SitecoreHelper.ItemMethods.GetItemFromGUID(productFinish.Id.ToString());
+                    var imageItems = SitecoreHelper.ItemRenderMethods.GetMultilistValueByFieldName("Images", productItem);
+
+                    List<Image> images = new List<Image>();
+
+                    foreach (var image in imageItems)
+                    {
+                        var imageField = (MediaItem)image;
+                        var imageFieldUrl = string.Empty;
+                        SitecoreHelper.ItemRenderMethods.GetMediaURL(imageField, out imageFieldUrl);
+
+                        images.Add(new Image() { MediaId = image.ID.Guid, Src = imageFieldUrl, Alt = imageField.Alt });
+                    }
+                    
                     @Html.Partial(Constants.ViewPaths.PhotoGallery, images)
                 }
 

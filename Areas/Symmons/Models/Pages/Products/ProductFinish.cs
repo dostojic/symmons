@@ -24,7 +24,7 @@ namespace symmons.com.Areas.Symmons.Models.Pages.Products
         [SitecoreField(FieldName = "Finish SKU")]
         public virtual string FinishSKU { get; set; }
 
-        public virtual IEnumerable<Image> Images { get; set; }
+        //public virtual IEnumerable<Image> Images { get; set; }
 
         [SitecoreField(FieldName = "Available Valve 1 Title")]
         public virtual string AvailableValve1Title { get; set; }

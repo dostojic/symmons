@@ -689,15 +689,23 @@ namespace symmons.com.Areas.Symmons.Controllers.Pages.Products
                 #endregion
 
                 #region Images
-                if (productFinish.Images.Any())
+
+                productFinishJsonData.SliderImages = Enumerable.Empty<Images>();
+                List<Images> listImages = new List<Images>();
+
+                var productFinishItem = SitecoreHelper.ItemMethods.GetItemFromGUID(productFinish.Id.ToString());
+                var imageItems = SitecoreHelper.ItemRenderMethods.GetMultilistValueByFieldName("Images", productFinishItem);
+
+                foreach (var image in imageItems)
                 {
-                    productFinishJsonData.SliderImages = from finishImage in productFinish.Images
-                                                         select new Images
-                                                         {
-                                                             ImagePath = finishImage.Src,
-                                                             ImageAlt = finishImage.Alt
-                                                         };
+                    var imageField = (MediaItem)image;
+                    var imageFieldUrl = string.Empty;
+                    SitecoreHelper.ItemRenderMethods.GetMediaURL(imageField, out imageFieldUrl);
+
+                    listImages.Add(new Images() { ImagePath =  imageFieldUrl, ImageAlt = imageField.Alt });                    
                 }
+
+                productFinishJsonData.SliderImages = listImages;
                 #endregion
 
                 productFinishJsonDatas.Add(productFinishJsonData);
@@ -887,17 +895,24 @@ namespace symmons.com.Areas.Symmons.Controllers.Pages.Products
                 productFinishJsonData.HasPlumbingDetails = "true";
             }
             #endregion
-            
+
             #region Images
-            if (productDetails.Images.Any())
+            productFinishJsonData.SliderImages = Enumerable.Empty<Images>();
+            List<Images> listImages = new List<Images>();
+
+            var productDetailsItem = SitecoreHelper.ItemMethods.GetItemFromGUID(productDetails.Id.ToString());
+            var imageItems = SitecoreHelper.ItemRenderMethods.GetMultilistValueByFieldName("Images", productDetailsItem);
+
+            foreach (var image in imageItems)
             {
-                productFinishJsonData.SliderImages = from productImage in productDetails.Images
-                                                     select new Images
-                                                     {
-                                                         ImagePath = productImage.Src,
-                                                         ImageAlt = productImage.Alt
-                                                     };
+                var imageField = (MediaItem)image;
+                var imageFieldUrl = string.Empty;
+                SitecoreHelper.ItemRenderMethods.GetMediaURL(imageField, out imageFieldUrl);
+
+                listImages.Add(new Images() { ImagePath = imageFieldUrl, ImageAlt = imageField.Alt });
             }
+
+            productFinishJsonData.SliderImages = listImages;
             #endregion
 
             productFinishJsonDatas.Add(productFinishJsonData);
