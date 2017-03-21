@@ -9,9 +9,9 @@ using Verndale.SharedSource.Helpers;
 
 namespace symmons.com._Classes.Symmons.Helpers
 {
-    public static class ApiSuppliersHelper
+    public static class ApiStoresHelper
     {
-        public static IEnumerable<SupplierApiModel> ConvertAllAPiSupplierstoIList()
+        public static IEnumerable<SupplierApiModel> ConvertAllAPIStoresToIList()
         {
             var retVal = new List<SupplierApiModel>();
 

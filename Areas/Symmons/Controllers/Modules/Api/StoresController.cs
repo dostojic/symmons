@@ -12,18 +12,20 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Http;
 using System.Web.Mvc;
+using Store = symmons.com._Classes.Symmons.Global.Store;
+
 
 namespace symmons.com.Areas.Symmons.Controllers.Modules.Api
 {
-    public class SuppliersController : SymmonsController
+    public class StoresController : SymmonsController
     {
         [System.Web.Mvc.HttpGet]
-        public JsonResult GetAllSuppliersJson()
+        public JsonResult GetAllStoresJson()
         {
             JsonResult returnJsonResult = null;
 
-            var getSuppliersJson = ApiSuppliersHelper.ConvertAllAPiSupplierstoIList();
-            var suppliersApiModels = getSuppliersJson as IList<SupplierApiModel> ?? getSuppliersJson.ToList();
+            var getStoresJson = StoresHelper.GetAllStores();
+            var suppliersApiModels = getStoresJson as IList<Store> ?? getStoresJson.ToList();
 
             HttpResponseMessage response = new HttpResponseMessage();
             try
@@ -48,7 +50,7 @@ namespace symmons.com.Areas.Symmons.Controllers.Modules.Api
                     var error = new ApiResult
                     {
                         statusCode = HttpStatusCode.OK,
-                        description = "No Suppliers",
+                        description = "No Stores",
                         result = new[] { new object() }
                     };
 
@@ -77,34 +79,34 @@ namespace symmons.com.Areas.Symmons.Controllers.Modules.Api
         }
 
         [System.Web.Mvc.HttpGet]
-        public FileContentResult GetAllSuppliersCsv()
+        public FileContentResult GetAllStoresCsv()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Name|Address1|Address2|City|State|Zip|Phone|Fax|Email|Manager|Url|Latitude|Longitude");
+            sb.AppendLine("Name|Address1|Address2|City|State|Zip|Phone|Fax|Email|Url|Manager|Latitude|Longitude|IsSymmonsPreferred");
 
-            var getSuppliersJson = ApiSuppliersHelper.ConvertAllAPiSupplierstoIList();
-            var suppliersApiModels = getSuppliersJson as IList<SupplierApiModel> ?? getSuppliersJson.ToList();
+            var stores = StoresHelper.GetAllStores();
 
-            foreach (var supplier in suppliersApiModels)
+            foreach (var store in stores)
             {
                 sb.AppendLine(string.Format(
-                    "{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}",
-                    supplier.Name,
-                    supplier.Address1,
-                    supplier.Address2,
-                    supplier.City,
-                    supplier.State,
-                    supplier.Zip,
-                    supplier.Phone,
-                    supplier.Fax,
-                    supplier.Email,
-                    supplier.Manager,
-                    supplier.Url,
-                    supplier.Latitude,
-                    supplier.Longitude));
+                    "{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}",
+                    store.StoreName,
+                    store.Address1,
+                    store.Address2,
+                    store.City,
+                    store.State,
+                    store.Zip,
+                    store.PhoneNo,
+                    store.Fax,
+                    store.Email,
+                    store.Url,
+                    store.Manager,
+                    store.Latitude,
+                    store.Longitude,
+                    store.IsSymmonsPreferred));
             }
 
-            return File(new UTF8Encoding().GetBytes(sb.ToString()), "text/csv", "Suppliers.csv");
+            return File(new UTF8Encoding().GetBytes(sb.ToString()), "text/csv", "Stores.csv");
         }
     }
 }

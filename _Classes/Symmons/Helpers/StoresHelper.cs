@@ -15,6 +15,114 @@ namespace symmons.com._Classes.Symmons.Helpers
 {
     public class StoresHelper
     {
+        public static List<Store> GetAllStores()
+        {
+            var retVal = new List<Store>();
+
+            var showRoomStoreItems = GetAllShowRoomStores();
+            var wholeSaleStoreItems = GetAllWholeSaleStores();
+            var retailStoreItems = GetAllRetailStores();
+            var partsStoreItems = GetAllPartsStores();
+
+
+            var allStores = new List<Item>();
+            allStores.AddRange(showRoomStoreItems);
+            allStores.AddRange(wholeSaleStoreItems);
+            allStores.AddRange(retailStoreItems);
+            allStores.AddRange(partsStoreItems);
+
+            foreach (var storeItem in allStores)
+            {
+                var locationLatitude = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreLatitude, storeItem, false);
+                var locationLongitude = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreLongitude, storeItem, false);
+
+                var store = new Store
+                {
+                    StoreName = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreName, storeItem, false),
+                    IsSymmonsPreferred = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(
+                        Constants.FieldNames.IsSymmonsPreferred, storeItem, false) == "1" ? Translate.Text(Constants.Dictionary.SymmonsPreferred) : string.Empty,
+                    IsSymmonsPreferredDescription = Translate.Text(Constants.Dictionary.SymmonsPreferredDescription),
+                    Address = GetStoreAddress(storeItem),
+                    Directions = GetStoreDirection(storeItem),
+                    PhoneNo = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StorePhone, storeItem, false),
+                    Latitude = locationLatitude,
+                    Longitude = locationLongitude,
+                    DirectionsTitle = Translate.Text(Constants.Dictionary.DirectionsTitle),
+                    MoreLikeThis = Translate.Text(Constants.Dictionary.MoreLike),
+                    MoreLocationsLikeThis = Translate.Text(Constants.Dictionary.MoreLocation),
+                    Address1 = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreAddressLine1, storeItem, false).Trim(),
+                    Address2 = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreAddressLine2, storeItem, false).Trim(),
+                    City = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreCity, storeItem, false).Trim(),
+                    State = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreState, storeItem, false).Trim(),
+                    Zip = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreZip, storeItem, false).Trim(),
+                    Manager = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreManager, storeItem, false).Trim(),
+                    Url = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreUrl, storeItem, false).Trim(),
+                    Email = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreEmail, storeItem, false).Trim()
+                };
+
+                retVal.Add(store);
+            }
+
+            return retVal;
+        }
+
+        public static List<Item> GetAllShowRoomStores()
+        {
+            List<Item> retVal = new List<Item>();
+
+            retVal = SearchHelper.GetItems(Constants.SearchIndex.Stores, Sitecore.Context.Language.ToString(), Constants.TemplateIds.ShowroomStores,
+                        Constants.PageIds.CanadaStoresRepository, String.Empty, null);
+            
+            var canadaStoreLocation = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.CanadaStoresRepository);
+            retVal.AddRange(SearchHelper.GetItems(Constants.SearchIndex.Stores, Sitecore.Context.Language.ToString(), Constants.TemplateIds.ShowroomStores,
+                        Constants.FolderIds.StoresRepository, String.Empty, null).Where(x => !x.Axes.IsDescendantOf(canadaStoreLocation)).ToList());
+
+            return retVal;            
+        }
+
+        public static List<Item> GetAllWholeSaleStores()
+        {
+            List<Item> retVal = new List<Item>();
+
+            retVal = SearchHelper.GetItems(Constants.SearchIndex.Stores, Sitecore.Context.Language.ToString(), Constants.TemplateIds.WholesaleStores,
+                        Constants.PageIds.CanadaStoresRepository, String.Empty, null);
+                  
+            var canadaStoreLocation = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.CanadaStoresRepository);
+            retVal.AddRange(SearchHelper.GetItems(Constants.SearchIndex.Stores, Sitecore.Context.Language.ToString(), Constants.TemplateIds.WholesaleStores,
+                        Constants.FolderIds.StoresRepository, String.Empty, null).Where(x => !x.Axes.IsDescendantOf(canadaStoreLocation)).ToList());
+
+            return retVal;
+        }
+
+        public static List<Item> GetAllRetailStores()
+        {
+            List<Item> retVal = new List<Item>();
+
+            retVal = SearchHelper.GetItems(Constants.SearchIndex.Stores, Sitecore.Context.Language.ToString(), Constants.TemplateIds.RetailStores,
+                    Constants.PageIds.CanadaStoresRepository, String.Empty, null);
+            
+            var canadaStoreLocation = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.CanadaStoresRepository);
+            retVal.AddRange(SearchHelper.GetItems(Constants.SearchIndex.Stores, Sitecore.Context.Language.ToString(), Constants.TemplateIds.RetailStores,
+                        Constants.FolderIds.StoresRepository, String.Empty, null).Where(x => !x.Axes.IsDescendantOf(canadaStoreLocation)).ToList());
+
+            return retVal;
+        }
+
+        public static List<Item> GetAllPartsStores()
+        {
+            List<Item> retVal = new List<Item>();
+
+            retVal = SearchHelper.GetItems(Constants.SearchIndex.Stores, Sitecore.Context.Language.ToString(), Constants.TemplateIds.PartsStores,
+                        Constants.PageIds.CanadaStoresRepository, String.Empty, null);
+
+            var canadaStoreLocation = SitecoreHelper.ItemMethods.GetItemFromGUID(Constants.PageIds.CanadaStoresRepository);
+            retVal.AddRange(SearchHelper.GetItems(Constants.SearchIndex.Stores, Sitecore.Context.Language.ToString(), Constants.TemplateIds.PartsStores,
+                    Constants.FolderIds.StoresRepository, String.Empty, null).Where(x => !x.Axes.IsDescendantOf(canadaStoreLocation)).ToList());
+
+            return retVal;
+        }
+
+
         // Start :GetNearestStoresTypeStores  *****************************************************************************************************
         // ****************************************************************************************************************************************
         /// <summary>

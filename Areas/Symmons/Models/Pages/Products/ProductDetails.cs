@@ -61,8 +61,6 @@ namespace symmons.com.Areas.Symmons.Models.Pages.Products
         [SitecoreField(FieldName = "Redirect Type")]
         public virtual Guid RedirectType { get; set; }
 
-        //public virtual IEnumerable<Image> Images { get; set; }
-
         [SitecoreField(FieldName = "Product Name")]
         public virtual string ProductName { get; set; }
 
