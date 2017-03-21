@@ -20,16 +20,16 @@ namespace symmons.com._Classes.Pipelines.Initialize
                 action = "GetAllProducts"
             });
 
-            routes.MapRoute("supplierJsonApi", "Suppliers/GetAllSuppliersJson", new
+            routes.MapRoute("storesJsonApi", "Stores/GetAllStoresJson", new
             {
-                controller = "Suppliers",
-                action = "GetAllSuppliersJson"
+                controller = "Stores",
+                action = "GetAllStoresJson"
             });
 
-            routes.MapRoute("supplierCsvApi", "Suppliers/GetAllSuppliersCsv", new
+            routes.MapRoute("storesCsvApi", "Stores/GetAllStoresCsv", new
             {
-                controller = "Suppliers",
-                action = "GetAllSuppliersCsv"
+                controller = "Stores",
+                action = "GetAllStoresCsv"
             });
 
             routes.MapRoute("productbyId", "Products/GetProductbyId/{id}", new

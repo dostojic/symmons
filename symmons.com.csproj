@@ -2507,7 +2507,7 @@
     <Compile Include="Areas\Symmons\Controllers\Global\ListingController.cs" />
     <Compile Include="Areas\Symmons\Controllers\Global\SymmonsController.cs" />
     <Compile Include="Areas\Symmons\Controllers\Modules\Api\ProductsController.cs" />
-    <Compile Include="Areas\Symmons\Controllers\Modules\Api\SuppliersController.cs" />
+    <Compile Include="Areas\Symmons\Controllers\Modules\Api\StoresController.cs" />
     <Compile Include="Areas\Symmons\Controllers\Modules\News and Events\NewsEventsModuleController.cs" />
     <Compile Include="Areas\Symmons\Controllers\Pages\Contact Us\ContactUsController.cs" />
     <Compile Include="Areas\Symmons\Controllers\Pages\Global\HomePageController.cs" />
@@ -2654,7 +2654,7 @@
     <Compile Include="_Classes\Symmons\Global\StoresContainer.cs" />
     <Compile Include="_Classes\Symmons\Global\SymmonsHelper.cs" />
     <Compile Include="_Classes\Symmons\Helpers\ApiProductsHelper.cs" />
-    <Compile Include="_Classes\Symmons\Helpers\ApiSuppliersHelper.cs" />
+    <Compile Include="_Classes\Symmons\Helpers\ApiStoresHelper.cs" />
     <Compile Include="_Classes\Symmons\Helpers\DataHelper.cs" />
     <Compile Include="_Classes\Symmons\Helpers\LocationsHelper.cs" />
     <Compile Include="_Classes\Symmons\Helpers\ProductsHelper.cs" />
