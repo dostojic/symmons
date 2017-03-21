@@ -82,26 +82,28 @@ namespace symmons.com.Areas.Symmons.Controllers.Modules.Api
         public FileContentResult GetAllStoresCsv()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("StoreName|IsSymmonsPreferred|IsSymmonsPreferredDescription|Address|Directions|PhoneNo|Latitude|Longitude|DirectionsTitle|MoreLikeThis|MoreLocationsLikeThis");
+            sb.AppendLine("Name|Address1|Address2|City|State|Zip|Phone|Fax|Email|Url|Manager|Latitude|Longitude|IsSymmonsPreferred");
 
-            var getStoresJson = StoresHelper.GetAllStores();
-            var storesApiModels = getStoresJson as IList<Store> ?? getStoresJson.ToList();
+            var stores = StoresHelper.GetAllStores();
 
-            foreach (var store in storesApiModels)
+            foreach (var store in stores)
             {
                 sb.AppendLine(string.Format(
-                    "{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}",
+                    "{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}",
                     store.StoreName,
-                    store.IsSymmonsPreferred,
-                    store.IsSymmonsPreferredDescription,
-                    store.Address,
-                    store.Directions,
+                    store.Address1,
+                    store.Address2,
+                    store.City,
+                    store.State,
+                    store.Zip,
                     store.PhoneNo,
+                    store.Fax,
+                    store.Email,
+                    store.Url,
+                    store.Manager,
                     store.Latitude,
                     store.Longitude,
-                    store.DirectionsTitle,
-                    store.MoreLikeThis,
-                    store.MoreLocationsLikeThis));
+                    store.IsSymmonsPreferred));
             }
 
             return File(new UTF8Encoding().GetBytes(sb.ToString()), "text/csv", "Stores.csv");

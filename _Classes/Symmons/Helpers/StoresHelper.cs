@@ -49,7 +49,15 @@ namespace symmons.com._Classes.Symmons.Helpers
                     Longitude = locationLongitude,
                     DirectionsTitle = Translate.Text(Constants.Dictionary.DirectionsTitle),
                     MoreLikeThis = Translate.Text(Constants.Dictionary.MoreLike),
-                    MoreLocationsLikeThis = Translate.Text(Constants.Dictionary.MoreLocation)                    
+                    MoreLocationsLikeThis = Translate.Text(Constants.Dictionary.MoreLocation),
+                    Address1 = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreAddressLine1, storeItem, false).Trim(),
+                    Address2 = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreAddressLine2, storeItem, false).Trim(),
+                    City = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreCity, storeItem, false).Trim(),
+                    State = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreState, storeItem, false).Trim(),
+                    Zip = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreZip, storeItem, false).Trim(),
+                    Manager = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreManager, storeItem, false).Trim(),
+                    Url = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreUrl, storeItem, false).Trim(),
+                    Email = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreEmail, storeItem, false).Trim()
                 };
 
                 retVal.Add(store);
