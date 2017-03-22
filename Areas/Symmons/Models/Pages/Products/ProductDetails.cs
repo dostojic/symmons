@@ -177,6 +177,15 @@ namespace symmons.com.Areas.Symmons.Models.Pages.Products
 
         [SitecoreField(FieldName = "RTF Callouts")]
         public virtual IEnumerable<RichTextBlockCallout> DesignStudioRtfCallouts { get; set; }
+
+        [SitecoreField("Property")]
+        public virtual string Property { get; set; }
+
+        [SitecoreField("UPC")]
+        public virtual string UPC { get; set; }
+
+        [SitecoreField("MAP Pricing")]
+        public virtual string MAPPricing { get; set; }
     }
 
     // **************************************************************************************************************

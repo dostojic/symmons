@@ -89,6 +89,12 @@ namespace symmons.com.Areas.Symmons.Models.Pages.Products
 
         public virtual string LastUpdatedDate { get; set; }
 
+        public virtual string Property { get; set;  }
+
+        public virtual string UPC { get; set; }
+
+        public virtual string MAPPricing { get; set; }
+
     }
     public class APIProductCollection : ArrayList
     {
