@@ -44,6 +44,7 @@ namespace symmons.com._Classes.Symmons.Global
         public string Email { get; set; }
         public string Url { get; set; }
         public string Manager { get; set; }
+        public string Type { get; set; }
     }
 
     public class StoreTypeStores

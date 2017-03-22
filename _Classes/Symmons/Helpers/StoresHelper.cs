@@ -57,7 +57,8 @@ namespace symmons.com._Classes.Symmons.Helpers
                     Zip = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreZip, storeItem, false).Trim(),
                     Manager = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreManager, storeItem, false).Trim(),
                     Url = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreUrl, storeItem, false).Trim(),
-                    Email = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreEmail, storeItem, false).Trim()
+                    Email = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreEmail, storeItem, false).Trim(),
+                    Type = GetStoreTypeName(storeItem.TemplateID.ToString())
                 };
 
                 retVal.Add(store);
