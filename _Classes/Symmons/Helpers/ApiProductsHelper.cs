@@ -586,7 +586,10 @@ namespace symmons.com._Classes.Symmons.Helpers
                                         ProductFamily = item.ProductFamily,
                                         ProductURL = item.ProductURL,
                                         ProductCollection = item.ProductCollection,
-                                        ProductCategory = item.ProductCategory
+                                        ProductCategory = item.ProductCategory,
+                                        Property = item.Property,
+                                        UPC = item.UPC,
+                                        MAPPricing = item.MAPPricing
                                     });
             }
             catch (Exception exception)
