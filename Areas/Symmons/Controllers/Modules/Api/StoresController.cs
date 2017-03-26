@@ -82,14 +82,14 @@ namespace symmons.com.Areas.Symmons.Controllers.Modules.Api
         public FileContentResult GetAllStoresCsv()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Name|Address1|Address2|City|State|Zip|Phone|Fax|Email|Url|Manager|Latitude|Longitude|IsSymmonsPreferred");
+            sb.AppendLine("Name|Address1|Address2|City|State|Zip|Phone|Fax|Email|Url|Manager|Latitude|Longitude|IsSymmonsPreferred|Type");
 
             var stores = StoresHelper.GetAllStores();
 
             foreach (var store in stores)
             {
                 sb.AppendLine(string.Format(
-                    "{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}",
+                    "{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}",
                     store.StoreName,
                     store.Address1,
                     store.Address2,
@@ -103,7 +103,8 @@ namespace symmons.com.Areas.Symmons.Controllers.Modules.Api
                     store.Manager,
                     store.Latitude,
                     store.Longitude,
-                    store.IsSymmonsPreferred));
+                    store.IsSymmonsPreferred,
+                    store.Type));
             }
 
             return File(new UTF8Encoding().GetBytes(sb.ToString()), "text/csv", "Stores.csv");

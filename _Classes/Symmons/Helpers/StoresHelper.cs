@@ -24,44 +24,24 @@ namespace symmons.com._Classes.Symmons.Helpers
             var retailStoreItems = GetAllRetailStores();
             var partsStoreItems = GetAllPartsStores();
 
-
-            var allStores = new List<Item>();
-            allStores.AddRange(showRoomStoreItems);
-            allStores.AddRange(wholeSaleStoreItems);
-            allStores.AddRange(retailStoreItems);
-            allStores.AddRange(partsStoreItems);
-
-            foreach (var storeItem in allStores)
+            foreach (var item in showRoomStoreItems)
             {
-                var locationLatitude = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreLatitude, storeItem, false);
-                var locationLongitude = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreLongitude, storeItem, false);
+                retVal.Add(GetStore(item, "Show Room"));
+            }
 
-                var store = new Store
-                {
-                    StoreName = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreName, storeItem, false),
-                    IsSymmonsPreferred = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(
-                        Constants.FieldNames.IsSymmonsPreferred, storeItem, false) == "1" ? Translate.Text(Constants.Dictionary.SymmonsPreferred) : string.Empty,
-                    IsSymmonsPreferredDescription = Translate.Text(Constants.Dictionary.SymmonsPreferredDescription),
-                    Address = GetStoreAddress(storeItem),
-                    Directions = GetStoreDirection(storeItem),
-                    PhoneNo = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StorePhone, storeItem, false),
-                    Latitude = locationLatitude,
-                    Longitude = locationLongitude,
-                    DirectionsTitle = Translate.Text(Constants.Dictionary.DirectionsTitle),
-                    MoreLikeThis = Translate.Text(Constants.Dictionary.MoreLike),
-                    MoreLocationsLikeThis = Translate.Text(Constants.Dictionary.MoreLocation),
-                    Address1 = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreAddressLine1, storeItem, false).Trim(),
-                    Address2 = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreAddressLine2, storeItem, false).Trim(),
-                    City = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreCity, storeItem, false).Trim(),
-                    State = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreState, storeItem, false).Trim(),
-                    Zip = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreZip, storeItem, false).Trim(),
-                    Manager = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreManager, storeItem, false).Trim(),
-                    Url = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreUrl, storeItem, false).Trim(),
-                    Email = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreEmail, storeItem, false).Trim(),
-                    Type = GetStoreTypeName(storeItem.TemplateID.ToString())
-                };
+            foreach (var item in wholeSaleStoreItems)
+            {
+                retVal.Add(GetStore(item, "Wholesale"));
+            }
 
-                retVal.Add(store);
+            foreach (var item in retailStoreItems)
+            {
+                retVal.Add(GetStore(item, "Retail"));
+            }
+
+            foreach (var item in partsStoreItems)
+            {
+                retVal.Add(GetStore(item, "Parts"));
             }
 
             return retVal;
@@ -860,5 +840,36 @@ namespace symmons.com._Classes.Symmons.Helpers
 
         // End :GetStoreRepresentativeAddress  *************************************************************************************************
         // *************************************************************************************************************************************
+
+        private static Store GetStore(Item storeItem, string typeName)
+        {
+            var locationLatitude = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreLatitude, storeItem, false);
+            var locationLongitude = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreLongitude, storeItem, false);
+
+            return new Store
+            {
+                StoreName = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreName, storeItem, false),
+                IsSymmonsPreferred = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(
+                    Constants.FieldNames.IsSymmonsPreferred, storeItem, false) == "1" ? Translate.Text(Constants.Dictionary.SymmonsPreferred) : string.Empty,
+                IsSymmonsPreferredDescription = Translate.Text(Constants.Dictionary.SymmonsPreferredDescription),
+                Address = GetStoreAddress(storeItem),
+                Directions = GetStoreDirection(storeItem),
+                PhoneNo = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StorePhone, storeItem, false),
+                Latitude = locationLatitude,
+                Longitude = locationLongitude,
+                DirectionsTitle = Translate.Text(Constants.Dictionary.DirectionsTitle),
+                MoreLikeThis = Translate.Text(Constants.Dictionary.MoreLike),
+                MoreLocationsLikeThis = Translate.Text(Constants.Dictionary.MoreLocation),
+                Address1 = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreAddressLine1, storeItem, false).Trim(),
+                Address2 = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreAddressLine2, storeItem, false).Trim(),
+                City = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreCity, storeItem, false).Trim(),
+                State = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreState, storeItem, false).Trim(),
+                Zip = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreZip, storeItem, false).Trim(),
+                Manager = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreManager, storeItem, false).Trim(),
+                Url = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreUrl, storeItem, false).Trim(),
+                Email = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.StoreEmail, storeItem, false).Trim(),
+                Type = typeName
+            };
+        }
     }
 }

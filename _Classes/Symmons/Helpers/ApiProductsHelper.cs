@@ -176,6 +176,15 @@ namespace symmons.com._Classes.Symmons.Helpers
                     product.ProductStyle = target.Name;
                 }
 
+                var propertyField = itm.Fields["Property"];
+                product.Property = propertyField != null ? propertyField.Value : string.Empty;
+
+                var upcField = itm.Fields["UPC"];
+                product.UPC = upcField != null ? upcField.Value : string.Empty;
+
+                var mapPricingField = itm.Fields["MAP Pricing"];
+                product.MAPPricing = mapPricingField != null ? mapPricingField.Value : string.Empty;
+
             }
             catch (Exception exception)
             {
