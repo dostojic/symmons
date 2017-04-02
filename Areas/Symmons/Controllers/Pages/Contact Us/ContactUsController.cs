@@ -7,6 +7,7 @@ using Sitecore.Globalization;
 using symmons.com.Areas.Symmons.Controllers.Global;
 using symmons.com.Areas.Symmons.Models.Pages;
 using symmons.com._Classes.Shared.Global;
+using symmons.com._Classes.Symmons.Helpers;
 using Verndale.SharedSource.Helpers;
 
 namespace symmons.com.Areas.Symmons.Controllers.Pages
@@ -25,8 +26,10 @@ namespace symmons.com.Areas.Symmons.Controllers.Pages
 
         [HttpPost]
         public void SendContactUsMail(FormCollection collection, IEnumerable<HttpPostedFileBase> files)
-        {
+        {            
             var contactUsItem = SitecoreCurrentContext.GetItem<ContactUs>(Constants.PageIds.ContactUsPage);
+            var mailTo = contactUsItem.ContactUsEmailId;
+
             #region Bind Admin ContactUs Mail body
 
             var adminBodyString = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns='http://www.w3.org/1999/xhtml'><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8' /><title>Symmons Mailer</title></head>" +
@@ -46,14 +49,22 @@ namespace symmons.com.Areas.Symmons.Controllers.Pages
                 adminBodyString = adminBodyString.Replace("$$ProductSKU$$", productSkuvalue);
                 adminBodyString = adminBodyString.Replace("$$ProductSKUValue$$", collection["txtProductSKU"]);
             }
+
             const string txtDesignStudioValue = "<tr> <td valign='top' bgcolor='#eeeeee' style='padding:10px;'>Design Studio: </td>  <td  bgcolor='#eeeeee' style='padding:10px;'>$$DesignStudioValue$$</td></tr>";
-            var hasDesignStudioVal = !String.IsNullOrEmpty(collection["txtDesignStudioVal"]);
+            var hasDesignStudioVal = !string.IsNullOrEmpty(collection["txtDesignStudioVal"]);
+
             if (hasDesignStudioVal)
             {
                 adminBodyString = adminBodyString.Replace("$$ProductSKU$$", txtDesignStudioValue);
                 adminBodyString = adminBodyString.Replace("$$DesignStudioValue$$", collection["txtDesignStudioVal"]);
-                contactUsItem.ContactUsEmailId = Constants.ConstantValues.DesignStudioContactId;
+                mailTo = Constants.ConstantValues.DesignStudioContactId;
             }
+
+            if (!string.IsNullOrEmpty(collection["isGetStarted"]) && collection["isGetStarted"].ToString().ToLower() == true.ToString().ToLower())
+            {
+                mailTo = contactUsItem.ContactUsEmailGetStartedId;
+            }
+
             adminBodyString = adminBodyString.Replace("$$FirstName$$", collection["txtFirstName"]);
             adminBodyString = adminBodyString.Replace("$$LastName$$", collection["txtLastName"]);
             adminBodyString = adminBodyString.Replace("$$EmailId$$", collection["txtEmail"]);
@@ -63,6 +74,7 @@ namespace symmons.com.Areas.Symmons.Controllers.Pages
             var siteUrl = "http://" + Request.Url.Host.ToLower();
             var attachments = "<tr><td valign='top' bgcolor='#eeeeee' style='padding:10px;'>Files Attached:</td><td bgcolor='#eeeeee' style='padding:10px;'>";
             var isFilesAttached = false;
+
             foreach (var file in files)
             {
                 if (file != null)
@@ -81,6 +93,7 @@ namespace symmons.com.Areas.Symmons.Controllers.Pages
                     }
                 }
             }
+
             adminBodyString = isFilesAttached ? adminBodyString.Replace("$$Attachments$$", attachments + "</td></tr>") : adminBodyString.Replace("$$Attachments$$", "<tr><td valign='top' bgcolor='#eeeeee' style='padding:10px;'>Files Attached:</td><td bgcolor='#eeeeee' style='padding:10px;'>No files attached...</td></tr>");
             var emailAdminBodyText = adminBodyString + "</table></body></html>";
 
@@ -104,7 +117,7 @@ namespace symmons.com.Areas.Symmons.Controllers.Pages
             #endregion
 
             // Send Email to admin witha attachment details
-            if (_Classes.Shared.Utilities.EmailUtility.SendEmail(emailAdminBodyText, contactUsItem.ContactUsEmailId,
+            if (_Classes.Shared.Utilities.EmailUtility.SendEmail(emailAdminBodyText, mailTo,
                 contactUsItem.WebmasterEmailId, contactUsItem.ContactUsMailSubject, String.Empty, String.Empty, String.Empty))
             {
                 // Send email to user

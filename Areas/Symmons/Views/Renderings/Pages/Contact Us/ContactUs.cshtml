@@ -1,7 +1,16 @@
 ﻿@using Sitecore.Globalization
 @using symmons.com._Classes.Shared.Global
+@using symmons.com._Classes.Symmons.Helpers;
+
+@{ 
+    var dsTypeValue = UIHelper.GetParameterValue(Constants.DsTypeParam, string.Empty);
+
+    var isGetStarted = dsTypeValue.Equals(Constants.LetsGetStartedParamValue, StringComparison.OrdinalIgnoreCase);
+}
 
 <form id="formcontactus" class="frm__contactus" enctype="multipart/form-data" method="post" action="@Url.Action("SendContactUsMail", "ContactUs")">
+
+    <input type="hidden" id="isGetStarted" name="isGetStarted" value="@isGetStarted.ToString()" />
 
     <label class="field-wrapper sku-panel">
         <span class="label-required">@Translate.Text(Constants.Dictionary.ProductSkuLabel)</span>

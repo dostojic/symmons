@@ -61,6 +61,9 @@ namespace symmons.com.Areas.Symmons.Models.Pages
         [SitecoreField(FieldName = "Contact Us Email Id")]
         public virtual string ContactUsEmailId { get; set; }
 
+        [SitecoreField(FieldName = "Contact Us Email Get Started Id")]
+        public virtual string ContactUsEmailGetStartedId { get; set; }
+
         [SitecoreField(FieldName = "Contact Us Mail Subject")]
         public virtual string ContactUsMailSubject { get; set; }
 

@@ -5,6 +5,9 @@ namespace symmons.com._Classes.Shared.Global
 {
     public static class Constants
     {
+        public const string DsTypeParam = "dsType";
+        public const string LetsGetStartedParamValue = "LET'S GET STARTED";
+
         public static class ViewPaths
         {
             public static string Header
