@@ -2649,6 +2649,7 @@
     <Compile Include="_Classes\Symmons\Custom\Migration\ProductMigrationData.cs" />
     <Compile Include="_Classes\Symmons\Custom\Migration\ProductMigrationHelper.cs" />
     <Compile Include="_Classes\Symmons\Custom\Migration\WhereToBuyImport.cs" />
+    <Compile Include="_Classes\Symmons\Custom\RedirectToHttps.cs" />
     <Compile Include="_Classes\Symmons\Export\Product.cs" />
     <Compile Include="_Classes\Symmons\Global\GlobalHelper.cs" />
     <Compile Include="_Classes\Symmons\Global\StoresContainer.cs" />
