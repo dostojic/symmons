@@ -26,8 +26,6 @@ namespace symmons.com._Classes.Symmons.Custom
             if (bool.TryParse(ConfigurationManager.AppSettings["ForceHttps"], out forceHttpsTemp))
             {
                 forceHttps = forceHttpsTemp;
-
-                forceHttps = forceHttps && _currentContext.Request.Url.Host.Contains("symmons.com");
             }
 
             return forceHttps;
