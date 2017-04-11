@@ -2,12 +2,7 @@
 @inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Events>
 
 <article class="article-details">
-
-    @if (!string.IsNullOrEmpty(Model.ScriptEvent))
-    {
-        @Editable(x => x.ScriptEvent)
-    }
-
+    
     <header>
         @if (Model.PageTitle.IsNotNullOrEmpty())
         {
@@ -35,5 +30,10 @@
         <div class="rtf article-details__teaser">
             @Html.Raw(Editable(x => x.MainContent))
         </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.ScriptEvent))
+    {
+        @Editable(x => x.ScriptEvent)
     }
 </article>
