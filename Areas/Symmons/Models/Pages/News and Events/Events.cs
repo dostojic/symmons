@@ -67,6 +67,9 @@ namespace symmons.com.Areas.Symmons.Models.Pages
         [SitecoreField(FieldName = "Event Location")]
         public virtual Link EventLocation { get; set; }
 
+        [SitecoreField(FieldName = "Script Event")]
+        public virtual string ScriptEvent { get; set; }
+
         public virtual string EventDate
         {
             get

@@ -3,6 +3,11 @@
 
 <article class="article-details">
 
+    @if (!string.IsNullOrEmpty(Model.ScriptEvent))
+    {
+        @Editable(x => x.ScriptEvent)
+    }
+
     <header>
         @if (Model.PageTitle.IsNotNullOrEmpty())
         {

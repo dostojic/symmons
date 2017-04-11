@@ -39,3 +39,4 @@ C:\Work\Symmons\source\symmons\bin\System.Web.WebPages.Razor.xml
 C:\Work\Symmons\source\symmons\obj\Debug\symmons.com.dll
 C:\Work\Symmons\source\symmons\obj\Debug\symmons.com.pdb
 C:\Work\Symmons\source\symmons\obj\Debug\symmons.com.csprojResolveAssemblyReference.cache
+C:\Work\Symmons\source\symmons\bin\Microsoft.Web.Infrastructure.dll
