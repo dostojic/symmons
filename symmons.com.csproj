@@ -2439,6 +2439,7 @@
     <Content Include="Areas\Symmons\Views\Renderings\Pages\Design Studio\DesignStudioProcesses.cshtml" />
     <Content Include="Areas\Symmons\Views\Renderings\Pages\Temptrol\Temptrol.cshtml" />
     <Content Include="Areas\Symmons\Views\Renderings\Global\Header\Primary Navigation\PrimaryNavTemptrol.cshtml" />
+    <Content Include="Areas\Symmons\Views\Renderings\Modules\Callouts\ScriptModule.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

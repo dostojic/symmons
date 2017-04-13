@@ -389,6 +389,10 @@ namespace symmons.com._Classes.Shared.Global
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_DesignStudioProduct"]; }
             }
+            public static string ScriptModule
+            {
+                get { return ConfigurationManager.AppSettings["ViewPath_ScriptModule"];  }
+            }
             public static string ContactUsPage
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_ContactUsPage"]; }

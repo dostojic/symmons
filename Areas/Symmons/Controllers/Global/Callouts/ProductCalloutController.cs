@@ -37,6 +37,5 @@ namespace symmons.com.Areas.Symmons.Controllers.Global.Callouts
             var calloutModel = (DatasourceItem == null ? null : DatasourceItem.GlassCast<RichTextBlockCallout>());
             return View(Constants.ViewPaths.DesignStudioProduct, calloutModel);
         }
-
     }
 }

@@ -21,10 +21,12 @@
             </div>
         }
     </header>
+
     @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidImage(Model.PageImage))
     {
         @RenderImage(x => x.PageImage, new { @class = "img-finish" }, true)
     }
+
     @if (Model.MainContent.IsNotNullOrEmpty())
     {
         <div class="rtf article-details__teaser">
@@ -32,8 +34,11 @@
         </div>
     }
 
-    @if (!string.IsNullOrEmpty(Model.ScriptEvent))
+    <br />
+
+    @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidImage(Model.ContentImage))
     {
-        @Editable(x => x.ScriptEvent)
+        @RenderImage(x => x.ContentImage, true)
     }
+
 </article>
