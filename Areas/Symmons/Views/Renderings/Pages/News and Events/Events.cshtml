@@ -2,7 +2,7 @@
 @inherits Glass.Mapper.Sc.Web.Mvc.GlassView<symmons.com.Areas.Symmons.Models.Pages.Events>
 
 <article class="article-details">
-
+    
     <header>
         @if (Model.PageTitle.IsNotNullOrEmpty())
         {
@@ -21,14 +21,24 @@
             </div>
         }
     </header>
+
     @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidImage(Model.PageImage))
     {
         @RenderImage(x => x.PageImage, new { @class = "img-finish" }, true)
     }
+
     @if (Model.MainContent.IsNotNullOrEmpty())
     {
         <div class="rtf article-details__teaser">
             @Html.Raw(Editable(x => x.MainContent))
         </div>
     }
+
+    <br />
+
+    @if (symmons.com._Classes.Symmons.Global.SymmonsHelper.IsValidImage(Model.ContentImage))
+    {
+        @RenderImage(x => x.ContentImage, true)
+    }
+
 </article>

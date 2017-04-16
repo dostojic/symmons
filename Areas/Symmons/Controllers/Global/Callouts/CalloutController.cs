@@ -26,6 +26,11 @@ namespace symmons.com.Areas.Symmons.Controllers.Global.Callouts
             return View(Constants.ViewPaths.ImageCallout, calloutModel);
         }
 
+        public ActionResult GetScriptCallout()
+        {
+            return View(Constants.ViewPaths.ScriptModule);
+        }
+
         public ActionResult RenderShareThisCallout()
         {
             ViewBag.Publisher = SiteSettingsItem.ShareThisPublisherId;
