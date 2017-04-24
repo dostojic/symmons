@@ -414,6 +414,8 @@ namespace symmons.com._Classes.Shared.Global
 
         public static class PageIds
         {
+            public static string ProductWildCardItemId = "{3F7FFB0A-1B24-44C3-8B3F-0700D4DCE6E0}";
+
             public static string NewsandEventsLanding
             {
                 get { return ConfigurationManager.AppSettings["PageId_NewsandEventsLanding"]; }

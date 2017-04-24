@@ -2,17 +2,10 @@
 @using symmons.com.Areas.Symmons.Controllers.Global
 @using symmons.com._Classes.Shared.Global
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    @Html.Partial(Constants.ViewPaths.HeaderIncludesPartial)
-</head>
-
 @{
     var bodyClass = "";
     if (SymmonsController.ContextItem.ID.ToString() == Constants.PageIds.Home ||
-        SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.SuperCategoryLandingPage || 
+        SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.SuperCategoryLandingPage ||
         SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.CollectionLandingPage ||
         SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.StyleLandingPage ||
         SymmonsController.ContextItem.TemplateID.ToString() == Constants.TemplateIds.FeatureLandingPage ||
@@ -20,7 +13,25 @@
     {
         bodyClass = "header-static";
     }
+
+    var isProductDetailsPage = SymmonsController.ContextItem.ID.ToString() == Constants.PageIds.ProductWildCardItemId;
 }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @Html.Partial(Constants.ViewPaths.HeaderIncludesPartial)
+
+    @if (isProductDetailsPage)
+    {
+        <meta name="ps-key" content="2029-58deb8713a1ed57056490519">
+        <meta name="ps-country" content="US">
+        <meta name="ps-language" content="en">
+        <script src="//cdn.pricespider.com/1/lib/ps-widget.js" async></script>
+    }
+</head>
+
 <body class="@bodyClass">
     @Html.Partial(Constants.ViewPaths.GTMScript)
     @Html.Sitecore().Placeholder("scTop")
