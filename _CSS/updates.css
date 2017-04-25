@@ -282,6 +282,9 @@ body {
     color: #b9b9b9;
     margin-bottom: 20px;
 }
+.header {
+    z-index:1000;
+}
 @media screen and (min-width: 1028px){
 .product-details__wheretobuy {
     margin: 20px 0 0 !important;
