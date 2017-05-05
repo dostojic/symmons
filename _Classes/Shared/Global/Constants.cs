@@ -345,6 +345,10 @@ namespace symmons.com._Classes.Shared.Global
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_Sitemap"]; }
             }
+            public static string WriteReview
+            {
+                get { return "~/Areas/Symmons/Views/Renderings/Pages/Global/WriteReview.cshtml"; }
+            }
             public static string WhereToBuy
             {
                 get { return ConfigurationManager.AppSettings["ViewPath_WhereToBuy"]; }
