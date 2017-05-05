@@ -127,7 +127,10 @@ var Symmons = Symmons || {};
                         // }
                         //
 
-                        $('.product-details__model').text('Model #' + self.updateSKU());
+                        var updatedSKU = self.updateSKU();
+
+                        $('.product-details__model').text('Model #' + updatedSKU);
+                        $('.ps-widget').attr('ps-sku', updatedSKU);
                     }
                 });
 
