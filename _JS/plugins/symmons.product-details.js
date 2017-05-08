@@ -127,7 +127,15 @@ var Symmons = Symmons || {};
                         // }
                         //
 
-                        $('.product-details__model').text('Model #' + self.updateSKU());
+                        var productSku = self.updateSKU();
+
+                        jQuery('.product-details__model').text('Model #' + productSku);
+
+                        var powerReivewsScript = document.createElement("script");
+                        powerReivewsScript.type = "text/javascript";
+                        powerReivewsScript.innerHTML = "POWERREVIEWS.display.snippet({write: function (content) {$('.product_review_container').append(content);}},{pr_page_id: '" + productSku + "'})";
+
+                        jQuery('.product_review_container').html("").append(powerReivewsScript);
                     }
                 });
 
