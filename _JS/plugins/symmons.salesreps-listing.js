@@ -44,8 +44,12 @@ var Symmons = Symmons || {};
       self.$pageNum = 1;
 
       self.bindHandlers();
-
       self.browserSupportFlag = new Boolean();
+
+      var isTab3 = jQuery(self.options.storeTab3).hasClass('active');
+      if (isTab3) {
+          self.bindTab3Content();
+      }
     },
 
     bindHandlers: function (event) {
@@ -57,17 +61,20 @@ var Symmons = Symmons || {};
 
       jQuery(document).on("click", self.options.storeTab3, function (event) {
         event.preventDefault();
+        self.bindTab3Content()
+      });
+    },
+
+    bindTab3Content: function () {
+        var self = this;
         self.$selectedState = "";
         self.$selectedStateCode = "";
         jQuery(self.options.contentSelector).hide();
         if (self.options.isPaginationEnabled) {
-          self.options.paginationObj.hide();
+            self.options.paginationObj.hide();
         }
         self.bindDetectlocation();
-      });
     },
-
-
 
     bindSelectedState: function (strParam) {
       var self = this;
