@@ -39,8 +39,8 @@ namespace symmons.com._Classes.Symmons.Helpers
                     ListingProductUrl = SymmonsHelper.GetProductUrl(SymmonsController.SitecoreCurrentContext.GetItem<ProductDetails>(product.ID.ToString()), HttpContext.Current.Request.Url),
                     ListingProductPrice = ti.ToTitleCase(GetProductMinPrice(product).ToLower().Trim()),
                     ListingProductImageUrl = GetProductImageSrc(product),
-                    ListingProductModelNumber = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.ProductModelNumber,
-                            product, false),
+                    ListingProductModelNumber = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.ProductModelNumber, product, false),
+                    ListingProductIdString = product.ID.ToString().Replace("-", string.Empty).Replace("{", string.Empty).Replace("}", string.Empty)
                 }).ToList();
 
                 productsData.ProductListingData = productListing.Skip((Convert.ToInt32(pageNum) - 1) * pageSize).Take(pageSize).ToList();
@@ -982,6 +982,7 @@ namespace symmons.com._Classes.Symmons.Helpers
             public string ListingProductImageAlt { get; set; }
             public string ListingProductPrice { get; set; }
             public string ListingProductModelNumber { get; set; }
+            public string ListingProductIdString { get; set; }
         }
 
         public class CompareProductMaster
