@@ -148,28 +148,6 @@
                         }
                         <section class="product-details__wheretobuy" role="contentinfo">
                             <div class="cols">
-                                @*@{
-                                    if (!string.IsNullOrEmpty(Model.LeadTime))
-                                    {
-                                        @RenderLink(Model, x => x.WhereToBuyLink, new { @class = "button-primary" }, true)
-                                    }
-                                    else
-                                    {
-                                        string strWheretoBuyPath;
-
-                                        if (Model.RetailExclusive != null && Model.RetailExclusive.Any())
-                                        {
-                                            strWheretoBuyPath = SymmonsHelper.GetWheretoBuyProductUrl(Model);
-                                        }
-                                        else
-                                        {
-                                            strWheretoBuyPath = SymmonsHelper.GetPageUrl(Constants.PageIds.WhereToBuy);
-                                        }
-
-                                        <a href="@strWheretoBuyPath" class="button-primary">@Translate.Text(Constants.Dictionary.WhereToBuy)</a>
-                                    }
-                                }*@
-
                                 <div class="ps-widget" ps-sku="@Model.ProductModelNumber.Replace('#', ' ')"></div>
                             </div>
 
