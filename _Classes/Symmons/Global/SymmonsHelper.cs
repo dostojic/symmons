@@ -96,7 +96,18 @@ namespace symmons.com._Classes.Symmons.Global
                 {
                     var rawUrl = WebUtil.GetRawUrl().TrimEnd('/');
                     var productLastIndex = rawUrl.LastIndexOf('/');
-                    var productItemName = rawUrl.Substring(productLastIndex + 1).Replace('-', ' ');
+                    var queryLastIndex = rawUrl.LastIndexOf('?');
+
+                    var productItemName = string.Empty;
+
+                    if (queryLastIndex > productLastIndex)
+                    {
+                        productItemName = rawUrl.Substring(productLastIndex + 1, queryLastIndex - productLastIndex - 1).Replace('-', ' ');
+                    }
+                    else
+                    {
+                        productItemName = rawUrl.Substring(productLastIndex + 1).Replace('-', ' ');
+                    }
 
                     var productItems = SearchHelper.GetItems(Constants.SearchIndex.Products, Sitecore.Context.Language.ToString(), Constants.TemplateIds.ProductDetailsTemplateId,
                         Constants.FolderIds.ProductsRepository, String.Empty, null);
