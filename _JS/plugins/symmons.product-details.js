@@ -63,15 +63,29 @@ var Symmons = Symmons || {};
                     self.updatePlumbing('others');
                     self.updateFinish();
                 });
+
                 jQuery(document).on("click", "input[name=" + self.options.$productFinishObj + "]", function (event) {
                     self.getDetailsbyAjax('onclick', event);
                 });
+                
+                self.handleWTBClick();
 
-
-
+                jQuery(document).on("click", ".ps-lightbox-close", function () {
+                    self.handleWTBClick();
+                });
             },
 
+            handleWTBClick: function(event) {
+                var interval = setInterval(function () {
+                    var isClicked = jQuery(".ps-widget").hasClass("ps-open");
 
+                    if (isClicked) {
+                        ga('send', 'event', 'Product Detail Page', 'WTB Button Click');
+
+                        clearInterval(interval);
+                    }
+                }, 1000);
+            },
 
             getDetailsbyAjax: function (action, event) {
                 var self = this;
