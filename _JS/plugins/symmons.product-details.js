@@ -133,7 +133,7 @@ var Symmons = Symmons || {};
 
                         var powerReivewsScript = document.createElement("script");
                         powerReivewsScript.type = "text/javascript";
-                        powerReivewsScript.innerHTML = "POWERREVIEWS.display.snippet({write: function (content) {$('.product_review_container').append(content);}},{pr_page_id: '" + productSku + "'})";
+                        powerReivewsScript.innerHTML = "POWERREVIEWS.display.snippet({write: function (content) {$('.product_review_container').append(content);}},{pr_page_id: '" + produtModelNumber + "', pr_page_id_variant: '" + productSku + "' })";
 
                         jQuery('.product_review_container').html("").append(powerReivewsScript);
                     }
