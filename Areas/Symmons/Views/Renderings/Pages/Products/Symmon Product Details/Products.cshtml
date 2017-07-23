@@ -296,24 +296,30 @@
                 <div class="section-content-wrapper">
                     <h3 class="section-title">Product Reviews:</h3>
 
-                    <div class="pr_review_summary">
-                        <script type="text/javascript">
-                            POWERREVIEWS.display.engine(document, {
-                                pr_page_id: '@Model.ProductModelNumber.Replace('#', ' ')',
-                                pr_product_name: '@Model.ProductName',
-                                pr_product_image_url: '@productImageUrl',
-                                pr_product_description: 'description - strip the HTML',
-                                pr_product_category_name: '@productCategoryName',
-                                pr_product_url: '@Model.Url',
-                                pr_product_manufacturer_id: 'MANUFACTURER_ID',
-                                pr_product_upc: 'UPC',
-                                pr_product_brand_name: 'BRAND',
-                                pr_page_id_variant: 'VARIANT',
-                                pr_product_price: '50',
-                                pr_product_in_stock: 'IN_STOCK'
-                            });
-                        </script>
-                    </div>
+                    @foreach (var productfinish in Model.ProductFinishes)
+                    {
+                        var pageIdVariant = productfinish.FinishSKU == Model.ProductModelNumber ? string.Empty : @productfinish.FinishSKU.Replace('#', ' ');
+
+                        <div class="pr_review_summary @productfinish.FinishSKU">
+                            <script type="text/javascript">
+                                POWERREVIEWS.display.engine(document, {
+                                    pr_page_id: '@Model.ProductModelNumber.Replace('#', ' ')',
+                                    pr_page_id_variant: '@pageIdVariant',
+                                    pr_product_name: '@Model.ProductName',
+                                    pr_product_image_url: '@productImageUrl',
+                                    pr_product_description: 'description - strip the HTML',
+                                    pr_product_category_name: '@productCategoryName',
+                                    pr_product_url: '@Model.Url',
+                                    pr_product_manufacturer_id: 'MANUFACTURER_ID',
+                                    pr_product_upc: 'UPC',
+                                    pr_product_brand_name: 'BRAND',
+                                    pr_page_id_variant: 'VARIANT',
+                                    pr_product_price: '50',
+                                    pr_product_in_stock: 'IN_STOCK'
+                                });
+                            </script>                        
+                        </div>
+                    }
                 </div>
             </div>
         </div>
