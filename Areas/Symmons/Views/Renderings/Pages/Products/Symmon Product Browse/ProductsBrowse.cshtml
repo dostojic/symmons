@@ -111,6 +111,8 @@
 
         @Html.Partial(Constants.ViewPaths.Pagination)
 
+        <link type="text/css" rel="stylesheet" href="//cdn.powerreviews.com/aux/49448/616983/css/express.css">
+
         @*Products Browse Listing*@
         <script id="template-productBrowseListing" type="x-handlebars-template">
             {{#each ProductListingData}}
@@ -128,6 +130,19 @@
                         <p class='product-browse__listingcontent--productprice'>@Translate.Text(Constants.Dictionary.ProductsListPrice) {{ListingProductPrice}}</p>{{/if}}
                     </div>
                 </a>
+
+                <div class="pr_snippet_category product_id_{{ListingProductIdString}}">
+                    <sc{{!}}ript type="text/javascript">
+                        POWERREVIEWS.display.snippet({
+                            write: function (content) {
+                                $('div.product_id_{{ListingProductIdString}}').append(content);
+                            }
+                        },
+                        {
+                            pr_page_id: '{{ListingProductModelNumber}}'
+                        })
+                    </sc{{!}}ript>
+                </div>
             </li>
             {{/each}}
         </script>

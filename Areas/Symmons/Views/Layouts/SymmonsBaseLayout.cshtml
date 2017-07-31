@@ -15,6 +15,7 @@
     }
 
     var isProductDetailsPage = SymmonsController.ContextItem.ID.ToString() == Constants.PageIds.ProductWildCardItemId;
+    var isProductBrowsePage = SymmonsController.ContextItem.ID.ToString() == Constants.PageIds.ProductBrowse;
 }
 
 <!DOCTYPE html>
@@ -29,6 +30,14 @@
         <meta name="ps-country" content="US">
         <meta name="ps-language" content="en">
         <script src="//cdn.pricespider.com/1/lib/ps-widget.js" async></script>
+    }
+
+    @if (isProductDetailsPage || isProductBrowsePage)
+    {
+        <script type="text/javascript">
+            var pr_style_sheet="//cdn.powerreviews.com/aux/49448/616983/css/express.css";
+        </script>
+        <script type="text/javascript" src="//cdn.powerreviews.com/repos/49448/pr/pwr/engine/js/full.js"></script>
     }
 
     <!-- Facebook Pixel Code -->

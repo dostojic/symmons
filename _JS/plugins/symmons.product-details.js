@@ -145,6 +145,12 @@ var Symmons = Symmons || {};
 
                         $('.product-details__model').text('Model #' + updatedSKU);
                         $('.ps-widget').attr('ps-sku', updatedSKU);
+                    
+                        var powerReivewsScript = document.createElement("script");
+                        powerReivewsScript.type = "text/javascript";
+                        powerReivewsScript.innerHTML = "POWERREVIEWS.display.snippet({write: function (content) {$('.product_review_container').append(content);}},{pr_page_id: '" + produtModelNumber + "', pr_page_id_variant: '" + updatedSKU + "' })";
+
+                        jQuery('.product_review_container').html("").append(powerReivewsScript);
                     }
                 });
 

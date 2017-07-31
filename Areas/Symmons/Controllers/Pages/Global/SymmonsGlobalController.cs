@@ -35,6 +35,11 @@ namespace symmons.com.Areas.Symmons.Controllers.Pages.Global
             return View(Constants.ViewPaths.Sitemap, homePage);
         }
 
+        public ActionResult GetWriteReview()
+        {
+            return View(Constants.ViewPaths.WriteReview, null);
+        }
+
         // *******************************************************************************************************************
         // *******************************************************************************************************************
     }
