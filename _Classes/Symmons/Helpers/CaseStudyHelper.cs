@@ -93,11 +93,36 @@ namespace symmons.com._Classes.Symmons.Helpers
                 caseStudy.MetaRobotsNoIndex = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName("Meta Robots NOINDEX", item, false);
                 caseStudy.MetaRobotsNoFollow = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName("Meta Robots NOFOLLOW", item, false);
                 caseStudy.SeoGoogleAnalyticsSnippet = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName("SEO Google Analytics Snippet", item, false);
+
+                caseStudy.RightImages = GetRightImages(item.ID.ToString());
             
                 caseStudies.Add(caseStudy);
             }
 
             return caseStudies;
+        }
+
+        private static List<string> GetRightImages(string itemId)
+        {
+            var images = new List<string>();
+            var dataSources = RenderingHelper.GetDataSources(itemId, "scRight");
+
+            foreach (string dataSource in dataSources)
+            {
+                var item = SitecoreHelper.ItemMethods.GetItemByPath(dataSource);
+
+                if (item.Template.Name == "Image Callout")
+                {
+                    string imageUrl;
+                    if (SitecoreHelper.ItemRenderMethods.GetMediaImageFriendlyURL("Image", item, out imageUrl))
+                    {
+                        imageUrl = Constants.ConstantValues.HttpProtocol + HttpContext.Current.Request.Url.Host + imageUrl;
+                        images.Add(imageUrl);
+                    }
+                }
+            }
+
+            return images;
         }
     }
 }

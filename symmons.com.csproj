@@ -2665,6 +2665,7 @@
     <Compile Include="_Classes\Symmons\Helpers\LocationsHelper.cs" />
     <Compile Include="_Classes\Symmons\Helpers\ProductsHelper.cs" />
     <Compile Include="_Classes\Symmons\Helpers\PublishingHelper.cs" />
+    <Compile Include="_Classes\Symmons\Helpers\RenderingHelper.cs" />
     <Compile Include="_Classes\Symmons\Helpers\StoresHelper.cs" />
     <Compile Include="_Classes\Symmons\Helpers\UIHelper.cs" />
   </ItemGroup>
