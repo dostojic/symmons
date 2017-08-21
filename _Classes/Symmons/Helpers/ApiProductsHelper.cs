@@ -138,6 +138,7 @@ namespace symmons.com._Classes.Symmons.Helpers
                 product.ProductName = !string.IsNullOrEmpty(productName) ? productName : string.Empty;
 
                 product.ProductModelNumber = !string.IsNullOrEmpty(skuNo) ? skuNo : string.Empty;
+                product.ParentProductModelNumber = string.Empty;
                 product.PriceMin = !string.IsNullOrEmpty(priceMin) ? priceMin : string.Empty;
                 product.CanPrice = !string.IsNullOrEmpty(canPrice) ? canPrice : string.Empty;
                 product.LeadTime = !string.IsNullOrEmpty(leadTime) ? leadTime : string.Empty;
@@ -280,6 +281,8 @@ namespace symmons.com._Classes.Symmons.Helpers
                 var mainContent = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName("Main Content", itm.Parent, false);
                 var productName = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.ProductName, itm.Parent, false);
                 var skuNo = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName("Finish SKU", itm, false);
+                var skuNoParent = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName(Constants.FieldNames.ProductModelNumber, itm.Parent, false);
+
                 var leadTime = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName("Lead Time", itm.Parent, false);
                 var priceMax = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName("Price Max", itm.Parent, false);
                 var seoTitle = SitecoreHelper.ItemRenderMethods.GetRawValueByFieldName("SEO Title", itm.Parent, false);
@@ -297,6 +300,7 @@ namespace symmons.com._Classes.Symmons.Helpers
                 product.MainContent = !string.IsNullOrEmpty(mainContent) ? WebUtility.HtmlEncode(mainContent).Replace("\n", "").Replace("\r", "") : string.Empty;
                 product.ProductName = !string.IsNullOrEmpty(productName) ? string.Format("{0} - Finish Product", productName) : string.Empty;
                 product.ProductModelNumber = !string.IsNullOrEmpty(skuNo) ? skuNo.Replace(" ", "-") : string.Empty;
+                product.ParentProductModelNumber = !string.IsNullOrEmpty(skuNoParent) ? skuNoParent.Replace(" ", "-") : string.Empty;
 
                 product.LeadTime = !string.IsNullOrEmpty(leadTime) ? leadTime : string.Empty;
                 product.PriceMax = !string.IsNullOrEmpty(priceMax) ? priceMax : string.Empty;

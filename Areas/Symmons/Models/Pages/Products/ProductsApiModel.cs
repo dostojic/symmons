@@ -28,6 +28,8 @@ namespace symmons.com.Areas.Symmons.Models.Pages.Products
         [SitecoreField(FieldName = "Product Model Number")]
         public virtual string ProductModelNumber { get; set; }
 
+        public virtual string ParentProductModelNumber { get; set; }
+
         [SitecoreField(FieldName = "Product Family")]
         public virtual string ProductFamily { get; set; }
 
