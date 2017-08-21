@@ -589,6 +589,7 @@ namespace symmons.com._Classes.Symmons.Helpers
                                         SpecialAttributes = item.SpecialAttributes,
                                         SmartAttributes = item.SmartAttributes,
                                         ProductModelNumber = item.ProductModelNumber,
+                                        ParentProductModelNumber = item.ParentProductModelNumber,
                                         SeoTitle = item.SeoTitle,
                                         ProductId = item.ProductId,
                                         ProductFinishesMultiList = item.ProductFinishesMultiList,
