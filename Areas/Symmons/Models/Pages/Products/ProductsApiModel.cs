@@ -89,6 +89,8 @@ namespace symmons.com.Areas.Symmons.Models.Pages.Products
         [SitecoreField(FieldName = "Collection Product Links")]
         public virtual string CollectionProductLinks { get; set; }
 
+        public virtual string CollectionProductModelNumbers { get; set; }
+
         public virtual string LastUpdatedDate { get; set; }
 
         public virtual string Property { get; set;  }

@@ -94,7 +94,9 @@ namespace symmons.com._Classes.Symmons.Helpers
                         SitecoreHelper.ItemRenderMethods.GetMultilistValueByFieldName(
                             "Collection Product Links", itm));
 
-
+                product.CollectionProductModelNumbers = GetProductModelNumberCollectionLinksList(
+                        SitecoreHelper.ItemRenderMethods.GetMultilistValueByFieldName(
+                            "Collection Product Links", itm));
 
                 //Product Field Values 
                 string imgUrl;
@@ -269,7 +271,11 @@ namespace symmons.com._Classes.Symmons.Helpers
                         SitecoreHelper.ItemRenderMethods.GetMultilistValueByFieldName("Collection Product Links",
                             itm.Parent));
 
-                
+                product.CollectionProductModelNumbers = 
+                    GetProductModelNumberCollectionLinksList(
+                        SitecoreHelper.ItemRenderMethods.GetMultilistValueByFieldName("Collection Product Links", 
+                            itm.Parent));
+
 
                 //Product Field Values 
                 string imgUrl;
@@ -547,6 +553,38 @@ namespace symmons.com._Classes.Symmons.Helpers
 
             {
                 Sitecore.Diagnostics.Log.Error(string.Format("Products API: Error in GetProductCollectionLinksList. Exception message:{0}", exception.Message), new object());
+            }
+            return markupBuilder.ToString()
+                .LastIndexOf(",", StringComparison.Ordinal)
+                .ToString()
+                .Equals((markupBuilder.ToString().Length - 1).ToString())
+                ? markupBuilder.ToString()
+                    .Remove(markupBuilder.ToString().LastIndexOf(",", StringComparison.Ordinal))
+                : markupBuilder.ToString();
+        }
+
+        public static string GetProductModelNumberCollectionLinksList(List<Item> lstSelectedProductsLinks)
+        {
+            if (!lstSelectedProductsLinks.Any()) return string.Empty;
+            var markupBuilder = new StringBuilder("");
+            try
+            {
+                foreach (var item in lstSelectedProductsLinks)
+                {
+                    var productItem = SymmonsController.SitecoreCurrentContext.GetItem<ProductDetails>(item.ID.ToString());
+
+                    if (!string.IsNullOrEmpty(productItem.ProductModelNumber))
+                    {
+                        markupBuilder.Append(lstSelectedProductsLinks.Count > 1
+                            ? String.Format("{0},", productItem.ProductModelNumber)
+                            : String.Format("{0}", productItem.ProductModelNumber));
+                    }
+                }
+            }
+            catch (Exception exception)
+
+            {
+                Sitecore.Diagnostics.Log.Error(string.Format("Products API: Error in GetProductModelNumberCollectionLinksList. Exception message:{0}", exception.Message), new object());
             }
             return markupBuilder.ToString()
                 .LastIndexOf(",", StringComparison.Ordinal)
