@@ -43,9 +43,19 @@ namespace symmons.com.Areas.Symmons.Models.Pages.Products
         public virtual string ProductFinishesMultiList { get; set; }
         [SitecoreField(FieldName = "Product Category")]
         public virtual string ProductCategory { get; set; }
+
         [SitecoreField(FieldName = "Is New")]
         public virtual bool IsNew { get; set; }
 
+        [SitecoreField(FieldName = "Exclude From Search")]
+        public virtual bool ExcludeFromSearch { get; set; }
+
+        [SitecoreField(FieldName = "Has No Finishes")]
+        public virtual bool HasNoFinishes { get; set; }
+
+        [SitecoreField(FieldName = "Is Starter Idea")]
+        public virtual bool IsStarterIdea { get; set; }
+        
         [SitecoreField(FieldName = "Price Min")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public virtual string PriceMin { get; set; }

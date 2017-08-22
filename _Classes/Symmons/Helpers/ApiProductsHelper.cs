@@ -74,6 +74,18 @@ namespace symmons.com._Classes.Symmons.Helpers
                     SitecoreHelper.ItemRenderMethods.GetCheckBoxValueByFieldName(
                         Constants.FieldNames.IsNew, itm);
 
+                product.ExcludeFromSearch =
+                    SitecoreHelper.ItemRenderMethods.GetCheckBoxValueByFieldName(
+                        Constants.FieldNames.ExcludeFromSearch, itm);
+
+                product.HasNoFinishes =
+                    SitecoreHelper.ItemRenderMethods.GetCheckBoxValueByFieldName(
+                        "Has No Finishes", itm);
+
+                product.IsStarterIdea =
+                    SitecoreHelper.ItemRenderMethods.GetCheckBoxValueByFieldName(
+                        "Is Starter Idea", itm);
+
                 product.SmartAttributes = GetMultilistFieldValue(itm.Fields["Smart Features"]);
 
                 product.ProductCategory = GetMultilistFieldValue(itm.Fields["Product Category"]);
@@ -253,6 +265,15 @@ namespace symmons.com._Classes.Symmons.Helpers
 
                 product.IsNew =
                     SitecoreHelper.ItemRenderMethods.GetCheckBoxValueByFieldName(Constants.FieldNames.IsNew, itm.Parent);
+
+                product.ExcludeFromSearch =
+                    SitecoreHelper.ItemRenderMethods.GetCheckBoxValueByFieldName(Constants.FieldNames.ExcludeFromSearch, itm.Parent);
+
+                product.HasNoFinishes =
+                    SitecoreHelper.ItemRenderMethods.GetCheckBoxValueByFieldName("Has No Finish", itm.Parent);
+
+                product.IsStarterIdea =
+                    SitecoreHelper.ItemRenderMethods.GetCheckBoxValueByFieldName("Is Starter Idea", itm.Parent);
 
                 product.SmartAttributes = GetMultilistFieldValue(itm.Parent.Fields["Smart Features"]);
                 product.ProductCategory = GetMultilistFieldValue(itm.Parent.Fields["Product Category"]);
@@ -614,11 +635,15 @@ namespace symmons.com._Classes.Symmons.Helpers
                                     {
                                         CanPrice = item.CanPrice,
                                         CollectionProductLinks = item.CollectionProductLinks,
+                                        CollectionProductModelNumbers = item.CollectionProductModelNumbers,
                                         Documents = item.Documents,
                                         FeatureDescription = item.FeatureDescription,
                                         FeatureTitle = item.FeatureTitle,
                                         Images = item.Images,
                                         IsNew = item.IsNew,
+                                        ExcludeFromSearch = item.ExcludeFromSearch, 
+                                        HasNoFinishes = item.HasNoFinishes,
+                                        IsStarterIdea = item.IsStarterIdea,                                 
                                         LastUpdatedDate = item.LastUpdatedDate,
                                         LeadTime = item.LeadTime,
                                         ListingImage = item.ListingImage,
