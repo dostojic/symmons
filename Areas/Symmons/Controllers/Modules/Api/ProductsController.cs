@@ -139,8 +139,24 @@ namespace symmons.com.Areas.Symmons.Controllers.Modules.Api
             return returnJsonResult;  
         }
 
+        [HttpGet]
+        public FileContentResult GetAllProductsInCsv()
+        {
+            var products = ApiProductsHelper.ConvertAllAPiProductstoIList();
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("SKU|URL");
+
+            foreach (var product in products)
+            {
+                sb.AppendLine(string.Format("{0}|{1}", product.ProductModelNumber, product.ProductURL));                
+            }
+            
+            return File(new UTF8Encoding().GetBytes(sb.ToString()), "text/csv", "ProductUrls.csv");
+        }
+
         // GET: products/getproductbyid/'guid'
-     [HttpGet]
+        [HttpGet]
         public JsonResult GetProductbyId(string id)
          { 
             JsonResult returnJsonResult = null;
